@@ -2,7 +2,8 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <title>Focus Coin Room</title>
 
@@ -16,9 +17,16 @@
     box-sizing: border-box;
 }
 
+html {
+    width: 100%;
+    min-height: 100%;
+}
+
 body {
     margin: 0;
+    width: 100%;
     min-height: 100vh;
+    min-height: 100dvh;
 
     font-family:
         Arial,
@@ -36,9 +44,18 @@ body {
             #eab934
         );
 
-    transition: background 0.6s ease;
+    transition:
+        background 0.6s ease;
 
     overflow-x: hidden;
+
+    /* ノッチ付き端末対応 */
+    padding-bottom:
+        env(safe-area-inset-bottom);
+}
+
+button {
+    font-family: inherit;
 }
 
 
@@ -53,7 +70,7 @@ body {
     left: 0;
     right: 0;
 
-    height: 65px;
+    min-height: 65px;
 
     z-index: 1000;
 
@@ -63,10 +80,16 @@ body {
 
     justify-content: space-between;
 
-    padding: 0 18px;
+    gap: 10px;
+
+    padding:
+        8px 18px;
+
+    padding-top:
+        max(8px, env(safe-area-inset-top));
 
     background:
-        rgba(255,255,255,0.93);
+        rgba(255,255,255,0.95);
 
     border-bottom:
         3px solid #dfb22c;
@@ -81,12 +104,18 @@ body {
     font-weight: bold;
 
     color: #8d6100;
+
+    white-space: nowrap;
 }
 
 .top-buttons {
     display: flex;
 
     gap: 8px;
+
+    flex-wrap: wrap;
+
+    justify-content: flex-end;
 }
 
 .top-button {
@@ -110,10 +139,13 @@ body {
 
     box-shadow:
         0 3px 0 #b27b00;
+
+    white-space: nowrap;
 }
 
 .top-button:active {
-    transform: translateY(2px);
+    transform:
+        translateY(2px);
 
     box-shadow:
         0 1px 0 #b27b00;
@@ -125,9 +157,10 @@ body {
 ===================================================== */
 
 .main {
-    width: 94%;
+    width: min(96%, 1400px);
 
-    max-width: 1000px;
+    min-height:
+        calc(100vh - 65px);
 
     margin:
         95px auto 50px;
@@ -135,7 +168,7 @@ body {
     display: grid;
 
     grid-template-columns:
-        1fr 1fr;
+        repeat(2, minmax(0, 1fr));
 
     gap: 20px;
 }
@@ -159,6 +192,8 @@ body {
     box-shadow:
         0 10px 30px
         rgba(100,70,0,0.16);
+
+    min-width: 0;
 }
 
 .card-title {
@@ -184,7 +219,7 @@ body {
 
 .timer {
     font-size:
-        clamp(48px, 10vw, 90px);
+        clamp(48px, 9vw, 110px);
 
     font-weight: bold;
 
@@ -207,6 +242,14 @@ body {
     font-weight: bold;
 }
 
+.mode-display {
+    margin-top: 12px;
+
+    font-weight: bold;
+
+    color: #755300;
+}
+
 
 /* =====================================================
    コイン
@@ -216,7 +259,7 @@ body {
     display: grid;
 
     grid-template-columns:
-        repeat(3, 1fr);
+        repeat(3, minmax(0, 1fr));
 
     gap: 8px;
 }
@@ -246,11 +289,6 @@ body {
 
     color: #8d6100;
 }
-
-
-/* =====================================================
-   次の報酬
-===================================================== */
 
 .reward-box {
     margin-top: 15px;
@@ -348,19 +386,6 @@ body {
 
 
 /* =====================================================
-   モード表示
-===================================================== */
-
-.mode-display {
-    margin-top: 12px;
-
-    font-weight: bold;
-
-    color: #755300;
-}
-
-
-/* =====================================================
    部屋
 ===================================================== */
 
@@ -368,6 +393,8 @@ body {
     position: relative;
 
     min-height: 330px;
+
+    height: clamp(300px, 38vh, 500px);
 
     overflow: hidden;
 
@@ -436,11 +463,6 @@ body {
 
     font-size: 48px;
 }
-
-
-/* =====================================================
-   家具
-===================================================== */
 
 .furniture {
     position: absolute;
@@ -660,7 +682,28 @@ body {
 
 
 /* =====================================================
-   ショップ・モーダル
+   ポモドーロ
+===================================================== */
+
+.pomodoro {
+    margin-top: 15px;
+
+    padding: 13px;
+
+    border-radius: 15px;
+
+    background:
+        #f1eaff;
+
+    border:
+        2px solid #a88be9;
+
+    color: #6043a4;
+}
+
+
+/* =====================================================
+   モーダル
 ===================================================== */
 
 .overlay {
@@ -944,7 +987,8 @@ body {
 .toast {
     position: fixed;
 
-    bottom: 25px;
+    bottom:
+        calc(25px + env(safe-area-inset-bottom));
 
     left: 50%;
 
@@ -981,35 +1025,79 @@ body {
 
 
 /* =====================================================
-   ポモドーロ
+   全画面中
 ===================================================== */
 
-.pomodoro {
-    margin-top: 15px;
-
-    padding: 13px;
-
-    border-radius: 15px;
-
+:fullscreen {
     background:
-        #f1eaff;
+        #ffe99b;
+}
 
-    border:
-        2px solid #a88be9;
+:fullscreen body {
+    min-height: 100vh;
+}
 
-    color: #6043a4;
+body.fullscreen-mode {
+    min-height: 100vh;
 }
 
 
 /* =====================================================
-   レスポンシブ
+   タブレット
 ===================================================== */
 
-@media(max-width:750px) {
+@media (min-width: 751px) and (max-width: 1100px) {
 
     .main {
+        width: 94%;
+    }
+
+    .top-button {
+        padding:
+            8px 10px;
+
+        font-size: 13px;
+    }
+}
+
+
+/* =====================================================
+   スマホ縦
+===================================================== */
+
+@media (max-width: 750px) {
+
+    .top-bar {
+        min-height: 58px;
+
+        padding:
+            7px 10px;
+    }
+
+    .logo {
+        font-size: 14px;
+    }
+
+    .top-buttons {
+        gap: 5px;
+    }
+
+    .top-button {
+        padding:
+            7px 8px;
+
+        font-size: 11px;
+    }
+
+    .main {
+        width: 94%;
+
         grid-template-columns:
             1fr;
+
+        margin-top: 82px;
+
+        gap: 14px;
     }
 
     .timer-card {
@@ -1017,15 +1105,163 @@ body {
             auto;
     }
 
-    .logo {
-        font-size: 15px;
+    .card {
+        padding: 16px;
+
+        border-width: 3px;
+
+        border-radius: 20px;
     }
 
-    .top-button {
-        padding:
-            8px 9px;
+    .card-title {
+        font-size: 20px;
+    }
 
-        font-size: 12px;
+    .timer {
+        font-size:
+            clamp(40px, 15vw, 70px);
+
+        letter-spacing: 2px;
+    }
+
+    .wallet-number {
+        font-size: 22px;
+    }
+
+    .room {
+        min-height: 280px;
+
+        height: 320px;
+    }
+}
+
+
+/* =====================================================
+   横画面
+===================================================== */
+
+@media (orientation: landscape) {
+
+    .main {
+        width: 96%;
+
+        max-width: 1600px;
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+
+        margin-top: 85px;
+
+        gap: 14px;
+    }
+
+    .timer-card {
+        grid-column:
+            1 / -1;
+    }
+
+    .card {
+        padding: 16px;
+    }
+
+    .timer {
+        font-size:
+            clamp(44px, 10vh, 90px);
+
+        margin:
+            4px 0;
+    }
+
+    .room {
+        min-height: 280px;
+
+        height: 42vh;
+    }
+
+    .controls {
+        margin-top: 10px;
+    }
+
+    .main-button {
+        padding:
+            10px 16px;
+    }
+}
+
+
+/* =====================================================
+   横画面・低い画面
+===================================================== */
+
+@media (orientation: landscape)
+       and (max-height: 650px) {
+
+    .top-bar {
+        min-height: 52px;
+
+        padding:
+            5px 12px;
+    }
+
+    .main {
+        margin-top: 65px;
+
+        margin-bottom: 20px;
+    }
+
+    .card {
+        padding: 12px;
+    }
+
+    .card-title {
+        margin-bottom: 8px;
+
+        font-size: 18px;
+    }
+
+    .timer {
+        font-size:
+            clamp(38px, 11vh, 65px);
+    }
+
+    .status {
+        min-height: 18px;
+
+        font-size: 13px;
+    }
+
+    .room {
+        min-height: 230px;
+
+        height: 40vh;
+    }
+
+    .pet-character {
+        font-size: 55px;
+    }
+
+    .chart {
+        height: 170px;
+    }
+}
+
+
+/* =====================================================
+   超ワイドPC
+===================================================== */
+
+@media (min-width: 1400px) {
+
+    .main {
+        max-width: 1600px;
+
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+    }
+
+    .timer-card {
+        grid-column:
+            1 / -1;
     }
 }
 
@@ -1072,10 +1308,18 @@ body {
 
         </button>
 
+        <button
+            class="top-button"
+            id="fullscreenButton"
+            onclick="toggleFullscreen()">
+
+            ⛶ 全画面
+
+        </button>
+
     </div>
 
 </header>
-
 
 
 <!-- =====================================================
@@ -1085,9 +1329,7 @@ body {
 <main class="main">
 
 
-    <!-- ================================================
-         タイマー
-    ================================================= -->
+    <!-- タイマー -->
 
     <section class="card timer-card">
 
@@ -1118,7 +1360,6 @@ body {
             🌞 通常モード
 
         </div>
-
 
         <div class="controls">
 
@@ -1156,7 +1397,6 @@ body {
 
         </div>
 
-
         <div
             class="pomodoro"
             id="pomodoroInfo"
@@ -1166,22 +1406,18 @@ body {
 
         </div>
 
-
         <div
             class="reward-box"
             id="nextReward">
 
-            ⭐ あと1分で銀コイン！
+            ⭐ あと1分で銅コイン！
 
         </div>
 
     </section>
 
 
-
-    <!-- ================================================
-         コイン
-    ================================================= -->
+    <!-- コイン -->
 
     <section class="card">
 
@@ -1190,7 +1426,6 @@ body {
         </h2>
 
         <div class="wallet">
-
 
             <div class="wallet-item">
 
@@ -1256,24 +1491,26 @@ body {
 
         </div>
 
-        <div
-            class="reward-box">
+        <div class="reward-box">
 
-            🟤 60枚
+            🟤 銅10枚
             ↓
             ⚪ 銀1枚
             ↓
-            🟡 銀60枚で金1枚
+            ⚪ 銀6枚
+            ↓
+            🟡 金1枚
+
+            <br><br>
+
+            ⏱️ <strong>60分集中 = 金コイン1枚</strong>
 
         </div>
 
     </section>
 
 
-
-    <!-- ================================================
-         ペット
-    ================================================= -->
+    <!-- ペット -->
 
     <section class="card">
 
@@ -1319,8 +1556,7 @@ body {
 
                 </div>
 
-                <div
-                    style="margin-top:8px">
+                <div style="margin-top:8px">
 
                     ❤️ 好感度：
                     <span id="affection">
@@ -1345,10 +1581,7 @@ body {
     </section>
 
 
-
-    <!-- ================================================
-         部屋
-    ================================================= -->
+    <!-- 部屋 -->
 
     <section class="card">
 
@@ -1376,10 +1609,7 @@ body {
     </section>
 
 
-
-    <!-- ================================================
-         実績
-    ================================================= -->
+    <!-- 実績 -->
 
     <section class="card">
 
@@ -1394,10 +1624,7 @@ body {
     </section>
 
 
-
-    <!-- ================================================
-         グラフ
-    ================================================= -->
+    <!-- グラフ -->
 
     <section class="card">
 
@@ -1413,14 +1640,13 @@ body {
         <div
             style="text-align:center;margin-top:10px">
 
-            今日・今週・累計の集中時間
+            過去7日間の集中時間
 
         </div>
 
     </section>
 
 </main>
-
 
 
 <!-- =====================================================
@@ -1456,11 +1682,7 @@ body {
             </strong>
         </p>
 
-
         <div class="shop-grid">
-
-
-            <!-- 猫 -->
 
             <div class="shop-item">
 
@@ -1480,17 +1702,12 @@ body {
 
                 </div>
 
-                <button
-                    class="buy done">
-
+                <button class="buy done">
                     使用中
-
                 </button>
 
             </div>
 
-
-            <!-- 犬 -->
 
             <div class="shop-item">
 
@@ -1521,8 +1738,6 @@ body {
             </div>
 
 
-            <!-- うさぎ -->
-
             <div class="shop-item">
 
                 <div class="shop-icon">
@@ -1551,8 +1766,6 @@ body {
 
             </div>
 
-
-            <!-- キツネ -->
 
             <div class="shop-item">
 
@@ -1583,8 +1796,6 @@ body {
             </div>
 
 
-            <!-- パンダ -->
-
             <div class="shop-item">
 
                 <div class="shop-icon">
@@ -1613,8 +1824,6 @@ body {
 
             </div>
 
-
-            <!-- 家具：机 -->
 
             <div class="shop-item">
 
@@ -1645,8 +1854,6 @@ body {
             </div>
 
 
-            <!-- ベッド -->
-
             <div class="shop-item">
 
                 <div class="shop-icon">
@@ -1675,8 +1882,6 @@ body {
 
             </div>
 
-
-            <!-- 本棚 -->
 
             <div class="shop-item">
 
@@ -1707,8 +1912,6 @@ body {
             </div>
 
 
-            <!-- 観葉植物 -->
-
             <div class="shop-item">
 
                 <div class="shop-icon">
@@ -1737,8 +1940,6 @@ body {
 
             </div>
 
-
-            <!-- 背景 -->
 
             <div class="shop-item">
 
@@ -1775,7 +1976,6 @@ body {
 </div>
 
 
-
 <!-- =====================================================
      実績モーダル
 ===================================================== -->
@@ -1808,7 +2008,6 @@ body {
     </div>
 
 </div>
-
 
 
 <!-- =====================================================
@@ -1845,9 +2044,8 @@ body {
 </div>
 
 
-
 <!-- =====================================================
-     宝箱モーダル
+     宝箱
 ===================================================== -->
 
 <div
@@ -1872,8 +2070,7 @@ body {
 
         </div>
 
-        <div
-            style="text-align:center">
+        <div style="text-align:center">
 
             宝箱をクリック！
 
@@ -1890,7 +2087,6 @@ body {
 </div>
 
 
-
 <!-- =====================================================
      演出
 ===================================================== -->
@@ -1898,25 +2094,36 @@ body {
 <div
     class="motivation"
     id="motivation">
-
 </div>
-
 
 <div
     class="toast"
     id="toast">
-
 </div>
-
 
 
 <script>
 
 /* =====================================================
-   データ
+   ゲームデータ
 ===================================================== */
 
+/*
+    COIN SYSTEM v2
+
+    1分 = 銅1枚
+    銅10枚 = 銀1枚
+    銀6枚 = 金1枚
+
+    つまり
+    60分 = 金1枚
+*/
+
+const GAME_VERSION = 2;
+
 let game = {
+
+    version: GAME_VERSION,
 
     seconds: 0,
 
@@ -1937,17 +2144,25 @@ let game = {
     achievements: {},
 
     pets: {
+
         cat: {
+
             level: 1,
+
             exp: 0,
+
             affection: 0
+
         }
+
     },
 
     currentPet: "cat",
 
     ownedPets: {
+
         cat: true
+
     },
 
     furniture: [],
@@ -1989,7 +2204,9 @@ function loadGame() {
         );
 
     if (!saved) {
+
         return;
+
     }
 
     try {
@@ -1997,16 +2214,86 @@ function loadGame() {
         const data =
             JSON.parse(saved);
 
+
+        /*
+            以前のバージョンのコイン制度は
+            完全に破棄する。
+
+            ペット・家具・実績などは
+            できるだけ引き継ぐ。
+        */
+
+        const oldVersion =
+            data.version || 1;
+
+
         game = {
+
             ...game,
+
             ...data
+
         };
+
+
+        /*
+            古いコインはリセット
+        */
+
+        if (oldVersion < GAME_VERSION) {
+
+            game.copper = 0;
+
+            game.silver = 0;
+
+            game.gold = 0;
+
+            game.version =
+                GAME_VERSION;
+
+        }
+
+
+        /*
+            念のため不足データを補完
+        */
+
+        game.pets =
+            game.pets || {};
+
+        game.ownedPets =
+            game.ownedPets || {
+                cat: true
+            };
+
+        game.furniture =
+            Array.isArray(
+                game.furniture
+            )
+            ? game.furniture
+            : [];
+
+        game.history =
+            game.history || {};
+
+        game.achievements =
+            game.achievements || {};
+
+        game.copper =
+            Number(game.copper) || 0;
+
+        game.silver =
+            Number(game.silver) || 0;
+
+        game.gold =
+            Number(game.gold) || 0;
 
     } catch(error) {
 
         console.log(
             "セーブデータを読み込めませんでした"
         );
+
     }
 }
 
@@ -2017,15 +2304,18 @@ function loadGame() {
 
 function getDateKey() {
 
-    const d = new Date();
+    const d =
+        new Date();
 
     return d.getFullYear()
         + "-"
-        + String(d.getMonth() + 1)
-            .padStart(2,"0")
+        + String(
+            d.getMonth() + 1
+        ).padStart(2,"0")
         + "-"
-        + String(d.getDate())
-            .padStart(2,"0");
+        + String(
+            d.getDate()
+        ).padStart(2,"0");
 }
 
 
@@ -2103,6 +2393,7 @@ function updateUI() {
     updateStats();
 
     updateRoom();
+
 }
 
 
@@ -2118,48 +2409,6 @@ function tick() {
 
     game.todayFocus++;
 
-    game.copper++;
-
-
-    /*
-        銅60枚 → 銀1枚
-    */
-
-    if (game.copper >= 60) {
-
-        game.copper -= 60;
-
-        game.silver++;
-
-        showMotivation(
-            "⚪ 銀コイン GET!"
-        );
-
-        playSound(
-            "silver"
-        );
-    }
-
-
-    /*
-        銀60枚 → 金1枚
-    */
-
-    if (game.silver >= 60) {
-
-        game.silver -= 60;
-
-        game.gold++;
-
-        showMotivation(
-            "🟡 金コイン GET!"
-        );
-
-        playSound(
-            "gold"
-        );
-    }
-
 
     /*
         日別記録
@@ -2168,12 +2417,90 @@ function tick() {
     const today =
         getDateKey();
 
+
     if (!game.history[today]) {
 
         game.history[today] = 0;
+
     }
 
+
     game.history[today]++;
+
+
+    /*
+        ==============================================
+        新しいコインシステム
+        ==============================================
+
+        累計集中時間が60秒増えるごとに
+        銅コイン1枚。
+
+        これなら1秒ごとにコインが増える
+        旧システムにはならない。
+    */
+
+    if (
+        game.totalFocus % 60 === 0
+    ) {
+
+        game.copper++;
+
+        showToast(
+            "🟤 銅コイン +1！"
+        );
+
+        playSound(
+            "copper"
+        );
+
+
+        /*
+            銅10枚 → 銀1枚
+        */
+
+        if (
+            game.copper >= 10
+        ) {
+
+            game.copper -= 10;
+
+            game.silver++;
+
+            showMotivation(
+                "⚪ 銀コイン GET!"
+            );
+
+            playSound(
+                "silver"
+            );
+
+        }
+
+
+        /*
+            銀6枚 → 金1枚
+        */
+
+        if (
+            game.silver >= 6
+        ) {
+
+            game.silver -= 6;
+
+            game.gold++;
+
+            showMotivation(
+                "🟡 金コイン GET!"
+            );
+
+            playSound(
+                "gold"
+            );
+
+        }
+
+    }
 
 
     /*
@@ -2192,11 +2519,12 @@ function tick() {
         game.pomodoroSeconds++;
 
         handlePomodoro();
+
     }
 
 
     /*
-        10分前の応援
+        応援
     */
 
     checkMotivation();
@@ -2212,6 +2540,21 @@ function tick() {
     ) {
 
         showChest();
+
+    }
+
+
+    /*
+        30分達成
+    */
+
+    if (
+        game.totalFocus === 1800
+    ) {
+
+        unlockAchievement(
+            "thirtyMinutes"
+        );
 
     }
 
@@ -2235,6 +2578,7 @@ function tick() {
         playSound(
             "achievement"
         );
+
     }
 
 
@@ -2257,11 +2601,12 @@ function tick() {
         playSound(
             "achievement"
         );
+
     }
 
 
     /*
-        1時間ごとの達成音
+        1時間ごとの音
     */
 
     if (
@@ -2272,12 +2617,14 @@ function tick() {
         playSound(
             "hour"
         );
+
     }
 
 
     saveGame();
 
     updateUI();
+
 }
 
 
@@ -2288,10 +2635,14 @@ function tick() {
 function startTimer() {
 
     if (running) {
+
         return;
+
     }
 
+
     running = true;
+
 
     document.getElementById(
         "status"
@@ -2304,6 +2655,7 @@ function startTimer() {
             tick,
             1000
         );
+
 }
 
 
@@ -2315,16 +2667,20 @@ function pauseTimer() {
 
     running = false;
 
+
     clearInterval(
         interval
     );
 
+
     interval = null;
+
 
     document.getElementById(
         "status"
     ).textContent =
         "⏸ 一時停止中";
+
 }
 
 
@@ -2336,23 +2692,26 @@ function resetTimer() {
 
     pauseTimer();
 
-    game.seconds = 0;
-
-    game.copper = 0;
-
-    game.silver = 0;
 
     /*
-        累計集中時間は消さない
+        現在のタイマーだけ0にする。
+
+        累計集中時間・コイン・
+        ペットなどは消さない。
     */
+
+    game.seconds = 0;
+
 
     updateUI();
 
     saveGame();
 
+
     showToast(
         "タイマーをリセットしました"
     );
+
 }
 
 
@@ -2362,42 +2721,68 @@ function resetTimer() {
 
 function updateRewardText() {
 
-    let remaining;
-
-    if (game.copper < 60) {
-
-        remaining =
-            60 - game.copper;
-
+    const el =
         document.getElementById(
             "nextReward"
-        ).textContent =
-            `⭐ あと${remaining}秒で ⚪ 銀コイン！`;
+        );
+
+
+    /*
+        銅まで
+    */
+
+    if (
+        game.copper < 10
+    ) {
+
+        const remaining =
+            10 - game.copper;
+
+
+        el.textContent =
+            `⭐ あと${remaining}分で ⚪ 銀コイン！`;
 
         return;
+
     }
 
 
-    if (game.silver < 60) {
+    /*
+        金まで
 
-        remaining =
-            3600 -
-            (game.silver * 60)
-            - game.copper;
+        銀6枚になるまでに必要な
+        銅コインを計算。
+    */
 
-        document.getElementById(
-            "nextReward"
-        ).textContent =
-            `⭐ あと${remaining}秒で 🟡 金コイン！`;
+    const totalCopperNeeded =
+        (
+            (6 - game.silver)
+            * 10
+        )
+        - game.copper;
 
-        return;
+
+    const minutes =
+        Math.max(
+            0,
+            totalCopperNeeded
+        );
+
+
+    if (
+        minutes > 0
+    ) {
+
+        el.textContent =
+            `⭐ あと${minutes}分で 🟡 金コイン！`;
+
+    } else {
+
+        el.textContent =
+            "🟡 金コイン獲得まであと少し！";
+
     }
 
-
-    document.getElementById(
-        "nextReward"
-    ).textContent =
-        "🟡 もうすぐ金コイン！";
 }
 
 
@@ -2412,8 +2797,11 @@ function gainPetExp() {
             game.currentPet
         ];
 
+
     if (!pet) {
+
         return;
+
     }
 
 
@@ -2426,6 +2814,7 @@ function gainPetExp() {
     ) {
 
         return;
+
     }
 
 
@@ -2433,8 +2822,13 @@ function gainPetExp() {
 
     pet.affection++;
 
-    if (pet.affection > 100) {
+
+    if (
+        pet.affection > 100
+    ) {
+
         pet.affection = 100;
+
     }
 
 
@@ -2442,7 +2836,9 @@ function gainPetExp() {
         10EXPでレベルアップ
     */
 
-    if (pet.exp >= 10) {
+    if (
+        pet.exp >= 10
+    ) {
 
         pet.exp = 0;
 
@@ -2450,9 +2846,15 @@ function gainPetExp() {
 
         pet.affection += 10;
 
-        if (pet.affection > 100) {
+
+        if (
+            pet.affection > 100
+        ) {
+
             pet.affection = 100;
+
         }
+
 
         showMotivation(
             "🐾 ペットがレベルアップ！"
@@ -2461,7 +2863,9 @@ function gainPetExp() {
         playSound(
             "level"
         );
+
     }
+
 }
 
 
@@ -2476,8 +2880,11 @@ function updatePet() {
             game.currentPet
         ];
 
+
     if (!pet) {
+
         return;
+
     }
 
 
@@ -2492,6 +2899,7 @@ function updatePet() {
         fox: "🦊",
 
         panda: "🐼"
+
     };
 
 
@@ -2506,6 +2914,7 @@ function updatePet() {
         fox: "コン",
 
         panda: "パン"
+
     };
 
 
@@ -2540,8 +2949,9 @@ function updatePet() {
     document.getElementById(
         "petExp"
     ).style.width =
-        (pet.exp * 10)
-        + "%";
+        (
+            pet.exp * 10
+        ) + "%";
 
 
     const messages = {
@@ -2560,6 +2970,7 @@ function updatePet() {
 
         panda:
             "ゆっくりでも続ければOK！🐼"
+
     };
 
 
@@ -2569,6 +2980,7 @@ function updatePet() {
         messages[
             game.currentPet
         ];
+
 }
 
 
@@ -2588,15 +3000,34 @@ function buyPet(
         game.currentPet =
             type;
 
+
+        if (!game.pets[type]) {
+
+            game.pets[type] = {
+
+                level: 1,
+
+                exp: 0,
+
+                affection: 0
+
+            };
+
+        }
+
+
         updateUI();
 
         saveGame();
+
 
         showToast(
             "ペットを変更しました！"
         );
 
+
         return;
+
     }
 
 
@@ -2608,11 +3039,14 @@ function buyPet(
             `金コインがあと${price - game.gold}枚必要です`
         );
 
+
         return;
+
     }
 
 
     game.gold -= price;
+
 
     game.ownedPets[type] =
         true;
@@ -2625,6 +3059,7 @@ function buyPet(
         exp: 0,
 
         affection: 0
+
     };
 
 
@@ -2636,13 +3071,16 @@ function buyPet(
 
     updateUI();
 
+
     showMotivation(
         "🐾 新しいペット GET!"
     );
 
+
     playSound(
         "purchase"
     );
+
 }
 
 
@@ -2666,6 +3104,7 @@ function buyFurniture(
         );
 
         return;
+
     }
 
 
@@ -2678,10 +3117,12 @@ function buyFurniture(
         );
 
         return;
+
     }
 
 
     game.gold -= price;
+
 
     game.furniture.push(
         type
@@ -2692,13 +3133,16 @@ function buyFurniture(
 
     updateUI();
 
+
     showMotivation(
         "🏠 家具をGET!"
     );
 
+
     playSound(
         "purchase"
     );
+
 }
 
 
@@ -2720,28 +3164,45 @@ function updateRoom() {
     const positions = {
 
         desk: {
+
             icon: "🪑",
+
             left: "35%",
+
             bottom: "10%"
+
         },
 
         bed: {
+
             icon: "🛏️",
+
             left: "65%",
+
             bottom: "9%"
+
         },
 
         books: {
+
             icon: "📚",
+
             left: "15%",
+
             bottom: "11%"
+
         },
 
         plant: {
+
             icon: "🪴",
+
             left: "82%",
+
             bottom: "10%"
+
         }
+
     };
 
 
@@ -2751,8 +3212,11 @@ function updateRoom() {
             const f =
                 positions[item];
 
+
             if (!f) {
+
                 return;
+
             }
 
 
@@ -2761,21 +3225,27 @@ function updateRoom() {
                     "div"
                 );
 
+
             el.className =
                 "furniture";
+
 
             el.textContent =
                 f.icon;
 
+
             el.style.left =
                 f.left;
+
 
             el.style.bottom =
                 f.bottom;
 
+
             roomFurniture.appendChild(
                 el
             );
+
         }
     );
 
@@ -2795,7 +3265,9 @@ function updateRoom() {
                 #e6b86a 55%
             )
             `;
+
     }
+
 }
 
 
@@ -2817,6 +3289,7 @@ function buyBackground(
         );
 
         return;
+
     }
 
 
@@ -2829,10 +3302,12 @@ function buyBackground(
         );
 
         return;
+
     }
 
 
     game.gold -= price;
+
 
     game.background =
         "rainbow";
@@ -2854,9 +3329,11 @@ function buyBackground(
 
     updateUI();
 
+
     showMotivation(
         "🌈 部屋が変わった！"
     );
+
 }
 
 
@@ -2867,34 +3344,55 @@ function buyBackground(
 const achievementData = {
 
     oneHour: {
+
         icon: "⏰",
+
         name: "1時間達成",
+
         desc: "累計1時間集中する"
+
     },
 
     tenHour: {
+
         icon: "🏆",
+
         name: "10時間達成",
+
         desc: "累計10時間集中する"
+
     },
 
     thirtyMinutes: {
+
         icon: "🔥",
+
         name: "30分集中",
+
         desc: "30分集中する"
+
     },
 
     chest: {
+
         icon: "🎁",
+
         name: "宝箱ハンター",
+
         desc: "宝箱を開ける"
+
     },
 
     petLevel5: {
+
         icon: "🐾",
+
         name: "ペットマスター",
+
         desc: "ペットをLv.5にする"
+
     }
+
 };
 
 
@@ -2907,6 +3405,7 @@ function unlockAchievement(
     ) {
 
         return;
+
     }
 
 
@@ -2918,14 +3417,20 @@ function unlockAchievement(
         "🏆 実績解除！"
     );
 
+
     playSound(
         "achievement"
     );
 
 
     saveGame();
+
 }
 
+
+/* =====================================================
+   実績表示
+===================================================== */
 
 function updateAchievements() {
 
@@ -2936,6 +3441,7 @@ function updateAchievements() {
         unlockAchievement(
             "thirtyMinutes"
         );
+
     }
 
 
@@ -2943,6 +3449,7 @@ function updateAchievements() {
         game.pets[
             game.currentPet
         ];
+
 
     if (
         pet &&
@@ -2952,6 +3459,7 @@ function updateAchievements() {
         unlockAchievement(
             "petLevel5"
         );
+
     }
 
 
@@ -2972,6 +3480,7 @@ function updateAchievements() {
             const a =
                 achievementData[id];
 
+
             const unlocked =
                 game.achievements[id];
 
@@ -2980,6 +3489,7 @@ function updateAchievements() {
                 document.createElement(
                     "div"
                 );
+
 
             el.className =
                 "achievement "
@@ -3014,8 +3524,10 @@ function updateAchievements() {
             list.appendChild(
                 el
             );
+
         }
     );
+
 }
 
 
@@ -3042,6 +3554,7 @@ function openAchievements() {
             const a =
                 achievementData[id];
 
+
             const unlocked =
                 game.achievements[id];
 
@@ -3050,6 +3563,7 @@ function openAchievements() {
                 document.createElement(
                     "div"
                 );
+
 
             div.className =
                 "achievement "
@@ -3084,6 +3598,7 @@ function openAchievements() {
             list.appendChild(
                 div
             );
+
         }
     );
 
@@ -3093,11 +3608,12 @@ function openAchievements() {
     ).classList.add(
         "open"
     );
+
 }
 
 
 /* =====================================================
-   ランダム宝箱
+   宝箱
 ===================================================== */
 
 function showChest() {
@@ -3112,6 +3628,7 @@ function showChest() {
     ).classList.add(
         "open"
     );
+
 }
 
 
@@ -3121,23 +3638,28 @@ function openChest() {
 
         {
             text: "🟡 金コイン +1！",
+
             value: 1
         },
 
         {
             text: "🟡 金コイン +2！",
+
             value: 2
         },
 
         {
             text: "🟡 金コイン +3！",
+
             value: 3
         },
 
         {
             text: "🟡 金コイン +5！",
+
             value: 5
         }
+
     ];
 
 
@@ -3173,6 +3695,7 @@ function openChest() {
         "chest"
     );
 
+
     saveGame();
 
     updateUI();
@@ -3188,6 +3711,7 @@ function openChest() {
         },
         1800
     );
+
 }
 
 
@@ -3203,6 +3727,7 @@ function togglePomodoro() {
 
     game.pomodoroSeconds =
         0;
+
 
     game.pomodoroBreak =
         false;
@@ -3229,6 +3754,7 @@ function togglePomodoro() {
         ? "ポモドーロモード ON"
         : "通常モードに戻しました"
     );
+
 }
 
 
@@ -3265,6 +3791,7 @@ function handlePomodoro() {
                 "🍅 25分達成！5分休憩しよう！"
             );
 
+
             playSound(
                 "achievement"
             );
@@ -3275,11 +3802,15 @@ function handlePomodoro() {
                 "🔥 休憩終了！もう一度集中！"
             );
 
+
             playSound(
                 "achievement"
             );
+
         }
+
     }
+
 }
 
 
@@ -3315,8 +3846,10 @@ function checkMotivation() {
             "⭐ あと10分で1時間！"
         );
 
+
         lastMotivationMinute =
             game.totalFocus;
+
     }
 
 
@@ -3331,6 +3864,7 @@ function checkMotivation() {
         showMotivation(
             "🔥 あと5分！ここまで来たら行ける！"
         );
+
     }
 
 
@@ -3345,7 +3879,9 @@ function checkMotivation() {
         showMotivation(
             "💪 あと1分！ラストスパート！"
         );
+
     }
+
 }
 
 
@@ -3364,10 +3900,6 @@ function updateChart() {
     chart.innerHTML = "";
 
 
-    const today =
-        getDateKey();
-
-
     const data = [];
 
 
@@ -3383,6 +3915,7 @@ function updateChart() {
 
         const d =
             new Date();
+
 
         d.setDate(
             d.getDate() - i
@@ -3408,7 +3941,9 @@ function updateChart() {
             value:
                 game.history[key]
                 || 0
+
         });
+
     }
 
 
@@ -3429,6 +3964,7 @@ function updateChart() {
                     "div"
                 );
 
+
             wrap.className =
                 "bar-wrap";
 
@@ -3437,6 +3973,7 @@ function updateChart() {
                 document.createElement(
                     "div"
                 );
+
 
             bar.className =
                 "bar";
@@ -3461,6 +3998,7 @@ function updateChart() {
                     "div"
                 );
 
+
             label.className =
                 "bar-label";
 
@@ -3473,6 +4011,7 @@ function updateChart() {
                 bar
             );
 
+
             wrap.appendChild(
                 label
             );
@@ -3481,8 +4020,10 @@ function updateChart() {
             chart.appendChild(
                 wrap
             );
+
         }
     );
+
 }
 
 
@@ -3531,7 +4072,9 @@ function updateStats() {
 
                 weekSeconds +=
                     game.history[key];
+
             }
+
         }
     );
 
@@ -3544,13 +4087,16 @@ function updateStats() {
                     sec / 3600
                 );
 
+
             const m =
                 Math.floor(
                     (sec % 3600)
                     / 60
                 );
 
+
             return `${h}時間${m}分`;
+
         };
 
 
@@ -3559,18 +4105,50 @@ function updateStats() {
     ).innerHTML = `
 
         <div class="reward-box">
-            📅 今日：<strong>${format(todaySeconds)}</strong>
+
+            📅 今日：
+            <strong>
+                ${format(todaySeconds)}
+            </strong>
+
         </div>
 
         <div class="reward-box">
-            📆 今週：<strong>${format(weekSeconds)}</strong>
+
+            📆 今週：
+            <strong>
+                ${format(weekSeconds)}
+            </strong>
+
         </div>
 
         <div class="reward-box">
-            🏆 累計：<strong>${format(game.totalFocus)}</strong>
+
+            🏆 累計：
+            <strong>
+                ${format(game.totalFocus)}
+            </strong>
+
+        </div>
+
+        <div class="reward-box">
+
+            🪙 コイン：
+
+            🟤 ${game.copper}
+
+            ／
+
+            ⚪ ${game.silver}
+
+            ／
+
+            🟡 ${game.gold}
+
         </div>
 
     `;
+
 }
 
 
@@ -3578,11 +4156,13 @@ function openStats() {
 
     updateStats();
 
+
     document.getElementById(
         "statsOverlay"
     ).classList.add(
         "open"
     );
+
 }
 
 
@@ -3597,6 +4177,7 @@ function openShop() {
     ).classList.add(
         "open"
     );
+
 }
 
 
@@ -3613,6 +4194,7 @@ function closeModal(
     ).classList.remove(
         "open"
     );
+
 }
 
 
@@ -3637,8 +4219,91 @@ function restoreBackground() {
                 #c2e9fb
             )
             `;
+
     }
+
 }
+
+
+/* =====================================================
+   全画面
+===================================================== */
+
+async function toggleFullscreen() {
+
+    try {
+
+        if (
+            !document.fullscreenElement
+        ) {
+
+            await document.documentElement.requestFullscreen();
+
+        } else {
+
+            await document.exitFullscreen();
+
+        }
+
+    } catch(error) {
+
+        showToast(
+            "このブラウザでは全画面表示に対応していません"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   全画面ボタン表示更新
+===================================================== */
+
+function updateFullscreenButton() {
+
+    const button =
+        document.getElementById(
+            "fullscreenButton"
+        );
+
+
+    if (!button) {
+
+        return;
+
+    }
+
+
+    if (
+        document.fullscreenElement
+    ) {
+
+        button.textContent =
+            "⛶ 全画面解除";
+
+        document.body.classList.add(
+            "fullscreen-mode"
+        );
+
+    } else {
+
+        button.textContent =
+            "⛶ 全画面";
+
+        document.body.classList.remove(
+            "fullscreen-mode"
+        );
+
+    }
+
+}
+
+
+document.addEventListener(
+    "fullscreenchange",
+    updateFullscreenButton
+);
 
 
 /* =====================================================
@@ -3664,11 +4329,13 @@ function playSound(
                     window.AudioContext
                     || window.webkitAudioContext
                 )();
+
         }
 
 
         const osc =
             audioContext.createOscillator();
+
 
         const gain =
             audioContext.createGain();
@@ -3678,12 +4345,15 @@ function playSound(
             gain
         );
 
+
         gain.connect(
             audioContext.destination
         );
 
 
         const frequencies = {
+
+            copper: 420,
 
             silver: 700,
 
@@ -3698,6 +4368,7 @@ function playSound(
             purchase: 520,
 
             chest: 1400
+
         };
 
 
@@ -3732,19 +4403,22 @@ function playSound(
 
         osc.start();
 
+
         osc.stop(
             audioContext.currentTime
             + 0.35
         );
 
+
     } catch(e) {
 
         /*
             ブラウザが音声を
-            許可していない場合は
-            無視する
+            許可していない場合は無視
         */
+
     }
+
 }
 
 
@@ -3777,6 +4451,7 @@ function showMotivation(
     el.classList.add(
         "show"
     );
+
 }
 
 
@@ -3809,6 +4484,7 @@ function showToast(
         },
         2200
     );
+
 }
 
 
@@ -3821,6 +4497,8 @@ loadGame();
 restoreBackground();
 
 updateUI();
+
+updateFullscreenButton();
 
 </script>
 
