@@ -1,1089 +1,1099 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>COIN MOTIVATION</title>
+<title>Focus Coin Room</title>
 
-    <style>
+<style>
 
-        /* =========================================
-           基本設定
-        ========================================= */
+/* =====================================================
+   基本
+===================================================== */
 
-        * {
-            box-sizing: border-box;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        body {
-            margin: 0;
-            min-height: 100vh;
+body {
+    margin: 0;
+    min-height: 100vh;
 
-            font-family:
-                Arial,
-                "Hiragino Kaku Gothic ProN",
-                Meiryo,
-                sans-serif;
+    font-family:
+        Arial,
+        "Hiragino Kaku Gothic ProN",
+        Meiryo,
+        sans-serif;
 
-            background:
-                radial-gradient(
-                    circle at center,
-                    #fffbe8 0%,
-                    #ffe99b 45%,
-                    #f2c337 100%
-                );
+    color: #4a3500;
 
-            color: #4a3500;
+    background:
+        radial-gradient(
+            circle at center,
+            #fffbe8,
+            #ffe99b 50%,
+            #eab934
+        );
 
-            overflow-x: hidden;
+    transition: background 0.6s ease;
 
-            transition:
-                background 0.7s ease;
-        }
+    overflow-x: hidden;
+}
 
 
-        /* =========================================
-           右上のショップボタン
-        ========================================= */
+/* =====================================================
+   上部バー
+===================================================== */
 
-        .shop-button {
-            position: fixed;
+.top-bar {
+    position: fixed;
 
-            top: 20px;
-            right: 20px;
+    top: 0;
+    left: 0;
+    right: 0;
 
-            z-index: 1000;
+    height: 65px;
 
-            padding: 12px 18px;
+    z-index: 1000;
 
-            border: 3px solid #c48a00;
-            border-radius: 15px;
+    display: flex;
 
-            background:
-                linear-gradient(
-                    #fff2a1,
-                    #ffc928
-                );
+    align-items: center;
 
-            color: #704a00;
+    justify-content: space-between;
 
-            font-size: 17px;
-            font-weight: bold;
+    padding: 0 18px;
 
-            cursor: pointer;
+    background:
+        rgba(255,255,255,0.93);
 
-            box-shadow:
-                0 5px 0 #a66d00,
-                0 8px 15px rgba(80, 50, 0, 0.25);
+    border-bottom:
+        3px solid #dfb22c;
 
-            transition: 0.15s;
-        }
+    box-shadow:
+        0 4px 15px rgba(100,70,0,0.15);
+}
 
-        .shop-button:hover {
-            transform: translateY(-2px);
-        }
+.logo {
+    font-size: 20px;
 
-        .shop-button:active {
-            transform: translateY(3px);
+    font-weight: bold;
 
-            box-shadow:
-                0 2px 0 #a66d00;
-        }
+    color: #8d6100;
+}
 
+.top-buttons {
+    display: flex;
 
-        /* =========================================
-           メイン
-        ========================================= */
+    gap: 8px;
+}
 
-        .game {
-            width: 92%;
-            max-width: 720px;
+.top-button {
+    border: none;
 
-            margin: 80px auto 40px;
+    padding: 9px 13px;
 
-            padding: 35px 25px;
+    border-radius: 12px;
 
-            text-align: center;
+    background:
+        linear-gradient(
+            #fff1a0,
+            #f7c72e
+        );
 
-            background: rgba(255,255,255,0.94);
+    color: #704a00;
 
-            border: 5px solid #dda900;
+    font-weight: bold;
 
-            border-radius: 30px;
+    cursor: pointer;
 
-            box-shadow:
-                0 20px 50px rgba(120,80,0,0.25),
-                inset 0 0 25px rgba(255,220,80,0.35);
-        }
+    box-shadow:
+        0 3px 0 #b27b00;
+}
 
+.top-button:active {
+    transform: translateY(2px);
 
-        h1 {
-            margin: 0 0 10px;
+    box-shadow:
+        0 1px 0 #b27b00;
+}
 
-            font-size:
-                clamp(28px, 7vw, 46px);
 
-            color: #9a6800;
+/* =====================================================
+   メイン
+===================================================== */
 
-            text-shadow:
-                3px 3px 0 #ffe788;
-        }
+.main {
+    width: 94%;
 
+    max-width: 1000px;
 
-        .subtitle {
-            margin-bottom: 25px;
+    margin:
+        95px auto 50px;
 
-            color: #92712d;
+    display: grid;
 
-            font-weight: bold;
-        }
+    grid-template-columns:
+        1fr 1fr;
 
+    gap: 20px;
+}
 
-        /* =========================================
-           ストップウォッチ
-        ========================================= */
 
-        .timer {
-            font-size:
-                clamp(55px, 13vw, 95px);
+/* =====================================================
+   カード
+===================================================== */
 
-            font-weight: bold;
+.card {
+    background:
+        rgba(255,255,255,0.94);
 
-            letter-spacing: 4px;
+    border:
+        4px solid #deb331;
 
-            color: #3c2c00;
+    border-radius: 24px;
 
-            font-variant-numeric:
-                tabular-nums;
+    padding: 22px;
 
-            margin-bottom: 20px;
-        }
+    box-shadow:
+        0 10px 30px
+        rgba(100,70,0,0.16);
+}
 
+.card-title {
+    margin:
+        0 0 15px;
 
-        /* =========================================
-           コイン一覧
-        ========================================= */
+    font-size: 23px;
 
-        .wallet {
-            display: grid;
+    color: #8c6000;
+}
 
-            grid-template-columns:
-                repeat(3, 1fr);
 
-            gap: 12px;
+/* =====================================================
+   ストップウォッチ
+===================================================== */
 
-            margin: 20px auto;
+.timer-card {
+    grid-column:
+        1 / -1;
 
-            max-width: 600px;
-        }
+    text-align: center;
+}
 
+.timer {
+    font-size:
+        clamp(48px, 10vw, 90px);
 
-        .wallet-card {
-            padding: 14px 8px;
+    font-weight: bold;
 
-            border-radius: 18px;
+    letter-spacing: 4px;
 
-            background:
-                linear-gradient(
-                    #fffdf0,
-                    #fff3bd
-                );
+    color: #392900;
 
-            border: 3px solid #e3bd46;
+    font-variant-numeric:
+        tabular-nums;
 
-            box-shadow:
-                0 5px 12px rgba(100,70,0,0.12);
-        }
+    margin:
+        10px 0;
+}
 
+.status {
+    min-height: 25px;
 
-        .wallet-icon {
-            font-size: 38px;
-        }
+    color: #97732d;
 
+    font-weight: bold;
+}
 
-        .wallet-name {
-            margin-top: 4px;
 
-            font-weight: bold;
+/* =====================================================
+   コイン
+===================================================== */
 
-            color: #806000;
-        }
+.wallet {
+    display: grid;
 
+    grid-template-columns:
+        repeat(3, 1fr);
 
-        .wallet-number {
-            font-size: 30px;
+    gap: 8px;
+}
 
-            font-weight: bold;
+.wallet-item {
+    padding: 13px 5px;
 
-            color: #9a6900;
+    text-align: center;
 
-            font-variant-numeric:
-                tabular-nums;
-        }
+    border-radius: 15px;
 
+    background:
+        #fff7cf;
 
-        /* =========================================
-           メインコイン
-        ========================================= */
+    border:
+        2px solid #e2bd50;
+}
 
-        .coin-area {
-            position: relative;
+.wallet-icon {
+    font-size: 30px;
+}
 
-            height: 230px;
+.wallet-number {
+    font-size: 25px;
 
-            display: flex;
+    font-weight: bold;
 
-            justify-content: center;
+    color: #8d6100;
+}
 
-            align-items: center;
-        }
 
+/* =====================================================
+   次の報酬
+===================================================== */
 
-        .coin {
-            width: 145px;
-            height: 145px;
+.reward-box {
+    margin-top: 15px;
 
-            position: relative;
+    padding: 13px;
 
-            border-radius: 50%;
+    border-radius: 14px;
 
-            background:
-                radial-gradient(
-                    circle at 35% 28%,
-                    #fffab2 0%,
-                    #fff064 18%,
-                    #ffd735 42%,
-                    #efb916 72%,
-                    #c98a00 100%
-                );
+    background:
+        #fff6c6;
 
-            border: 10px solid #d39b05;
+    border:
+        2px solid #e1bd48;
 
-            box-shadow:
-                0 0 0 5px #ffe56b,
-                0 9px 0 #b77c00,
-                0 14px 22px rgba(100,65,0,0.3);
+    font-weight: bold;
 
-            transition: 0.2s;
-        }
+    color: #826000;
+}
 
 
-        .coin::before {
-            content: "★";
+/* =====================================================
+   ボタン
+===================================================== */
 
-            position: absolute;
+.controls {
+    display: flex;
 
-            inset: 15px;
+    justify-content: center;
 
-            display: flex;
+    gap: 10px;
 
-            justify-content: center;
+    flex-wrap: wrap;
 
-            align-items: center;
+    margin-top: 18px;
+}
 
-            font-size: 65px;
+.main-button {
+    border: none;
 
-            color: #f7c825;
+    border-radius: 14px;
 
-            text-shadow:
-                2px 2px 0 #fff17b,
-                -2px -2px 0 #d89d00,
-                4px 4px 0 #c28a00;
-        }
+    padding: 13px 20px;
 
+    font-size: 16px;
 
-        .coin::after {
-            content: "";
+    font-weight: bold;
 
-            position: absolute;
+    cursor: pointer;
 
-            width: 35px;
-            height: 18px;
+    color: white;
 
-            top: 18px;
-            left: 28px;
+    box-shadow:
+        0 4px 0 rgba(0,0,0,0.2);
+}
 
-            background:
-                rgba(255,255,255,0.8);
+.main-button:active {
+    transform:
+        translateY(3px);
 
-            border-radius: 50%;
+    box-shadow:
+        0 1px 0 rgba(0,0,0,0.2);
+}
 
-            transform:
-                rotate(-25deg);
-        }
+.start {
+    background:
+        linear-gradient(
+            #4bd96e,
+            #20a642
+        );
+}
 
+.pause {
+    background:
+        linear-gradient(
+            #ffc64b,
+            #e48c00
+        );
+}
 
-        .coin-get {
-            animation:
-                coinGet 0.65s ease-out;
-        }
+.reset {
+    background:
+        linear-gradient(
+            #ff6868,
+            #d93838
+        );
+}
 
+.mode {
+    background:
+        linear-gradient(
+            #9d7cff,
+            #6544d5
+        );
+}
 
-        @keyframes coinGet {
 
-            0% {
-                transform:
-                    scale(0.7)
-                    rotate(-15deg);
-            }
+/* =====================================================
+   モード表示
+===================================================== */
 
-            35% {
-                transform:
-                    scale(1.25)
-                    rotate(10deg);
-            }
+.mode-display {
+    margin-top: 12px;
 
-            65% {
-                transform:
-                    scale(1.08)
-                    rotate(-5deg);
-            }
+    font-weight: bold;
 
-            100% {
-                transform:
-                    scale(1)
-                    rotate(0deg);
-            }
-        }
+    color: #755300;
+}
 
 
-        /* =========================================
-           +1 演出
-        ========================================= */
+/* =====================================================
+   部屋
+===================================================== */
 
-        .plus-one {
-            position: absolute;
+.room {
+    position: relative;
 
-            top: 20px;
-            left: 50%;
+    min-height: 330px;
 
-            transform:
-                translateX(-50%);
+    overflow: hidden;
 
-            font-size: 35px;
+    border-radius: 18px;
 
-            font-weight: bold;
+    background:
+        linear-gradient(
+            #b9e8ff 0 68%,
+            #e6b86a 68% 100%
+        );
 
-            color: #ffae00;
+    border:
+        4px solid #bb8631;
+}
 
-            text-shadow:
-                2px 2px 0 white,
-                4px 4px 0 #bd7c00;
+.room::after {
+    content: "";
 
-            opacity: 0;
+    position: absolute;
 
-            pointer-events: none;
-        }
+    left: 0;
+    right: 0;
 
+    bottom: 0;
 
-        .plus-one.show {
-            animation:
-                plusOne 0.8s ease-out;
-        }
+    height: 32%;
 
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #d9a85b 0,
+            #d9a85b 45px,
+            #c89248 46px,
+            #c89248 48px
+        );
 
-        @keyframes plusOne {
+    opacity: 0.5;
+}
 
-            0% {
-                opacity: 0;
+.room-window {
+    position: absolute;
 
-                transform:
-                    translate(-50%, 30px)
-                    scale(0.5);
-            }
+    top: 30px;
+    left: 35px;
 
-            25% {
-                opacity: 1;
+    width: 90px;
+    height: 90px;
 
-                transform:
-                    translate(-50%, 0)
-                    scale(1.2);
-            }
+    background:
+        linear-gradient(
+            90deg,
+            #b7e9ff 48%,
+            #ffffff 49% 51%,
+            #b7e9ff 52%
+        );
 
-            70% {
-                opacity: 1;
+    border:
+        7px solid #85572a;
+}
 
-                transform:
-                    translate(-50%, -25px)
-                    scale(1);
-            }
+.room-sun {
+    position: absolute;
 
-            100% {
-                opacity: 0;
+    top: 48px;
+    right: 45px;
 
-                transform:
-                    translate(-50%, -60px)
-                    scale(0.8);
-            }
-        }
+    font-size: 48px;
+}
 
 
-        /* =========================================
-           次のコインまで
-        ========================================= */
+/* =====================================================
+   家具
+===================================================== */
 
-        .next-reward {
-            margin: 5px auto 25px;
+.furniture {
+    position: absolute;
 
-            max-width: 500px;
+    z-index: 5;
 
-            padding: 12px 15px;
+    font-size: 50px;
 
-            border-radius: 15px;
+    user-select: none;
+}
 
-            background: #fff8d4;
 
-            border: 2px solid #e4c45b;
+/* =====================================================
+   ペット
+===================================================== */
 
-            color: #806000;
+.pet-area {
+    display: flex;
 
-            font-weight: bold;
-        }
+    align-items: center;
 
+    gap: 18px;
+}
 
-        /* =========================================
-           ボタン
-        ========================================= */
+.pet-character {
+    font-size: 75px;
 
-        .buttons {
-            display: flex;
+    animation:
+        petFloat 2s infinite ease-in-out;
+}
 
-            justify-content: center;
+@keyframes petFloat {
 
-            gap: 12px;
+    0%,100% {
+        transform:
+            translateY(0);
+    }
 
-            flex-wrap: wrap;
-        }
+    50% {
+        transform:
+            translateY(-8px);
+    }
+}
 
+.pet-info {
+    flex: 1;
+}
 
-        button {
-            border: none;
+.pet-name {
+    font-size: 21px;
 
-            border-radius: 14px;
+    font-weight: bold;
 
-            padding: 14px 25px;
+    color: #805800;
+}
 
-            font-size: 17px;
+.pet-level {
+    margin-top: 5px;
+}
 
-            font-weight: bold;
+.progress {
+    width: 100%;
 
-            cursor: pointer;
+    height: 12px;
 
-            transition: 0.15s;
+    margin-top: 5px;
 
-            box-shadow:
-                0 5px 0 rgba(0,0,0,0.2);
-        }
+    border-radius: 20px;
 
+    background:
+        #eadfb8;
 
-        button:hover {
-            transform:
-                translateY(-2px);
-        }
+    overflow: hidden;
+}
 
+.progress-inner {
+    height: 100%;
 
-        button:active {
-            transform:
-                translateY(3px);
+    width: 0%;
 
-            box-shadow:
-                0 2px 0 rgba(0,0,0,0.2);
-        }
+    background:
+        linear-gradient(
+            90deg,
+            #ffad2f,
+            #ffe15b
+        );
 
+    transition:
+        width 0.3s;
+}
 
-        button:disabled {
-            opacity: 0.45;
+.pet-message {
+    margin-top: 15px;
 
-            cursor: not-allowed;
-        }
+    padding: 10px;
 
+    border-radius: 13px;
 
-        #startBtn {
-            color: white;
+    background:
+        #fff6d0;
 
-            background:
-                linear-gradient(
-                    #4cda6d,
-                    #20a943
-                );
-        }
+    border:
+        2px solid #dfbd55;
 
+    font-weight: bold;
+}
 
-        #pauseBtn {
-            color: white;
 
-            background:
-                linear-gradient(
-                    #ffc344,
-                    #e68b00
-                );
-        }
+/* =====================================================
+   実績
+===================================================== */
 
+.achievement {
+    display: flex;
 
-        #resetBtn {
-            color: white;
+    align-items: center;
 
-            background:
-                linear-gradient(
-                    #ff6767,
-                    #d93636
-                );
-        }
+    gap: 12px;
 
+    padding: 12px;
 
-        /* =========================================
-           ペット
-        ========================================= */
+    margin-bottom: 9px;
 
-        .pet {
-            position: fixed;
+    border-radius: 14px;
 
-            bottom: 20px;
-            left: 20px;
+    background:
+        #fff8d7;
 
-            z-index: 500;
+    border:
+        2px solid #e0c15e;
+}
 
-            display: none;
+.achievement.locked {
+    filter: grayscale(1);
 
-            font-size: 70px;
+    opacity: 0.55;
+}
 
-            filter:
-                drop-shadow(
-                    0 5px 4px
-                    rgba(0,0,0,0.25)
-                );
+.achievement-icon {
+    font-size: 30px;
+}
 
-            animation:
-                petFloat 2s ease-in-out infinite;
-        }
+.achievement-name {
+    font-weight: bold;
+}
 
+.achievement-desc {
+    font-size: 12px;
 
-        .pet.show {
-            display: block;
-        }
+    color: #927743;
+}
 
 
-        .pet-message {
-            position: fixed;
+/* =====================================================
+   グラフ
+===================================================== */
 
-            bottom: 105px;
-            left: 20px;
+.chart {
+    width: 100%;
 
-            z-index: 501;
+    height: 220px;
 
-            display: none;
+    display: flex;
 
-            padding: 10px 15px;
+    align-items: flex-end;
 
-            background: white;
+    gap: 7px;
 
-            border: 3px solid #d7a20b;
+    padding:
+        15px 5px 25px;
 
-            border-radius: 15px;
+    border-bottom:
+        3px solid #b78929;
+}
 
-            font-weight: bold;
+.bar-wrap {
+    flex: 1;
 
-            box-shadow:
-                0 5px 15px rgba(0,0,0,0.15);
-        }
+    height: 100%;
 
+    display: flex;
 
-        .pet-message.show {
-            display: block;
+    align-items: flex-end;
 
-            animation:
-                messagePop 0.5s ease-out;
-        }
+    justify-content: center;
 
+    position: relative;
+}
 
-        @keyframes petFloat {
+.bar {
+    width: 70%;
 
-            0%,100% {
-                transform:
-                    translateY(0);
-            }
+    min-height: 3px;
 
-            50% {
-                transform:
-                    translateY(-12px);
-            }
-        }
+    border-radius:
+        7px 7px 0 0;
 
+    background:
+        linear-gradient(
+            #ffd83d,
+            #e49c00
+        );
 
-        @keyframes messagePop {
+    transition:
+        height 0.5s;
+}
 
-            0% {
-                transform:
-                    scale(0.5);
+.bar-label {
+    position: absolute;
 
-                opacity: 0;
-            }
+    bottom: -22px;
 
-            100% {
-                transform:
-                    scale(1);
+    font-size: 10px;
 
-                opacity: 1;
-            }
-        }
+    color: #775800;
+}
 
 
-        /* =========================================
-           ショップ画面
-        ========================================= */
+/* =====================================================
+   ショップ・モーダル
+===================================================== */
 
-        .shop-overlay {
-            position: fixed;
+.overlay {
+    position: fixed;
 
-            inset: 0;
+    inset: 0;
 
-            z-index: 2000;
+    z-index: 3000;
 
-            display: none;
+    display: none;
 
-            justify-content: center;
+    justify-content: center;
 
-            align-items: center;
+    align-items: center;
 
-            padding: 20px;
+    padding: 15px;
 
-            background:
-                rgba(50,35,0,0.65);
+    background:
+        rgba(30,20,0,0.65);
 
-            backdrop-filter:
-                blur(5px);
-        }
+    backdrop-filter:
+        blur(5px);
+}
 
+.overlay.open {
+    display: flex;
+}
 
-        .shop-overlay.open {
-            display: flex;
-        }
+.modal {
+    width: 96%;
 
+    max-width: 700px;
 
-        .shop {
-            width: 95%;
-            max-width: 650px;
+    max-height: 90vh;
 
-            max-height: 90vh;
+    overflow-y: auto;
 
-            overflow-y: auto;
+    padding: 22px;
 
-            padding: 25px;
+    border-radius: 25px;
 
-            background:
-                linear-gradient(
-                    #fffef5,
-                    #fff2b4
-                );
+    background:
+        linear-gradient(
+            #fffef3,
+            #fff1b0
+        );
 
-            border: 5px solid #dca900;
+    border:
+        5px solid #d9a900;
+}
 
-            border-radius: 25px;
+.modal-header {
+    display: flex;
 
-            box-shadow:
-                0 20px 60px
-                rgba(0,0,0,0.35);
-        }
+    justify-content: space-between;
 
+    align-items: center;
+}
 
-        .shop-header {
-            display: flex;
+.close {
+    border: none;
 
-            justify-content: space-between;
+    background:
+        #ff6666;
 
-            align-items: center;
+    color: white;
 
-            margin-bottom: 20px;
-        }
+    border-radius: 10px;
 
+    font-size: 22px;
 
-        .shop-header h2 {
-            margin: 0;
+    padding: 5px 12px;
 
-            color: #8d6000;
-        }
+    cursor: pointer;
+}
 
+.shop-grid {
+    display: grid;
 
-        .close-shop {
-            padding: 8px 13px;
+    gap: 10px;
 
-            font-size: 20px;
+    margin-top: 15px;
+}
 
-            background:
-                #ff6868;
+.shop-item {
+    display: flex;
 
-            color: white;
+    align-items: center;
 
-            box-shadow:
-                0 3px 0 #b72d2d;
-        }
+    gap: 12px;
 
+    padding: 12px;
 
-        .shop-balance {
-            margin-bottom: 18px;
+    border-radius: 15px;
 
-            padding: 12px;
+    background:
+        rgba(255,255,255,0.85);
 
-            text-align: center;
+    border:
+        2px solid #dfc05c;
+}
 
-            border-radius: 15px;
+.shop-icon {
+    font-size: 38px;
+}
 
-            background: #ffe680;
+.shop-info {
+    flex: 1;
+}
 
-            border: 2px solid #d6a700;
+.shop-name {
+    font-weight: bold;
 
-            font-weight: bold;
+    color: #795200;
+}
 
-            font-size: 20px;
-        }
+.shop-desc {
+    font-size: 12px;
 
+    color: #927746;
+}
 
-        .shop-items {
-            display: grid;
+.buy {
+    border: none;
 
-            gap: 12px;
-        }
+    padding: 9px 12px;
 
+    border-radius: 10px;
 
-        .shop-item {
-            display: flex;
+    background:
+        #ffc928;
 
-            align-items: center;
+    color: #684600;
 
-            gap: 15px;
+    font-weight: bold;
 
-            padding: 15px;
+    cursor: pointer;
+}
 
-            background:
-                rgba(255,255,255,0.8);
+.buy.done {
+    background:
+        #a7a7a7;
 
-            border: 2px solid #e0bd55;
+    color: white;
+}
 
-            border-radius: 18px;
-        }
 
+/* =====================================================
+   宝箱
+===================================================== */
 
-        .shop-icon {
-            font-size: 45px;
+.chest {
+    text-align: center;
 
-            min-width: 55px;
-        }
+    font-size: 70px;
 
+    cursor: pointer;
 
-        .shop-info {
-            flex: 1;
+    animation:
+        chestShake 1s infinite;
+}
 
-            text-align: left;
-        }
+@keyframes chestShake {
 
+    0%,100% {
+        transform:
+            rotate(0);
+    }
 
-        .shop-name {
-            font-size: 18px;
+    25% {
+        transform:
+            rotate(-4deg);
+    }
 
-            font-weight: bold;
+    75% {
+        transform:
+            rotate(4deg);
+    }
+}
 
-            color: #795200;
-        }
+.chest-result {
+    text-align: center;
 
+    font-size: 22px;
 
-        .shop-description {
-            margin-top: 4px;
+    font-weight: bold;
 
-            font-size: 13px;
+    color: #b37500;
+}
 
-            color: #92763b;
-        }
 
+/* =====================================================
+   応援演出
+===================================================== */
 
-        .buy-button {
-            padding: 10px 15px;
+.motivation {
+    position: fixed;
 
-            background:
-                linear-gradient(
-                    #ffd951,
-                    #e9a900
-                );
+    left: 50%;
 
-            color: #664400;
+    top: 45%;
 
-            white-space: nowrap;
-        }
+    transform:
+        translate(-50%,-50%)
+        scale(0.5);
 
+    z-index: 5000;
 
-        .buy-button.sold {
-            background:
-                #bdbdbd;
+    padding: 20px 30px;
 
-            color: white;
+    border-radius: 20px;
 
-            box-shadow:
-                0 3px 0 #888;
-        }
+    background:
+        rgba(255,255,255,0.97);
 
+    border:
+        5px solid #f0b500;
 
-        /* =========================================
-           パーティクル
-        ========================================= */
+    color: #a66b00;
 
-        .particle {
-            position: absolute;
+    font-size:
+        clamp(22px, 5vw, 38px);
 
-            width: 18px;
-            height: 18px;
+    font-weight: bold;
 
-            border-radius: 50%;
+    text-align: center;
 
-            background:
-                #ffd42f;
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.3);
 
-            border: 3px solid #d29b00;
+    opacity: 0;
 
-            pointer-events: none;
+    pointer-events: none;
+}
 
-            animation:
-                particle 0.8s ease-out forwards;
-        }
+.motivation.show {
+    animation:
+        motivation 2.2s ease-out;
+}
 
+@keyframes motivation {
 
-        @keyframes particle {
+    0% {
+        opacity: 0;
 
-            0% {
-                opacity: 1;
+        transform:
+            translate(-50%,-50%)
+            scale(0.5);
+    }
 
-                transform:
-                    translate(0,0)
-                    scale(1);
-            }
+    20% {
+        opacity: 1;
 
-            100% {
-                opacity: 0;
+        transform:
+            translate(-50%,-50%)
+            scale(1.1);
+    }
 
-                transform:
-                    translate(
-                        calc((var(--random-x) - 50) * 2px),
-                        -120px
-                    )
-                    rotate(180deg)
-                    scale(0.3);
-            }
-        }
+    70% {
+        opacity: 1;
 
+        transform:
+            translate(-50%,-50%)
+            scale(1);
+    }
 
-        /* =========================================
-           金コイン消費演出
-        ========================================= */
+    100% {
+        opacity: 0;
 
-        .purchase-effect {
-            position: fixed;
+        transform:
+            translate(-50%,-70%)
+            scale(0.9);
+    }
+}
 
-            inset: 0;
 
-            z-index: 3000;
+/* =====================================================
+   スナックバー
+===================================================== */
 
-            pointer-events: none;
+.toast {
+    position: fixed;
 
-            display: flex;
+    bottom: 25px;
 
-            justify-content: center;
+    left: 50%;
 
-            align-items: center;
+    transform:
+        translateX(-50%)
+        translateY(100px);
 
-            font-size: 50px;
+    z-index: 6000;
 
-            font-weight: bold;
+    padding: 13px 20px;
 
-            color: #ffc400;
+    border-radius: 15px;
 
-            text-shadow:
-                3px 3px 0 white,
-                6px 6px 0 #9c6900;
+    background:
+        #4c3500;
 
-            opacity: 0;
-        }
+    color: white;
 
+    font-weight: bold;
 
-        .purchase-effect.show {
-            animation:
-                purchaseEffect 1s ease-out;
-        }
+    opacity: 0;
 
+    transition:
+        0.3s;
+}
 
-        @keyframes purchaseEffect {
+.toast.show {
+    opacity: 1;
 
-            0% {
-                opacity: 0;
+    transform:
+        translateX(-50%)
+        translateY(0);
+}
 
-                transform:
-                    scale(0.5);
-            }
 
-            30% {
-                opacity: 1;
+/* =====================================================
+   ポモドーロ
+===================================================== */
 
-                transform:
-                    scale(1.3);
-            }
+.pomodoro {
+    margin-top: 15px;
 
-            100% {
-                opacity: 0;
+    padding: 13px;
 
-                transform:
-                    scale(1);
-            }
-        }
+    border-radius: 15px;
 
+    background:
+        #f1eaff;
 
-        /* =========================================
-           スマホ
-        ========================================= */
+    border:
+        2px solid #a88be9;
 
-        @media (max-width: 500px) {
+    color: #6043a4;
+}
 
-            .shop-button {
-                top: 10px;
-                right: 10px;
 
-                padding: 9px 12px;
+/* =====================================================
+   レスポンシブ
+===================================================== */
 
-                font-size: 14px;
-            }
+@media(max-width:750px) {
 
+    .main {
+        grid-template-columns:
+            1fr;
+    }
 
-            .game {
-                margin-top: 65px;
+    .timer-card {
+        grid-column:
+            auto;
+    }
 
-                padding:
-                    25px 12px;
-            }
+    .logo {
+        font-size: 15px;
+    }
 
+    .top-button {
+        padding:
+            8px 9px;
 
-            .wallet {
-                gap: 6px;
-            }
+        font-size: 12px;
+    }
+}
 
-
-            .wallet-icon {
-                font-size: 30px;
-            }
-
-
-            .wallet-number {
-                font-size: 23px;
-            }
-
-
-            .coin {
-                width: 125px;
-                height: 125px;
-            }
-
-
-            .coin::before {
-                font-size: 55px;
-            }
-
-
-            .shop-item {
-                padding: 10px;
-
-                gap: 8px;
-            }
-
-
-            .shop-icon {
-                font-size: 35px;
-
-                min-width: 40px;
-            }
-
-
-            .shop-name {
-                font-size: 15px;
-            }
-
-
-            .buy-button {
-                padding:
-                    8px 10px;
-
-                font-size: 13px;
-            }
-
-
-            .pet {
-                font-size: 55px;
-
-                bottom: 10px;
-                left: 10px;
-            }
-
-
-            .pet-message {
-                left: 10px;
-
-                bottom: 80px;
-
-                font-size: 13px;
-            }
-        }
-
-    </style>
+</style>
 </head>
 
 
 <body>
 
 
-    <!-- =========================================
-         ショップボタン
-    ========================================== -->
+<!-- =====================================================
+     上部バー
+===================================================== -->
 
-    <button
-        class="shop-button"
-        id="shopButton">
+<header class="top-bar">
 
-        🛒 ショップ
-
-    </button>
-
-
-
-    <!-- =========================================
-         ペット
-    ========================================== -->
-
-    <div
-        class="pet"
-        id="pet">
+    <div class="logo">
+        🏠 FOCUS COIN ROOM
     </div>
 
-    <div
-        class="pet-message"
-        id="petMessage">
+    <div class="top-buttons">
 
-        一緒に頑張ろう！🔥
+        <button
+            class="top-button"
+            onclick="openShop()">
+
+            🛒 ショップ
+
+        </button>
+
+        <button
+            class="top-button"
+            onclick="openStats()">
+
+            📊 記録
+
+        </button>
+
+        <button
+            class="top-button"
+            onclick="openAchievements()">
+
+            🏆 実績
+
+        </button>
 
     </div>
 
+</header>
 
 
-    <!-- =========================================
-         メイン画面
-    ========================================== -->
 
-    <main class="game">
+<!-- =====================================================
+     メイン
+===================================================== -->
 
-        <h1>
-            🪙 COIN MOTIVATION
+<main class="main">
+
+
+    <!-- ================================================
+         タイマー
+    ================================================= -->
+
+    <section class="card timer-card">
+
+        <h1 class="card-title">
+            ⏱ 集中タイマー
         </h1>
-
-        <div class="subtitle">
-            時間を使って、コインを集めよう！
-        </div>
-
-
-        <!-- ストップウォッチ -->
 
         <div
             class="timer"
@@ -1093,371 +1103,668 @@
 
         </div>
 
+        <div
+            class="status"
+            id="status">
 
-
-        <!-- =====================================
-             コイン所持数
-        ====================================== -->
-
-        <div class="wallet">
-
-
-            <!-- 銅 -->
-
-            <div class="wallet-card">
-
-                <div class="wallet-icon">
-                    🟤
-                </div>
-
-                <div class="wallet-name">
-                    銅コイン
-                </div>
-
-                <div
-                    class="wallet-number"
-                    id="copperCoins">
-
-                    0
-
-                </div>
-
-            </div>
-
-
-            <!-- 銀 -->
-
-            <div class="wallet-card">
-
-                <div class="wallet-icon">
-                    ⚪
-                </div>
-
-                <div class="wallet-name">
-                    銀コイン
-                </div>
-
-                <div
-                    class="wallet-number"
-                    id="silverCoins">
-
-                    0
-
-                </div>
-
-            </div>
-
-
-            <!-- 金 -->
-
-            <div class="wallet-card">
-
-                <div class="wallet-icon">
-                    🟡
-                </div>
-
-                <div class="wallet-name">
-                    金コイン
-                </div>
-
-                <div
-                    class="wallet-number"
-                    id="goldCoins">
-
-                    0
-
-                </div>
-
-            </div>
-
+            スタートして集中しよう！
 
         </div>
-
-
-
-        <!-- =====================================
-             メインコイン
-        ====================================== -->
 
         <div
-            class="coin-area"
-            id="coinArea">
+            class="mode-display"
+            id="modeDisplay">
 
-            <div
-                class="plus-one"
-                id="plusOne">
-
-                +1 COIN!
-
-            </div>
-
-
-            <div
-                class="coin"
-                id="coin">
-            </div>
+            🌞 通常モード
 
         </div>
 
 
-
-        <!-- =====================================
-             次の報酬
-        ====================================== -->
-
-        <div
-            class="next-reward"
-            id="nextReward">
-
-            あと60秒で銀コイン！
-
-        </div>
-
-
-
-        <!-- =====================================
-             操作ボタン
-        ====================================== -->
-
-        <div class="buttons">
+        <div class="controls">
 
             <button
-                id="startBtn">
+                class="main-button start"
+                onclick="startTimer()">
 
                 ▶ スタート
 
             </button>
 
-
             <button
-                id="pauseBtn"
-                disabled>
+                class="main-button pause"
+                onclick="pauseTimer()">
 
                 ⏸ 一時停止
 
             </button>
 
-
             <button
-                id="resetBtn">
+                class="main-button reset"
+                onclick="resetTimer()">
 
                 ↻ リセット
 
             </button>
 
+            <button
+                class="main-button mode"
+                onclick="togglePomodoro()">
+
+                🍅 ポモドーロ
+
+            </button>
+
         </div>
 
-    </main>
+
+        <div
+            class="pomodoro"
+            id="pomodoroInfo"
+            style="display:none">
+
+            🍅 25分集中 → 5分休憩
+
+        </div>
+
+
+        <div
+            class="reward-box"
+            id="nextReward">
+
+            ⭐ あと1分で銀コイン！
+
+        </div>
+
+    </section>
 
 
 
-    <!-- =========================================
-         ショップ
-    ========================================== -->
+    <!-- ================================================
+         コイン
+    ================================================= -->
 
-    <div
-        class="shop-overlay"
-        id="shopOverlay">
+    <section class="card">
+
+        <h2 class="card-title">
+            🪙 ウォレット
+        </h2>
+
+        <div class="wallet">
 
 
-        <div class="shop">
+            <div class="wallet-item">
+
+                <div class="wallet-icon">
+                    🟤
+                </div>
+
+                <div>
+                    銅コイン
+                </div>
+
+                <div
+                    class="wallet-number"
+                    id="copper">
+
+                    0
+
+                </div>
+
+            </div>
 
 
-            <div class="shop-header">
+            <div class="wallet-item">
 
-                <h2>
-                    🛒 ショップ
-                </h2>
+                <div class="wallet-icon">
+                    ⚪
+                </div>
+
+                <div>
+                    銀コイン
+                </div>
+
+                <div
+                    class="wallet-number"
+                    id="silver">
+
+                    0
+
+                </div>
+
+            </div>
+
+
+            <div class="wallet-item">
+
+                <div class="wallet-icon">
+                    🟡
+                </div>
+
+                <div>
+                    金コイン
+                </div>
+
+                <div
+                    class="wallet-number"
+                    id="gold">
+
+                    0
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div
+            class="reward-box">
+
+            🟤 60枚
+            ↓
+            ⚪ 銀1枚
+            ↓
+            🟡 銀60枚で金1枚
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================================================
+         ペット
+    ================================================= -->
+
+    <section class="card">
+
+        <h2 class="card-title">
+            🐾 ペット
+        </h2>
+
+        <div class="pet-area">
+
+            <div
+                class="pet-character"
+                id="petCharacter">
+
+                🐱
+
+            </div>
+
+            <div class="pet-info">
+
+                <div
+                    class="pet-name"
+                    id="petName">
+
+                    ミケ
+
+                </div>
+
+                <div
+                    class="pet-level"
+                    id="petLevel">
+
+                    Lv.1
+
+                </div>
+
+                <div class="progress">
+
+                    <div
+                        class="progress-inner"
+                        id="petExp">
+
+                    </div>
+
+                </div>
+
+                <div
+                    style="margin-top:8px">
+
+                    ❤️ 好感度：
+                    <span id="affection">
+                        0
+                    </span>
+                    / 100
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div
+            class="pet-message"
+            id="petMessage">
+
+            「一緒に頑張ろう！」
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================================================
+         部屋
+    ================================================= -->
+
+    <section class="card">
+
+        <h2 class="card-title">
+            🏠 マイルーム
+        </h2>
+
+        <div
+            class="room"
+            id="room">
+
+            <div class="room-window"></div>
+
+            <div class="room-sun">
+                ☀️
+            </div>
+
+            <div
+                class="furniture"
+                id="roomFurniture">
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================================================
+         実績
+    ================================================= -->
+
+    <section class="card">
+
+        <h2 class="card-title">
+            🏆 実績
+        </h2>
+
+        <div
+            id="achievementList">
+        </div>
+
+    </section>
+
+
+
+    <!-- ================================================
+         グラフ
+    ================================================= -->
+
+    <section class="card">
+
+        <h2 class="card-title">
+            📊 集中記録
+        </h2>
+
+        <div
+            id="chart"
+            class="chart">
+        </div>
+
+        <div
+            style="text-align:center;margin-top:10px">
+
+            今日・今週・累計の集中時間
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<!-- =====================================================
+     ショップ
+===================================================== -->
+
+<div
+    class="overlay"
+    id="shopOverlay">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h2>
+                🛒 ショップ
+            </h2>
+
+            <button
+                class="close"
+                onclick="closeModal('shopOverlay')">
+
+                ×
+
+            </button>
+
+        </div>
+
+        <p>
+            🟡 金コイン：
+            <strong id="shopGold">
+                0
+            </strong>
+        </p>
+
+
+        <div class="shop-grid">
+
+
+            <!-- 猫 -->
+
+            <div class="shop-item">
+
+                <div class="shop-icon">
+                    🐱
+                </div>
+
+                <div class="shop-info">
+
+                    <div class="shop-name">
+                        猫「ミケ」
+                    </div>
+
+                    <div class="shop-desc">
+                        最初から使えるペット
+                    </div>
+
+                </div>
 
                 <button
-                    class="close-shop"
-                    id="closeShop">
+                    class="buy done">
 
-                    ×
+                    使用中
 
                 </button>
 
             </div>
 
 
-            <div
-                class="shop-balance"
-                id="shopBalance">
+            <!-- 犬 -->
 
-                🟡 金コイン：
-                <span id="shopGold">
-                    0
-                </span>
+            <div class="shop-item">
+
+                <div class="shop-icon">
+                    🐶
+                </div>
+
+                <div class="shop-info">
+
+                    <div class="shop-name">
+                        犬「ポチ」
+                    </div>
+
+                    <div class="shop-desc">
+                        金コイン8枚
+                    </div>
+
+                </div>
+
+                <button
+                    class="buy"
+                    onclick="buyPet('dog',8)">
+
+                    🟡 8
+
+                </button>
 
             </div>
 
 
-            <div class="shop-items">
+            <!-- うさぎ -->
 
+            <div class="shop-item">
 
-                <!-- 背景変更 -->
+                <div class="shop-icon">
+                    🐰
+                </div>
 
-                <div class="shop-item">
+                <div class="shop-info">
 
-                    <div class="shop-icon">
-                        🌈
+                    <div class="shop-name">
+                        うさぎ「モチ」
                     </div>
 
-                    <div class="shop-info">
-
-                        <div class="shop-name">
-                            虹色の背景
-                        </div>
-
-                        <div class="shop-description">
-                            背景をカラフルに変更する
-                        </div>
-
+                    <div class="shop-desc">
+                        金コイン12枚
                     </div>
-
-                    <button
-                        class="buy-button"
-                        data-item="rainbow"
-                        data-price="5">
-
-                        🟡 5
-
-                    </button>
 
                 </div>
 
+                <button
+                    class="buy"
+                    onclick="buyPet('rabbit',12)">
+
+                    🟡 12
+
+                </button>
+
+            </div>
 
 
-                <!-- 猫 -->
+            <!-- キツネ -->
 
-                <div class="shop-item">
+            <div class="shop-item">
 
-                    <div class="shop-icon">
-                        🐱
+                <div class="shop-icon">
+                    🦊
+                </div>
+
+                <div class="shop-info">
+
+                    <div class="shop-name">
+                        キツネ「コン」
                     </div>
 
-                    <div class="shop-info">
-
-                        <div class="shop-name">
-                            ペット：猫
-                        </div>
-
-                        <div class="shop-description">
-                            猫があなたを応援してくれる
-                        </div>
-
+                    <div class="shop-desc">
+                        金コイン20枚
                     </div>
-
-                    <button
-                        class="buy-button"
-                        data-item="cat"
-                        data-price="8">
-
-                        🟡 8
-
-                    </button>
 
                 </div>
 
+                <button
+                    class="buy"
+                    onclick="buyPet('fox',20)">
+
+                    🟡 20
+
+                </button>
+
+            </div>
 
 
-                <!-- 犬 -->
+            <!-- パンダ -->
 
-                <div class="shop-item">
+            <div class="shop-item">
 
-                    <div class="shop-icon">
-                        🐶
+                <div class="shop-icon">
+                    🐼
+                </div>
+
+                <div class="shop-info">
+
+                    <div class="shop-name">
+                        パンダ「パン」
                     </div>
 
-                    <div class="shop-info">
-
-                        <div class="shop-name">
-                            ペット：犬
-                        </div>
-
-                        <div class="shop-description">
-                            犬があなたを応援してくれる
-                        </div>
-
+                    <div class="shop-desc">
+                        金コイン30枚
                     </div>
-
-                    <button
-                        class="buy-button"
-                        data-item="dog"
-                        data-price="8">
-
-                        🟡 8
-
-                    </button>
 
                 </div>
 
+                <button
+                    class="buy"
+                    onclick="buyPet('panda',30)">
+
+                    🟡 30
+
+                </button>
+
+            </div>
 
 
-                <!-- キラキラ背景 -->
+            <!-- 家具：机 -->
 
-                <div class="shop-item">
+            <div class="shop-item">
 
-                    <div class="shop-icon">
-                        ✨
+                <div class="shop-icon">
+                    🪑
+                </div>
+
+                <div class="shop-info">
+
+                    <div class="shop-name">
+                        勉強机
                     </div>
 
-                    <div class="shop-info">
-
-                        <div class="shop-name">
-                            キラキラ背景
-                        </div>
-
-                        <div class="shop-description">
-                            集中できる特別な背景にする
-                        </div>
-
+                    <div class="shop-desc">
+                        部屋に机を置く：金5枚
                     </div>
-
-                    <button
-                        class="buy-button"
-                        data-item="sparkle"
-                        data-price="12">
-
-                        🟡 12
-
-                    </button>
 
                 </div>
 
+                <button
+                    class="buy"
+                    onclick="buyFurniture('desk',5)">
+
+                    🟡 5
+
+                </button>
+
+            </div>
 
 
-                <!-- ゴールドテーマ -->
+            <!-- ベッド -->
 
-                <div class="shop-item">
+            <div class="shop-item">
 
-                    <div class="shop-icon">
-                        👑
+                <div class="shop-icon">
+                    🛏️
+                </div>
+
+                <div class="shop-info">
+
+                    <div class="shop-name">
+                        ベッド
                     </div>
 
-                    <div class="shop-info">
-
-                        <div class="shop-name">
-                            ゴールドテーマ
-                        </div>
-
-                        <div class="shop-description">
-                            豪華な黄金の世界に変更する
-                        </div>
-
+                    <div class="shop-desc">
+                        部屋にベッドを置く：金8枚
                     </div>
-
-                    <button
-                        class="buy-button"
-                        data-item="gold"
-                        data-price="20">
-
-                        🟡 20
-
-                    </button>
 
                 </div>
 
+                <button
+                    class="buy"
+                    onclick="buyFurniture('bed',8)">
+
+                    🟡 8
+
+                </button>
+
+            </div>
+
+
+            <!-- 本棚 -->
+
+            <div class="shop-item">
+
+                <div class="shop-icon">
+                    📚
+                </div>
+
+                <div class="shop-info">
+
+                    <div class="shop-name">
+                        本棚
+                    </div>
+
+                    <div class="shop-desc">
+                        部屋に本棚を置く：金10枚
+                    </div>
+
+                </div>
+
+                <button
+                    class="buy"
+                    onclick="buyFurniture('books',10)">
+
+                    🟡 10
+
+                </button>
+
+            </div>
+
+
+            <!-- 観葉植物 -->
+
+            <div class="shop-item">
+
+                <div class="shop-icon">
+                    🪴
+                </div>
+
+                <div class="shop-info">
+
+                    <div class="shop-name">
+                        観葉植物
+                    </div>
+
+                    <div class="shop-desc">
+                        部屋に植物を置く：金12枚
+                    </div>
+
+                </div>
+
+                <button
+                    class="buy"
+                    onclick="buyFurniture('plant',12)">
+
+                    🟡 12
+
+                </button>
+
+            </div>
+
+
+            <!-- 背景 -->
+
+            <div class="shop-item">
+
+                <div class="shop-icon">
+                    🌈
+                </div>
+
+                <div class="shop-info">
+
+                    <div class="shop-name">
+                        虹色の部屋
+                    </div>
+
+                    <div class="shop-desc">
+                        部屋の雰囲気を変更：金5枚
+                    </div>
+
+                </div>
+
+                <button
+                    class="buy"
+                    onclick="buyBackground(5)">
+
+                    🟡 5
+
+                </button>
 
             </div>
 
@@ -1465,877 +1772,2057 @@
 
     </div>
 
+</div>
 
 
-    <!-- =========================================
-         購入演出
-    ========================================== -->
 
-    <div
-        class="purchase-effect"
-        id="purchaseEffect">
+<!-- =====================================================
+     実績モーダル
+===================================================== -->
 
-        ✨ PURCHASED! ✨
+<div
+    class="overlay"
+    id="achievementOverlay">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h2>
+                🏆 実績
+            </h2>
+
+            <button
+                class="close"
+                onclick="closeModal('achievementOverlay')">
+
+                ×
+
+            </button>
+
+        </div>
+
+        <div id="achievementModalList">
+        </div>
 
     </div>
 
+</div>
 
 
-    <script>
 
-        /* =========================================
-           基本データ
-        ========================================= */
+<!-- =====================================================
+     記録モーダル
+===================================================== -->
 
-        let seconds = 0;
+<div
+    class="overlay"
+    id="statsOverlay">
 
-        let timerInterval = null;
+    <div class="modal">
 
-        let isRunning = false;
+        <div class="modal-header">
 
+            <h2>
+                📊 集中記録
+            </h2>
 
-        /* =========================================
-           HTML取得
-        ========================================= */
+            <button
+                class="close"
+                onclick="closeModal('statsOverlay')">
 
-        const timer =
-            document.getElementById("timer");
+                ×
 
-        const copperCoins =
-            document.getElementById("copperCoins");
+            </button>
 
-        const silverCoins =
-            document.getElementById("silverCoins");
+        </div>
 
-        const goldCoins =
-            document.getElementById("goldCoins");
+        <div id="statsText">
+        </div>
 
-        const shopGold =
-            document.getElementById("shopGold");
+    </div>
 
-        const nextReward =
-            document.getElementById("nextReward");
-
-        const coin =
-            document.getElementById("coin");
-
-        const coinArea =
-            document.getElementById("coinArea");
-
-        const plusOne =
-            document.getElementById("plusOne");
-
-        const startBtn =
-            document.getElementById("startBtn");
-
-        const pauseBtn =
-            document.getElementById("pauseBtn");
-
-        const resetBtn =
-            document.getElementById("resetBtn");
-
-        const shopButton =
-            document.getElementById("shopButton");
-
-        const shopOverlay =
-            document.getElementById("shopOverlay");
-
-        const closeShop =
-            document.getElementById("closeShop");
-
-        const pet =
-            document.getElementById("pet");
-
-        const petMessage =
-            document.getElementById("petMessage");
-
-        const purchaseEffect =
-            document.getElementById("purchaseEffect");
+</div>
 
 
-        /* =========================================
-           購入済みアイテム
-        ========================================== */
 
-        let purchased =
-            JSON.parse(
-                localStorage.getItem(
-                    "coinShopItems"
-                )
-            ) || {};
+<!-- =====================================================
+     宝箱モーダル
+===================================================== -->
 
+<div
+    class="overlay"
+    id="chestOverlay">
 
-        /* =========================================
-           時間を表示
-        ========================================== */
+    <div class="modal">
 
-        function updateDisplay() {
+        <div class="modal-header">
 
-            const hours =
-                Math.floor(seconds / 3600);
+            <h2>
+                🎁 ランダム宝箱！
+            </h2>
 
-            const minutes =
-                Math.floor(
-                    (seconds % 3600) / 60
-                );
+        </div>
 
-            const secs =
-                seconds % 60;
+        <div
+            class="chest"
+            onclick="openChest()">
 
+            🎁
 
-            const hh =
-                String(hours)
-                    .padStart(2, "0");
+        </div>
 
-            const mm =
-                String(minutes)
-                    .padStart(2, "0");
+        <div
+            style="text-align:center">
 
-            const ss =
-                String(secs)
-                    .padStart(2, "0");
+            宝箱をクリック！
 
+        </div>
 
-            timer.textContent =
-                `${hh}:${mm}:${ss}`;
+        <div
+            class="chest-result"
+            id="chestResult">
+
+        </div>
+
+    </div>
+
+</div>
 
 
-            /*
-                コインの計算
 
-                0～59秒
-                → 銅コイン
+<!-- =====================================================
+     演出
+===================================================== -->
 
-                60～3599秒
-                → 銀コイン
+<div
+    class="motivation"
+    id="motivation">
 
-                3600秒～
-                → 金コイン
-            */
-
-            const copper =
-                seconds % 60;
-
-            const silver =
-                Math.floor(seconds / 60) % 60;
-
-            const gold =
-                Math.floor(seconds / 3600);
+</div>
 
 
-            copperCoins.textContent =
-                copper;
+<div
+    class="toast"
+    id="toast">
 
-            silverCoins.textContent =
-                silver;
-
-            goldCoins.textContent =
-                gold;
-
-            shopGold.textContent =
-                gold;
+</div>
 
 
-            updateNextReward();
 
-            updateShopButtons();
+<script>
+
+/* =====================================================
+   データ
+===================================================== */
+
+let game = {
+
+    seconds: 0,
+
+    copper: 0,
+
+    silver: 0,
+
+    gold: 0,
+
+    totalFocus: 0,
+
+    todayFocus: 0,
+
+    weekly: {},
+
+    history: {},
+
+    achievements: {},
+
+    pets: {
+        cat: {
+            level: 1,
+            exp: 0,
+            affection: 0
         }
+    },
 
+    currentPet: "cat",
 
-        /* =========================================
-           次の報酬
-        ========================================== */
+    ownedPets: {
+        cat: true
+    },
 
-        function updateNextReward() {
+    furniture: [],
 
-            if (seconds < 60) {
+    background: "default",
 
-                const remaining =
-                    60 - seconds;
+    pomodoro: false,
 
-                nextReward.textContent =
-                    `あと${remaining}秒で ⚪ 銀コイン！`;
+    pomodoroSeconds: 0,
 
-            } else {
+    pomodoroBreak: false,
 
-                const secondsToHour =
-                    3600 -
-                    (seconds % 3600);
+    lastChest: 0
+};
 
 
-                if (secondsToHour === 3600) {
+/* =====================================================
+   保存
+===================================================== */
 
-                    nextReward.textContent =
-                        "🟡 金コインを獲得！";
+function saveGame() {
 
-                } else {
+    localStorage.setItem(
+        "focusCoinGame",
+        JSON.stringify(game)
+    );
+}
 
-                    nextReward.textContent =
-                        `あと${secondsToHour}秒で 🟡 金コイン！`;
-                }
-            }
-        }
 
+/* =====================================================
+   読み込み
+===================================================== */
 
-        /* =========================================
-           コイン獲得演出
-        ========================================== */
+function loadGame() {
 
-        function coinEffect() {
-
-            coin.classList.remove(
-                "coin-get"
-            );
-
-            void coin.offsetWidth;
-
-            coin.classList.add(
-                "coin-get"
-            );
-
-
-            plusOne.classList.remove(
-                "show"
-            );
-
-            void plusOne.offsetWidth;
-
-            plusOne.classList.add(
-                "show"
-            );
-
-
-            createParticles();
-        }
-
-
-        /* =========================================
-           パーティクル
-        ========================================== */
-
-        function createParticles() {
-
-            for (
-                let i = 0;
-                i < 5;
-                i++
-            ) {
-
-                const particle =
-                    document.createElement(
-                        "div"
-                    );
-
-                particle.className =
-                    "particle";
-
-
-                particle.style.setProperty(
-                    "--random-x",
-                    Math.random() * 100
-                );
-
-
-                particle.style.left =
-                    `${40 + Math.random() * 20}%`;
-
-
-                particle.style.top =
-                    `${45 + Math.random() * 20}%`;
-
-
-                coinArea.appendChild(
-                    particle
-                );
-
-
-                setTimeout(
-                    () => {
-                        particle.remove();
-                    },
-                    800
-                );
-            }
-        }
-
-
-        /* =========================================
-           1秒進む
-        ========================================== */
-
-        function tick() {
-
-            seconds++;
-
-            updateDisplay();
-
-            coinEffect();
-
-
-            /*
-                60秒になった瞬間
-                銀コイン演出
-            */
-
-            if (seconds % 60 === 0) {
-
-                showReward(
-                    "⚪ SILVER COIN!"
-                );
-            }
-
-
-            /*
-                3600秒になった瞬間
-                金コイン演出
-            */
-
-            if (seconds % 3600 === 0) {
-
-                showReward(
-                    "🟡 GOLD COIN!"
-                );
-
-                petCheer();
-            }
-        }
-
-
-        /* =========================================
-           報酬演出
-        ========================================== */
-
-        function showReward(text) {
-
-            purchaseEffect.textContent =
-                text;
-
-            purchaseEffect.classList.remove(
-                "show"
-            );
-
-            void purchaseEffect.offsetWidth;
-
-            purchaseEffect.classList.add(
-                "show"
-            );
-        }
-
-
-        /* =========================================
-           スタート
-        ========================================== */
-
-        function start() {
-
-            if (isRunning) {
-                return;
-            }
-
-
-            isRunning = true;
-
-
-            startBtn.disabled =
-                true;
-
-            pauseBtn.disabled =
-                false;
-
-
-            timerInterval =
-                setInterval(
-                    tick,
-                    1000
-                );
-        }
-
-
-        /* =========================================
-           一時停止
-        ========================================== */
-
-        function pause() {
-
-            if (!isRunning) {
-                return;
-            }
-
-
-            isRunning = false;
-
-
-            clearInterval(
-                timerInterval
-            );
-
-
-            timerInterval = null;
-
-
-            startBtn.disabled =
-                false;
-
-            pauseBtn.disabled =
-                true;
-        }
-
-
-        /* =========================================
-           リセット
-        ========================================== */
-
-        function reset() {
-
-            clearInterval(
-                timerInterval
-            );
-
-
-            timerInterval = null;
-
-            isRunning = false;
-
-            seconds = 0;
-
-
-            updateDisplay();
-
-
-            startBtn.disabled =
-                false;
-
-            pauseBtn.disabled =
-                true;
-        }
-
-
-        /* =========================================
-           ショップを開く
-        ========================================== */
-
-        shopButton.addEventListener(
-            "click",
-            () => {
-
-                shopOverlay.classList.add(
-                    "open"
-                );
-
-                updateShopButtons();
-            }
+    const saved =
+        localStorage.getItem(
+            "focusCoinGame"
         );
 
+    if (!saved) {
+        return;
+    }
 
-        /* =========================================
-           ショップを閉じる
-        ========================================== */
+    try {
 
-        closeShop.addEventListener(
-            "click",
-            () => {
+        const data =
+            JSON.parse(saved);
 
-                shopOverlay.classList.remove(
-                    "open"
-                );
-            }
+        game = {
+            ...game,
+            ...data
+        };
+
+    } catch(error) {
+
+        console.log(
+            "セーブデータを読み込めませんでした"
+        );
+    }
+}
+
+
+/* =====================================================
+   今日の日付
+===================================================== */
+
+function getDateKey() {
+
+    const d = new Date();
+
+    return d.getFullYear()
+        + "-"
+        + String(d.getMonth() + 1)
+            .padStart(2,"0")
+        + "-"
+        + String(d.getDate())
+            .padStart(2,"0");
+}
+
+
+/* =====================================================
+   タイマー
+===================================================== */
+
+let interval = null;
+
+let running = false;
+
+
+/* =====================================================
+   表示
+===================================================== */
+
+function updateUI() {
+
+    const h =
+        Math.floor(
+            game.seconds / 3600
         );
 
-
-        /* =========================================
-           ショップ外をクリックして閉じる
-        ========================================== */
-
-        shopOverlay.addEventListener(
-            "click",
-            (event) => {
-
-                if (
-                    event.target ===
-                    shopOverlay
-                ) {
-
-                    shopOverlay.classList.remove(
-                        "open"
-                    );
-                }
-            }
+    const m =
+        Math.floor(
+            (game.seconds % 3600) / 60
         );
 
+    const s =
+        game.seconds % 60;
 
-        /* =========================================
-           ショップの購入ボタン
-        ========================================== */
 
-        document
-            .querySelectorAll(
-                ".buy-button"
-            )
-            .forEach(
-                button => {
+    document.getElementById(
+        "timer"
+    ).textContent =
+        String(h).padStart(2,"0")
+        + ":"
+        + String(m).padStart(2,"0")
+        + ":"
+        + String(s).padStart(2,"0");
 
-                    button.addEventListener(
-                        "click",
-                        () => {
 
-                            buyItem(
-                                button
-                            );
+    document.getElementById(
+        "copper"
+    ).textContent =
+        game.copper;
 
-                        }
-                    );
 
-                }
-            );
+    document.getElementById(
+        "silver"
+    ).textContent =
+        game.silver;
 
 
-        /* =========================================
-           アイテム購入
-        ========================================== */
+    document.getElementById(
+        "gold"
+    ).textContent =
+        game.gold;
 
-        function buyItem(button) {
 
-            const item =
-                button.dataset.item;
+    document.getElementById(
+        "shopGold"
+    ).textContent =
+        game.gold;
 
-            const price =
-                Number(
-                    button.dataset.price
-                );
 
+    updateRewardText();
 
-            const gold =
-                Math.floor(
-                    seconds / 3600
-                );
+    updatePet();
 
+    updateAchievements();
 
-            /*
-                すでに購入済み
-            */
+    updateChart();
 
-            if (purchased[item]) {
+    updateStats();
 
-                return;
-            }
+    updateRoom();
+}
 
 
-            /*
-                金コイン不足
-            */
+/* =====================================================
+   1秒進める
+===================================================== */
 
-            if (gold < price) {
+function tick() {
 
-                showReward(
-                    `🟡 あと${price - gold}枚必要！`
-                );
+    game.seconds++;
 
-                return;
-            }
+    game.totalFocus++;
 
+    game.todayFocus++;
 
-            /*
-                金コインを消費
+    game.copper++;
 
-                実際の秒数から
-                購入分の金コインを減らす
-            */
 
-            seconds -=
-                price * 3600;
+    /*
+        銅60枚 → 銀1枚
+    */
 
+    if (game.copper >= 60) {
 
-            /*
-                アイテムを記録
-            */
+        game.copper -= 60;
 
-            purchased[item] =
-                true;
+        game.silver++;
 
+        showMotivation(
+            "⚪ 銀コイン GET!"
+        );
 
-            localStorage.setItem(
-                "coinShopItems",
-                JSON.stringify(
-                    purchased
-                )
-            );
+        playSound(
+            "silver"
+        );
+    }
 
 
-            /*
-                アイテム適用
-            */
+    /*
+        銀60枚 → 金1枚
+    */
 
-            applyItem(item);
+    if (game.silver >= 60) {
 
+        game.silver -= 60;
 
-            /*
-                表示更新
-            */
+        game.gold++;
 
-            updateDisplay();
+        showMotivation(
+            "🟡 金コイン GET!"
+        );
 
-            updateShopButtons();
+        playSound(
+            "gold"
+        );
+    }
 
 
-            /*
-                購入演出
-            */
+    /*
+        日別記録
+    */
 
-            showReward(
-                "✨ PURCHASED! ✨"
-            );
-        }
+    const today =
+        getDateKey();
 
+    if (!game.history[today]) {
 
-        /* =========================================
-           購入済みボタンを変更
-        ========================================== */
+        game.history[today] = 0;
+    }
 
-        function updateShopButtons() {
+    game.history[today]++;
 
-            document
-                .querySelectorAll(
-                    ".buy-button"
-                )
-                .forEach(
-                    button => {
 
-                        const item =
-                            button.dataset.item;
+    /*
+        ペット成長
+    */
 
+    gainPetExp();
 
-                        if (
-                            purchased[item]
-                        ) {
 
-                            button.textContent =
-                                "✓ 購入済み";
+    /*
+        ポモドーロ
+    */
 
-                            button.classList.add(
-                                "sold"
-                            );
+    if (game.pomodoro) {
 
-                        } else {
+        game.pomodoroSeconds++;
 
-                            button.textContent =
-                                `🟡 ${button.dataset.price}`;
+        handlePomodoro();
+    }
 
-                            button.classList.remove(
-                                "sold"
-                            );
-                        }
-                    }
-                );
-        }
 
+    /*
+        10分前の応援
+    */
 
-        /* =========================================
-           アイテムを適用
-        ========================================== */
+    checkMotivation();
 
-        function applyItem(item) {
 
+    /*
+        30分ごとに宝箱
+    */
 
-            /* 虹色 */
+    if (
+        game.totalFocus > 0 &&
+        game.totalFocus % 1800 === 0
+    ) {
 
-            if (
-                item === "rainbow"
-            ) {
+        showChest();
 
-                document.body.style.background =
-                    `
-                    linear-gradient(
-                        135deg,
-                        #ff9a9e,
-                        #fad0c4,
-                        #a1c4fd,
-                        #c2e9fb
-                    )
-                    `;
-            }
+    }
 
 
-            /* 猫 */
+    /*
+        1時間達成
+    */
 
-            if (
-                item === "cat"
-            ) {
+    if (
+        game.totalFocus === 3600
+    ) {
 
-                pet.textContent =
-                    "🐱";
+        unlockAchievement(
+            "oneHour"
+        );
 
-                pet.classList.add(
-                    "show"
-                );
+        showMotivation(
+            "🏆 1時間達成！すごい！"
+        );
 
-                petMessage.textContent =
-                    "ニャー！一緒に頑張ろう！🐾";
+        playSound(
+            "achievement"
+        );
+    }
 
-                petMessage.classList.add(
-                    "show"
-                );
-            }
 
+    /*
+        10時間達成
+    */
 
-            /* 犬 */
+    if (
+        game.totalFocus === 36000
+    ) {
 
-            if (
-                item === "dog"
-            ) {
+        unlockAchievement(
+            "tenHour"
+        );
 
-                pet.textContent =
-                    "🐶";
+        showMotivation(
+            "🏆 10時間達成！伝説級！"
+        );
 
-                pet.classList.add(
-                    "show"
-                );
+        playSound(
+            "achievement"
+        );
+    }
 
-                petMessage.textContent =
-                    "ワン！まだまだいけるよ！🐶";
 
-                petMessage.classList.add(
-                    "show"
-                );
-            }
+    /*
+        1時間ごとの達成音
+    */
 
+    if (
+        game.totalFocus > 0 &&
+        game.totalFocus % 3600 === 0
+    ) {
 
-            /* キラキラ */
+        playSound(
+            "hour"
+        );
+    }
 
-            if (
-                item === "sparkle"
-            ) {
 
-                document.body.style.background =
-                    `
-                    radial-gradient(
-                        circle at 20% 20%,
-                        #ffffff,
-                        #d9f7ff,
-                        #9edfff,
-                        #8ca6ff
-                    )
-                    `;
-            }
+    saveGame();
 
+    updateUI();
+}
 
-            /* ゴールド */
 
-            if (
-                item === "gold"
-            ) {
+/* =====================================================
+   スタート
+===================================================== */
 
-                document.body.style.background =
-                    `
-                    radial-gradient(
-                        circle at center,
-                        #fff8b5 0%,
-                        #ffd83d 35%,
-                        #e6a400 70%,
-                        #9b6200 100%
-                    )
-                    `;
-            }
-        }
+function startTimer() {
 
+    if (running) {
+        return;
+    }
 
-        /* =========================================
-           ペット応援
-        ========================================== */
+    running = true;
 
-        function petCheer() {
+    document.getElementById(
+        "status"
+    ).textContent =
+        "🔥 集中中！その調子！";
 
-            if (
-                !pet.classList.contains(
-                    "show"
-                )
-            ) {
 
-                return;
-            }
-
-
-            petMessage.classList.remove(
-                "show"
-            );
-
-            void petMessage.offsetWidth;
-
-            petMessage.classList.add(
-                "show"
-            );
-        }
-
-
-        /* =========================================
-           定期的にペットが応援
-        ========================================== */
-
+    interval =
         setInterval(
-            () => {
+            tick,
+            1000
+        );
+}
 
-                if (
-                    isRunning &&
-                    pet.classList.contains(
-                        "show"
-                    )
-                ) {
 
-                    petCheer();
-                }
+/* =====================================================
+   一時停止
+===================================================== */
 
-            },
-            15000
+function pauseTimer() {
+
+    running = false;
+
+    clearInterval(
+        interval
+    );
+
+    interval = null;
+
+    document.getElementById(
+        "status"
+    ).textContent =
+        "⏸ 一時停止中";
+}
+
+
+/* =====================================================
+   リセット
+===================================================== */
+
+function resetTimer() {
+
+    pauseTimer();
+
+    game.seconds = 0;
+
+    game.copper = 0;
+
+    game.silver = 0;
+
+    /*
+        累計集中時間は消さない
+    */
+
+    updateUI();
+
+    saveGame();
+
+    showToast(
+        "タイマーをリセットしました"
+    );
+}
+
+
+/* =====================================================
+   次の報酬
+===================================================== */
+
+function updateRewardText() {
+
+    let remaining;
+
+    if (game.copper < 60) {
+
+        remaining =
+            60 - game.copper;
+
+        document.getElementById(
+            "nextReward"
+        ).textContent =
+            `⭐ あと${remaining}秒で ⚪ 銀コイン！`;
+
+        return;
+    }
+
+
+    if (game.silver < 60) {
+
+        remaining =
+            3600 -
+            (game.silver * 60)
+            - game.copper;
+
+        document.getElementById(
+            "nextReward"
+        ).textContent =
+            `⭐ あと${remaining}秒で 🟡 金コイン！`;
+
+        return;
+    }
+
+
+    document.getElementById(
+        "nextReward"
+    ).textContent =
+        "🟡 もうすぐ金コイン！";
+}
+
+
+/* =====================================================
+   ペット経験値
+===================================================== */
+
+function gainPetExp() {
+
+    const pet =
+        game.pets[
+            game.currentPet
+        ];
+
+    if (!pet) {
+        return;
+    }
+
+
+    /*
+        1分ごとに経験値
+    */
+
+    if (
+        game.totalFocus % 60 !== 0
+    ) {
+
+        return;
+    }
+
+
+    pet.exp++;
+
+    pet.affection++;
+
+    if (pet.affection > 100) {
+        pet.affection = 100;
+    }
+
+
+    /*
+        10EXPでレベルアップ
+    */
+
+    if (pet.exp >= 10) {
+
+        pet.exp = 0;
+
+        pet.level++;
+
+        pet.affection += 10;
+
+        if (pet.affection > 100) {
+            pet.affection = 100;
+        }
+
+        showMotivation(
+            "🐾 ペットがレベルアップ！"
+        );
+
+        playSound(
+            "level"
+        );
+    }
+}
+
+
+/* =====================================================
+   ペット表示
+===================================================== */
+
+function updatePet() {
+
+    const pet =
+        game.pets[
+            game.currentPet
+        ];
+
+    if (!pet) {
+        return;
+    }
+
+
+    const chars = {
+
+        cat: "🐱",
+
+        dog: "🐶",
+
+        rabbit: "🐰",
+
+        fox: "🦊",
+
+        panda: "🐼"
+    };
+
+
+    const names = {
+
+        cat: "ミケ",
+
+        dog: "ポチ",
+
+        rabbit: "モチ",
+
+        fox: "コン",
+
+        panda: "パン"
+    };
+
+
+    document.getElementById(
+        "petCharacter"
+    ).textContent =
+        chars[
+            game.currentPet
+        ];
+
+
+    document.getElementById(
+        "petName"
+    ).textContent =
+        names[
+            game.currentPet
+        ];
+
+
+    document.getElementById(
+        "petLevel"
+    ).textContent =
+        `Lv.${pet.level}`;
+
+
+    document.getElementById(
+        "affection"
+    ).textContent =
+        pet.affection;
+
+
+    document.getElementById(
+        "petExp"
+    ).style.width =
+        (pet.exp * 10)
+        + "%";
+
+
+    const messages = {
+
+        cat:
+            "ニャー！一緒に頑張ろう！🐾",
+
+        dog:
+            "ワン！まだまだいけるよ！🐶",
+
+        rabbit:
+            "モチモチ！集中できてるよ！🐰",
+
+        fox:
+            "その集中力、かっこいい！🦊",
+
+        panda:
+            "ゆっくりでも続ければOK！🐼"
+    };
+
+
+    document.getElementById(
+        "petMessage"
+    ).textContent =
+        messages[
+            game.currentPet
+        ];
+}
+
+
+/* =====================================================
+   ペット購入
+===================================================== */
+
+function buyPet(
+    type,
+    price
+) {
+
+    if (
+        game.ownedPets[type]
+    ) {
+
+        game.currentPet =
+            type;
+
+        updateUI();
+
+        saveGame();
+
+        showToast(
+            "ペットを変更しました！"
+        );
+
+        return;
+    }
+
+
+    if (
+        game.gold < price
+    ) {
+
+        showToast(
+            `金コインがあと${price - game.gold}枚必要です`
+        );
+
+        return;
+    }
+
+
+    game.gold -= price;
+
+    game.ownedPets[type] =
+        true;
+
+
+    game.pets[type] = {
+
+        level: 1,
+
+        exp: 0,
+
+        affection: 0
+    };
+
+
+    game.currentPet =
+        type;
+
+
+    saveGame();
+
+    updateUI();
+
+    showMotivation(
+        "🐾 新しいペット GET!"
+    );
+
+    playSound(
+        "purchase"
+    );
+}
+
+
+/* =====================================================
+   家具
+===================================================== */
+
+function buyFurniture(
+    type,
+    price
+) {
+
+    if (
+        game.furniture.includes(
+            type
+        )
+    ) {
+
+        showToast(
+            "この家具は購入済みです"
+        );
+
+        return;
+    }
+
+
+    if (
+        game.gold < price
+    ) {
+
+        showToast(
+            "金コインが足りません"
+        );
+
+        return;
+    }
+
+
+    game.gold -= price;
+
+    game.furniture.push(
+        type
+    );
+
+
+    saveGame();
+
+    updateUI();
+
+    showMotivation(
+        "🏠 家具をGET!"
+    );
+
+    playSound(
+        "purchase"
+    );
+}
+
+
+/* =====================================================
+   部屋
+===================================================== */
+
+function updateRoom() {
+
+    const roomFurniture =
+        document.getElementById(
+            "roomFurniture"
         );
 
 
-        /* =========================================
-           購入済みアイテムを読み込む
-        ========================================== */
+    roomFurniture.innerHTML = "";
 
-        Object.keys(
-            purchased
-        ).forEach(
-            item => {
 
-                if (
-                    purchased[item]
-                ) {
+    const positions = {
 
-                    applyItem(item);
-                }
+        desk: {
+            icon: "🪑",
+            left: "35%",
+            bottom: "10%"
+        },
+
+        bed: {
+            icon: "🛏️",
+            left: "65%",
+            bottom: "9%"
+        },
+
+        books: {
+            icon: "📚",
+            left: "15%",
+            bottom: "11%"
+        },
+
+        plant: {
+            icon: "🪴",
+            left: "82%",
+            bottom: "10%"
+        }
+    };
+
+
+    game.furniture.forEach(
+        item => {
+
+            const f =
+                positions[item];
+
+            if (!f) {
+                return;
             }
+
+
+            const el =
+                document.createElement(
+                    "div"
+                );
+
+            el.className =
+                "furniture";
+
+            el.textContent =
+                f.icon;
+
+            el.style.left =
+                f.left;
+
+            el.style.bottom =
+                f.bottom;
+
+            roomFurniture.appendChild(
+                el
+            );
+        }
+    );
+
+
+    if (
+        game.background ===
+        "rainbow"
+    ) {
+
+        document.getElementById(
+            "room"
+        ).style.background =
+            `
+            linear-gradient(
+                #ffb6c1,
+                #c7b7ff 55%,
+                #e6b86a 55%
+            )
+            `;
+    }
+}
+
+
+/* =====================================================
+   背景購入
+===================================================== */
+
+function buyBackground(
+    price
+) {
+
+    if (
+        game.background ===
+        "rainbow"
+    ) {
+
+        showToast(
+            "すでに購入済みです"
+        );
+
+        return;
+    }
+
+
+    if (
+        game.gold < price
+    ) {
+
+        showToast(
+            "金コインが足りません"
+        );
+
+        return;
+    }
+
+
+    game.gold -= price;
+
+    game.background =
+        "rainbow";
+
+
+    document.body.style.background =
+        `
+        linear-gradient(
+            135deg,
+            #ff9a9e,
+            #fad0c4,
+            #a1c4fd,
+            #c2e9fb
+        )
+        `;
+
+
+    saveGame();
+
+    updateUI();
+
+    showMotivation(
+        "🌈 部屋が変わった！"
+    );
+}
+
+
+/* =====================================================
+   実績
+===================================================== */
+
+const achievementData = {
+
+    oneHour: {
+        icon: "⏰",
+        name: "1時間達成",
+        desc: "累計1時間集中する"
+    },
+
+    tenHour: {
+        icon: "🏆",
+        name: "10時間達成",
+        desc: "累計10時間集中する"
+    },
+
+    thirtyMinutes: {
+        icon: "🔥",
+        name: "30分集中",
+        desc: "30分集中する"
+    },
+
+    chest: {
+        icon: "🎁",
+        name: "宝箱ハンター",
+        desc: "宝箱を開ける"
+    },
+
+    petLevel5: {
+        icon: "🐾",
+        name: "ペットマスター",
+        desc: "ペットをLv.5にする"
+    }
+};
+
+
+function unlockAchievement(
+    id
+) {
+
+    if (
+        game.achievements[id]
+    ) {
+
+        return;
+    }
+
+
+    game.achievements[id] =
+        true;
+
+
+    showMotivation(
+        "🏆 実績解除！"
+    );
+
+    playSound(
+        "achievement"
+    );
+
+
+    saveGame();
+}
+
+
+function updateAchievements() {
+
+    if (
+        game.totalFocus >= 1800
+    ) {
+
+        unlockAchievement(
+            "thirtyMinutes"
+        );
+    }
+
+
+    const pet =
+        game.pets[
+            game.currentPet
+        ];
+
+    if (
+        pet &&
+        pet.level >= 5
+    ) {
+
+        unlockAchievement(
+            "petLevel5"
+        );
+    }
+
+
+    const list =
+        document.getElementById(
+            "achievementList"
         );
 
 
-        /* =========================================
-           ボタンイベント
-        ========================================== */
+    list.innerHTML = "";
 
-        startBtn.addEventListener(
-            "click",
-            start
+
+    Object.keys(
+        achievementData
+    ).forEach(
+        id => {
+
+            const a =
+                achievementData[id];
+
+            const unlocked =
+                game.achievements[id];
+
+
+            const el =
+                document.createElement(
+                    "div"
+                );
+
+            el.className =
+                "achievement "
+                + (
+                    unlocked
+                    ? ""
+                    : "locked"
+                );
+
+
+            el.innerHTML = `
+
+                <div class="achievement-icon">
+                    ${a.icon}
+                </div>
+
+                <div>
+
+                    <div class="achievement-name">
+                        ${a.name}
+                    </div>
+
+                    <div class="achievement-desc">
+                        ${a.desc}
+                    </div>
+
+                </div>
+
+            `;
+
+
+            list.appendChild(
+                el
+            );
+        }
+    );
+}
+
+
+/* =====================================================
+   実績モーダル
+===================================================== */
+
+function openAchievements() {
+
+    const list =
+        document.getElementById(
+            "achievementModalList"
         );
 
 
-        pauseBtn.addEventListener(
-            "click",
-            pause
+    list.innerHTML = "";
+
+
+    Object.keys(
+        achievementData
+    ).forEach(
+        id => {
+
+            const a =
+                achievementData[id];
+
+            const unlocked =
+                game.achievements[id];
+
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+            div.className =
+                "achievement "
+                + (
+                    unlocked
+                    ? ""
+                    : "locked"
+                );
+
+
+            div.innerHTML = `
+
+                <div class="achievement-icon">
+                    ${a.icon}
+                </div>
+
+                <div>
+
+                    <div class="achievement-name">
+                        ${a.name}
+                    </div>
+
+                    <div class="achievement-desc">
+                        ${a.desc}
+                    </div>
+
+                </div>
+
+            `;
+
+
+            list.appendChild(
+                div
+            );
+        }
+    );
+
+
+    document.getElementById(
+        "achievementOverlay"
+    ).classList.add(
+        "open"
+    );
+}
+
+
+/* =====================================================
+   ランダム宝箱
+===================================================== */
+
+function showChest() {
+
+    document.getElementById(
+        "chestResult"
+    ).textContent = "";
+
+
+    document.getElementById(
+        "chestOverlay"
+    ).classList.add(
+        "open"
+    );
+}
+
+
+function openChest() {
+
+    const rewards = [
+
+        {
+            text: "🟡 金コイン +1！",
+            value: 1
+        },
+
+        {
+            text: "🟡 金コイン +2！",
+            value: 2
+        },
+
+        {
+            text: "🟡 金コイン +3！",
+            value: 3
+        },
+
+        {
+            text: "🟡 金コイン +5！",
+            value: 5
+        }
+    ];
+
+
+    const reward =
+        rewards[
+            Math.floor(
+                Math.random()
+                * rewards.length
+            )
+        ];
+
+
+    game.gold +=
+        reward.value;
+
+
+    game.lastChest =
+        Date.now();
+
+
+    unlockAchievement(
+        "chest"
+    );
+
+
+    document.getElementById(
+        "chestResult"
+    ).textContent =
+        reward.text;
+
+
+    playSound(
+        "chest"
+    );
+
+    saveGame();
+
+    updateUI();
+
+
+    setTimeout(
+        () => {
+
+            closeModal(
+                "chestOverlay"
+            );
+
+        },
+        1800
+    );
+}
+
+
+/* =====================================================
+   ポモドーロ
+===================================================== */
+
+function togglePomodoro() {
+
+    game.pomodoro =
+        !game.pomodoro;
+
+
+    game.pomodoroSeconds =
+        0;
+
+    game.pomodoroBreak =
+        false;
+
+
+    document.getElementById(
+        "pomodoroInfo"
+    ).style.display =
+        game.pomodoro
+        ? "block"
+        : "none";
+
+
+    document.getElementById(
+        "modeDisplay"
+    ).textContent =
+        game.pomodoro
+        ? "🍅 ポモドーロモード"
+        : "🌞 通常モード";
+
+
+    showToast(
+        game.pomodoro
+        ? "ポモドーロモード ON"
+        : "通常モードに戻しました"
+    );
+}
+
+
+/* =====================================================
+   ポモドーロ処理
+===================================================== */
+
+function handlePomodoro() {
+
+    const limit =
+        game.pomodoroBreak
+        ? 300
+        : 1500;
+
+
+    if (
+        game.pomodoroSeconds >=
+        limit
+    ) {
+
+        game.pomodoroSeconds =
+            0;
+
+
+        game.pomodoroBreak =
+            !game.pomodoroBreak;
+
+
+        if (
+            game.pomodoroBreak
+        ) {
+
+            showMotivation(
+                "🍅 25分達成！5分休憩しよう！"
+            );
+
+            playSound(
+                "achievement"
+            );
+
+        } else {
+
+            showMotivation(
+                "🔥 休憩終了！もう一度集中！"
+            );
+
+            playSound(
+                "achievement"
+            );
+        }
+    }
+}
+
+
+/* =====================================================
+   応援
+===================================================== */
+
+let lastMotivationMinute =
+    -1;
+
+
+function checkMotivation() {
+
+    const remaining =
+        3600 -
+        (
+            game.totalFocus
+            % 3600
         );
 
 
-        resetBtn.addEventListener(
-            "click",
-            reset
+    /*
+        10分前
+    */
+
+    if (
+        remaining === 600 &&
+        lastMotivationMinute !==
+        game.totalFocus
+    ) {
+
+        showMotivation(
+            "⭐ あと10分で1時間！"
+        );
+
+        lastMotivationMinute =
+            game.totalFocus;
+    }
+
+
+    /*
+        5分前
+    */
+
+    if (
+        remaining === 300
+    ) {
+
+        showMotivation(
+            "🔥 あと5分！ここまで来たら行ける！"
+        );
+    }
+
+
+    /*
+        1分前
+    */
+
+    if (
+        remaining === 60
+    ) {
+
+        showMotivation(
+            "💪 あと1分！ラストスパート！"
+        );
+    }
+}
+
+
+/* =====================================================
+   グラフ
+===================================================== */
+
+function updateChart() {
+
+    const chart =
+        document.getElementById(
+            "chart"
         );
 
 
-        /* =========================================
-           最初の表示
-        ========================================== */
+    chart.innerHTML = "";
 
-        updateDisplay();
 
-    </script>
+    const today =
+        getDateKey();
+
+
+    const data = [];
+
+
+    /*
+        今日を含む過去7日
+    */
+
+    for (
+        let i = 6;
+        i >= 0;
+        i--
+    ) {
+
+        const d =
+            new Date();
+
+        d.setDate(
+            d.getDate() - i
+        );
+
+
+        const key =
+            d.getFullYear()
+            + "-"
+            + String(
+                d.getMonth() + 1
+            ).padStart(2,"0")
+            + "-"
+            + String(
+                d.getDate()
+            ).padStart(2,"0");
+
+
+        data.push({
+
+            key,
+
+            value:
+                game.history[key]
+                || 0
+        });
+    }
+
+
+    const max =
+        Math.max(
+            ...data.map(
+                x => x.value
+            ),
+            60
+        );
+
+
+    data.forEach(
+        item => {
+
+            const wrap =
+                document.createElement(
+                    "div"
+                );
+
+            wrap.className =
+                "bar-wrap";
+
+
+            const bar =
+                document.createElement(
+                    "div"
+                );
+
+            bar.className =
+                "bar";
+
+
+            const height =
+                Math.max(
+                    3,
+                    (
+                        item.value
+                        / max
+                    ) * 100
+                );
+
+
+            bar.style.height =
+                height + "%";
+
+
+            const label =
+                document.createElement(
+                    "div"
+                );
+
+            label.className =
+                "bar-label";
+
+
+            label.textContent =
+                item.key.slice(5);
+
+
+            wrap.appendChild(
+                bar
+            );
+
+            wrap.appendChild(
+                label
+            );
+
+
+            chart.appendChild(
+                wrap
+            );
+        }
+    );
+}
+
+
+/* =====================================================
+   記録
+===================================================== */
+
+function updateStats() {
+
+    const today =
+        getDateKey();
+
+
+    const todaySeconds =
+        game.history[today]
+        || 0;
+
+
+    let weekSeconds = 0;
+
+
+    Object.keys(
+        game.history
+    ).forEach(
+        key => {
+
+            const d =
+                new Date(key);
+
+
+            const now =
+                new Date();
+
+
+            const diff =
+                (
+                    now - d
+                )
+                / 86400000;
+
+
+            if (
+                diff >= 0 &&
+                diff < 7
+            ) {
+
+                weekSeconds +=
+                    game.history[key];
+            }
+        }
+    );
+
+
+    const format =
+        sec => {
+
+            const h =
+                Math.floor(
+                    sec / 3600
+                );
+
+            const m =
+                Math.floor(
+                    (sec % 3600)
+                    / 60
+                );
+
+            return `${h}時間${m}分`;
+        };
+
+
+    document.getElementById(
+        "statsText"
+    ).innerHTML = `
+
+        <div class="reward-box">
+            📅 今日：<strong>${format(todaySeconds)}</strong>
+        </div>
+
+        <div class="reward-box">
+            📆 今週：<strong>${format(weekSeconds)}</strong>
+        </div>
+
+        <div class="reward-box">
+            🏆 累計：<strong>${format(game.totalFocus)}</strong>
+        </div>
+
+    `;
+}
+
+
+function openStats() {
+
+    updateStats();
+
+    document.getElementById(
+        "statsOverlay"
+    ).classList.add(
+        "open"
+    );
+}
+
+
+/* =====================================================
+   ショップ
+===================================================== */
+
+function openShop() {
+
+    document.getElementById(
+        "shopOverlay"
+    ).classList.add(
+        "open"
+    );
+}
+
+
+/* =====================================================
+   モーダルを閉じる
+===================================================== */
+
+function closeModal(
+    id
+) {
+
+    document.getElementById(
+        id
+    ).classList.remove(
+        "open"
+    );
+}
+
+
+/* =====================================================
+   背景復元
+===================================================== */
+
+function restoreBackground() {
+
+    if (
+        game.background ===
+        "rainbow"
+    ) {
+
+        document.body.style.background =
+            `
+            linear-gradient(
+                135deg,
+                #ff9a9e,
+                #fad0c4,
+                #a1c4fd,
+                #c2e9fb
+            )
+            `;
+    }
+}
+
+
+/* =====================================================
+   音
+===================================================== */
+
+let audioContext =
+    null;
+
+
+function playSound(
+    type
+) {
+
+    try {
+
+        if (
+            !audioContext
+        ) {
+
+            audioContext =
+                new (
+                    window.AudioContext
+                    || window.webkitAudioContext
+                )();
+        }
+
+
+        const osc =
+            audioContext.createOscillator();
+
+        const gain =
+            audioContext.createGain();
+
+
+        osc.connect(
+            gain
+        );
+
+        gain.connect(
+            audioContext.destination
+        );
+
+
+        const frequencies = {
+
+            silver: 700,
+
+            gold: 1000,
+
+            achievement: 880,
+
+            hour: 1200,
+
+            level: 650,
+
+            purchase: 520,
+
+            chest: 1400
+        };
+
+
+        osc.frequency.value =
+            frequencies[type]
+            || 700;
+
+
+        osc.type =
+            "sine";
+
+
+        gain.gain.setValueAtTime(
+            0.001,
+            audioContext.currentTime
+        );
+
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.18,
+            audioContext.currentTime
+            + 0.02
+        );
+
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            audioContext.currentTime
+            + 0.35
+        );
+
+
+        osc.start();
+
+        osc.stop(
+            audioContext.currentTime
+            + 0.35
+        );
+
+    } catch(e) {
+
+        /*
+            ブラウザが音声を
+            許可していない場合は
+            無視する
+        */
+    }
+}
+
+
+/* =====================================================
+   演出
+===================================================== */
+
+function showMotivation(
+    text
+) {
+
+    const el =
+        document.getElementById(
+            "motivation"
+        );
+
+
+    el.textContent =
+        text;
+
+
+    el.classList.remove(
+        "show"
+    );
+
+
+    void el.offsetWidth;
+
+
+    el.classList.add(
+        "show"
+    );
+}
+
+
+function showToast(
+    text
+) {
+
+    const el =
+        document.getElementById(
+            "toast"
+        );
+
+
+    el.textContent =
+        text;
+
+
+    el.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        () => {
+
+            el.classList.remove(
+                "show"
+            );
+
+        },
+        2200
+    );
+}
+
+
+/* =====================================================
+   初期化
+===================================================== */
+
+loadGame();
+
+restoreBackground();
+
+updateUI();
+
+</script>
 
 </body>
 </html>
