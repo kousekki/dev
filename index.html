@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ゴールドコイン ストップウォッチ</title>
+
+    <title>COIN MOTIVATION</title>
 
     <style>
+
+        /* =========================================
+           基本設定
+        ========================================= */
+
         * {
             box-sizing: border-box;
         }
@@ -13,292 +19,846 @@
         body {
             margin: 0;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+
+            font-family:
+                Arial,
+                "Hiragino Kaku Gothic ProN",
+                Meiryo,
+                sans-serif;
+
             background:
-                radial-gradient(circle at center, #fff9d6 0%, #ffe98a 35%, #f4c83d 100%);
-            font-family: Arial, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-            overflow: hidden;
+                radial-gradient(
+                    circle at center,
+                    #fffbe8 0%,
+                    #ffe99b 45%,
+                    #f2c337 100%
+                );
+
+            color: #4a3500;
+
+            overflow-x: hidden;
+
+            transition:
+                background 0.7s ease;
         }
+
+
+        /* =========================================
+           右上のショップボタン
+        ========================================= */
+
+        .shop-button {
+            position: fixed;
+
+            top: 20px;
+            right: 20px;
+
+            z-index: 1000;
+
+            padding: 12px 18px;
+
+            border: 3px solid #c48a00;
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    #fff2a1,
+                    #ffc928
+                );
+
+            color: #704a00;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 5px 0 #a66d00,
+                0 8px 15px rgba(80, 50, 0, 0.25);
+
+            transition: 0.15s;
+        }
+
+        .shop-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .shop-button:active {
+            transform: translateY(3px);
+
+            box-shadow:
+                0 2px 0 #a66d00;
+        }
+
+
+        /* =========================================
+           メイン
+        ========================================= */
 
         .game {
-            width: 90%;
-            max-width: 650px;
-            padding: 40px 25px;
+            width: 92%;
+            max-width: 720px;
+
+            margin: 80px auto 40px;
+
+            padding: 35px 25px;
+
             text-align: center;
-            background: rgba(255, 255, 255, 0.92);
-            border: 5px solid #e0ad19;
+
+            background: rgba(255,255,255,0.94);
+
+            border: 5px solid #dda900;
+
             border-radius: 30px;
+
             box-shadow:
-                0 15px 40px rgba(135, 91, 0, 0.3),
-                inset 0 0 20px rgba(255, 220, 80, 0.4);
+                0 20px 50px rgba(120,80,0,0.25),
+                inset 0 0 25px rgba(255,220,80,0.35);
         }
+
 
         h1 {
-            margin: 0 0 25px;
-            color: #9b6900;
-            font-size: clamp(26px, 6vw, 42px);
-            text-shadow: 2px 2px 0 #ffe47a;
+            margin: 0 0 10px;
+
+            font-size:
+                clamp(28px, 7vw, 46px);
+
+            color: #9a6800;
+
+            text-shadow:
+                3px 3px 0 #ffe788;
         }
 
-        /* ストップウォッチ */
-        .timer {
-            font-size: clamp(55px, 13vw, 100px);
-            font-weight: bold;
-            color: #3d2b00;
-            letter-spacing: 4px;
+
+        .subtitle {
             margin-bottom: 25px;
-            font-variant-numeric: tabular-nums;
+
+            color: #92712d;
+
+            font-weight: bold;
         }
 
-        /* コイン表示 */
+
+        /* =========================================
+           ストップウォッチ
+        ========================================= */
+
+        .timer {
+            font-size:
+                clamp(55px, 13vw, 95px);
+
+            font-weight: bold;
+
+            letter-spacing: 4px;
+
+            color: #3c2c00;
+
+            font-variant-numeric:
+                tabular-nums;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =========================================
+           コイン一覧
+        ========================================= */
+
+        .wallet {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 12px;
+
+            margin: 20px auto;
+
+            max-width: 600px;
+        }
+
+
+        .wallet-card {
+            padding: 14px 8px;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    #fffdf0,
+                    #fff3bd
+                );
+
+            border: 3px solid #e3bd46;
+
+            box-shadow:
+                0 5px 12px rgba(100,70,0,0.12);
+        }
+
+
+        .wallet-icon {
+            font-size: 38px;
+        }
+
+
+        .wallet-name {
+            margin-top: 4px;
+
+            font-weight: bold;
+
+            color: #806000;
+        }
+
+
+        .wallet-number {
+            font-size: 30px;
+
+            font-weight: bold;
+
+            color: #9a6900;
+
+            font-variant-numeric:
+                tabular-nums;
+        }
+
+
+        /* =========================================
+           メインコイン
+        ========================================= */
+
         .coin-area {
             position: relative;
-            height: 250px;
+
+            height: 230px;
+
             display: flex;
+
             justify-content: center;
+
             align-items: center;
-            margin: 10px 0;
         }
 
+
         .coin {
-            width: 150px;
-            height: 150px;
+            width: 145px;
+            height: 145px;
+
             position: relative;
+
             border-radius: 50%;
 
             background:
                 radial-gradient(
                     circle at 35% 28%,
-                    #fff8a8 0%,
-                    #fff06a 15%,
-                    #ffd936 38%,
-                    #f2bd17 70%,
-                    #c98d00 100%
+                    #fffab2 0%,
+                    #fff064 18%,
+                    #ffd735 42%,
+                    #efb916 72%,
+                    #c98a00 100%
                 );
 
-            border: 10px solid #d69d08;
+            border: 10px solid #d39b05;
 
             box-shadow:
-                0 0 0 5px #ffe56a,
-                0 8px 0 #b77d00,
-                0 12px 20px rgba(100, 65, 0, 0.3);
+                0 0 0 5px #ffe56b,
+                0 9px 0 #b77c00,
+                0 14px 22px rgba(100,65,0,0.3);
 
-            image-rendering: pixelated;
+            transition: 0.2s;
         }
 
-        /* コイン中央の模様 */
+
         .coin::before {
             content: "★";
+
             position: absolute;
+
             inset: 15px;
+
             display: flex;
+
             justify-content: center;
+
             align-items: center;
 
-            color: #f8c927;
-            font-size: 70px;
+            font-size: 65px;
+
+            color: #f7c825;
 
             text-shadow:
                 2px 2px 0 #fff17b,
                 -2px -2px 0 #d89d00,
-                3px 3px 0 #c28a00;
+                4px 4px 0 #c28a00;
         }
 
-        /* コインの光 */
+
         .coin::after {
             content: "";
+
             position: absolute;
+
             width: 35px;
             height: 18px;
-            top: 20px;
+
+            top: 18px;
             left: 28px;
-            background: rgba(255, 255, 255, 0.75);
+
+            background:
+                rgba(255,255,255,0.8);
+
             border-radius: 50%;
-            transform: rotate(-25deg);
+
+            transform:
+                rotate(-25deg);
         }
 
-        /* コインが増えたときのアニメーション */
-        .coin.coin-get {
-            animation: coinGet 0.65s ease-out;
+
+        .coin-get {
+            animation:
+                coinGet 0.65s ease-out;
         }
+
 
         @keyframes coinGet {
+
             0% {
-                transform: scale(0.7) rotate(-15deg);
-                filter: brightness(1);
+                transform:
+                    scale(0.7)
+                    rotate(-15deg);
             }
 
             35% {
-                transform: scale(1.25) rotate(10deg);
-                filter: brightness(1.5);
+                transform:
+                    scale(1.25)
+                    rotate(10deg);
             }
 
             65% {
-                transform: scale(1.08) rotate(-5deg);
-                filter: brightness(1.25);
+                transform:
+                    scale(1.08)
+                    rotate(-5deg);
             }
 
             100% {
-                transform: scale(1) rotate(0deg);
-                filter: brightness(1);
+                transform:
+                    scale(1)
+                    rotate(0deg);
             }
         }
 
-        /* +1 COIN 演出 */
+
+        /* =========================================
+           +1 演出
+        ========================================= */
+
         .plus-one {
             position: absolute;
-            top: 25px;
-            left: 50%;
-            transform: translateX(-50%);
 
-            font-size: 40px;
+            top: 20px;
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            font-size: 35px;
+
             font-weight: bold;
-            color: #ffb800;
+
+            color: #ffae00;
 
             text-shadow:
                 2px 2px 0 white,
-                4px 4px 0 #c88800;
+                4px 4px 0 #bd7c00;
 
             opacity: 0;
+
             pointer-events: none;
         }
 
+
         .plus-one.show {
-            animation: plusOne 0.8s ease-out;
+            animation:
+                plusOne 0.8s ease-out;
         }
 
+
         @keyframes plusOne {
+
             0% {
                 opacity: 0;
-                transform: translate(-50%, 30px) scale(0.5);
+
+                transform:
+                    translate(-50%, 30px)
+                    scale(0.5);
             }
 
             25% {
                 opacity: 1;
-                transform: translate(-50%, 0) scale(1.2);
+
+                transform:
+                    translate(-50%, 0)
+                    scale(1.2);
             }
 
             70% {
                 opacity: 1;
-                transform: translate(-50%, -25px) scale(1);
+
+                transform:
+                    translate(-50%, -25px)
+                    scale(1);
             }
 
             100% {
                 opacity: 0;
-                transform: translate(-50%, -60px) scale(0.8);
+
+                transform:
+                    translate(-50%, -60px)
+                    scale(0.8);
             }
         }
 
-        /* コイン総数 */
-        .total-box {
-            margin: 10px auto 25px;
-            padding: 15px 20px;
-            width: min(90%, 420px);
 
-            background: linear-gradient(
-                180deg,
-                #fff8c7,
-                #ffe477
-            );
+        /* =========================================
+           次のコインまで
+        ========================================= */
 
-            border: 3px solid #dca600;
-            border-radius: 18px;
-            box-shadow: inset 0 2px 5px rgba(255,255,255,0.8);
-        }
+        .next-reward {
+            margin: 5px auto 25px;
 
-        .total-label {
-            font-size: 17px;
-            color: #775100;
+            max-width: 500px;
+
+            padding: 12px 15px;
+
+            border-radius: 15px;
+
+            background: #fff8d4;
+
+            border: 2px solid #e4c45b;
+
+            color: #806000;
+
             font-weight: bold;
         }
 
-        .total {
-            margin-top: 3px;
-            font-size: 45px;
-            font-weight: bold;
-            color: #9a6900;
-            text-shadow: 2px 2px 0 #fff0a0;
-            font-variant-numeric: tabular-nums;
-        }
 
-        .unit {
-            font-size: 22px;
-            margin-left: 5px;
-        }
+        /* =========================================
+           ボタン
+        ========================================= */
 
-        /* ボタン */
         .buttons {
             display: flex;
+
             justify-content: center;
+
             gap: 12px;
+
             flex-wrap: wrap;
         }
 
+
         button {
             border: none;
+
             border-radius: 14px;
-            padding: 15px 28px;
-            font-size: 18px;
+
+            padding: 14px 25px;
+
+            font-size: 17px;
+
             font-weight: bold;
+
             cursor: pointer;
+
             transition: 0.15s;
-            box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
+
+            box-shadow:
+                0 5px 0 rgba(0,0,0,0.2);
         }
+
 
         button:hover {
-            transform: translateY(-2px);
+            transform:
+                translateY(-2px);
         }
+
 
         button:active {
-            transform: translateY(3px);
-            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+            transform:
+                translateY(3px);
+
+            box-shadow:
+                0 2px 0 rgba(0,0,0,0.2);
         }
 
-        #startBtn {
-            color: white;
-            background: linear-gradient(#48d66b, #20a943);
-        }
-
-        #pauseBtn {
-            color: white;
-            background: linear-gradient(#ffbf3d, #e58a00);
-        }
-
-        #resetBtn {
-            color: white;
-            background: linear-gradient(#ff6565, #d93636);
-        }
 
         button:disabled {
             opacity: 0.45;
+
             cursor: not-allowed;
-            transform: none;
         }
 
-        /* 下に浮かぶ小さなコイン */
+
+        #startBtn {
+            color: white;
+
+            background:
+                linear-gradient(
+                    #4cda6d,
+                    #20a943
+                );
+        }
+
+
+        #pauseBtn {
+            color: white;
+
+            background:
+                linear-gradient(
+                    #ffc344,
+                    #e68b00
+                );
+        }
+
+
+        #resetBtn {
+            color: white;
+
+            background:
+                linear-gradient(
+                    #ff6767,
+                    #d93636
+                );
+        }
+
+
+        /* =========================================
+           ペット
+        ========================================= */
+
+        .pet {
+            position: fixed;
+
+            bottom: 20px;
+            left: 20px;
+
+            z-index: 500;
+
+            display: none;
+
+            font-size: 70px;
+
+            filter:
+                drop-shadow(
+                    0 5px 4px
+                    rgba(0,0,0,0.25)
+                );
+
+            animation:
+                petFloat 2s ease-in-out infinite;
+        }
+
+
+        .pet.show {
+            display: block;
+        }
+
+
+        .pet-message {
+            position: fixed;
+
+            bottom: 105px;
+            left: 20px;
+
+            z-index: 501;
+
+            display: none;
+
+            padding: 10px 15px;
+
+            background: white;
+
+            border: 3px solid #d7a20b;
+
+            border-radius: 15px;
+
+            font-weight: bold;
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,0.15);
+        }
+
+
+        .pet-message.show {
+            display: block;
+
+            animation:
+                messagePop 0.5s ease-out;
+        }
+
+
+        @keyframes petFloat {
+
+            0%,100% {
+                transform:
+                    translateY(0);
+            }
+
+            50% {
+                transform:
+                    translateY(-12px);
+            }
+        }
+
+
+        @keyframes messagePop {
+
+            0% {
+                transform:
+                    scale(0.5);
+
+                opacity: 0;
+            }
+
+            100% {
+                transform:
+                    scale(1);
+
+                opacity: 1;
+            }
+        }
+
+
+        /* =========================================
+           ショップ画面
+        ========================================= */
+
+        .shop-overlay {
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 2000;
+
+            display: none;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
+
+            background:
+                rgba(50,35,0,0.65);
+
+            backdrop-filter:
+                blur(5px);
+        }
+
+
+        .shop-overlay.open {
+            display: flex;
+        }
+
+
+        .shop {
+            width: 95%;
+            max-width: 650px;
+
+            max-height: 90vh;
+
+            overflow-y: auto;
+
+            padding: 25px;
+
+            background:
+                linear-gradient(
+                    #fffef5,
+                    #fff2b4
+                );
+
+            border: 5px solid #dca900;
+
+            border-radius: 25px;
+
+            box-shadow:
+                0 20px 60px
+                rgba(0,0,0,0.35);
+        }
+
+
+        .shop-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+
+        .shop-header h2 {
+            margin: 0;
+
+            color: #8d6000;
+        }
+
+
+        .close-shop {
+            padding: 8px 13px;
+
+            font-size: 20px;
+
+            background:
+                #ff6868;
+
+            color: white;
+
+            box-shadow:
+                0 3px 0 #b72d2d;
+        }
+
+
+        .shop-balance {
+            margin-bottom: 18px;
+
+            padding: 12px;
+
+            text-align: center;
+
+            border-radius: 15px;
+
+            background: #ffe680;
+
+            border: 2px solid #d6a700;
+
+            font-weight: bold;
+
+            font-size: 20px;
+        }
+
+
+        .shop-items {
+            display: grid;
+
+            gap: 12px;
+        }
+
+
+        .shop-item {
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            padding: 15px;
+
+            background:
+                rgba(255,255,255,0.8);
+
+            border: 2px solid #e0bd55;
+
+            border-radius: 18px;
+        }
+
+
+        .shop-icon {
+            font-size: 45px;
+
+            min-width: 55px;
+        }
+
+
+        .shop-info {
+            flex: 1;
+
+            text-align: left;
+        }
+
+
+        .shop-name {
+            font-size: 18px;
+
+            font-weight: bold;
+
+            color: #795200;
+        }
+
+
+        .shop-description {
+            margin-top: 4px;
+
+            font-size: 13px;
+
+            color: #92763b;
+        }
+
+
+        .buy-button {
+            padding: 10px 15px;
+
+            background:
+                linear-gradient(
+                    #ffd951,
+                    #e9a900
+                );
+
+            color: #664400;
+
+            white-space: nowrap;
+        }
+
+
+        .buy-button.sold {
+            background:
+                #bdbdbd;
+
+            color: white;
+
+            box-shadow:
+                0 3px 0 #888;
+        }
+
+
+        /* =========================================
+           パーティクル
+        ========================================= */
+
         .particle {
             position: absolute;
-            width: 20px;
-            height: 20px;
+
+            width: 18px;
+            height: 18px;
+
             border-radius: 50%;
 
-            background: #ffd52f;
-            border: 3px solid #d59d00;
+            background:
+                #ffd42f;
+
+            border: 3px solid #d29b00;
 
             pointer-events: none;
-            animation: particle 0.8s ease-out forwards;
+
+            animation:
+                particle 0.8s ease-out forwards;
         }
 
+
         @keyframes particle {
+
             0% {
                 opacity: 1;
-                transform: translate(0, 0) scale(1);
+
+                transform:
+                    translate(0,0)
+                    scale(1);
             }
 
             100% {
                 opacity: 0;
+
                 transform:
                     translate(
                         calc((var(--random-x) - 50) * 2px),
@@ -309,81 +869,380 @@
             }
         }
 
-        @media (max-width: 500px) {
-            .game {
-                padding: 25px 15px;
+
+        /* =========================================
+           金コイン消費演出
+        ========================================= */
+
+        .purchase-effect {
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 3000;
+
+            pointer-events: none;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-size: 50px;
+
+            font-weight: bold;
+
+            color: #ffc400;
+
+            text-shadow:
+                3px 3px 0 white,
+                6px 6px 0 #9c6900;
+
+            opacity: 0;
+        }
+
+
+        .purchase-effect.show {
+            animation:
+                purchaseEffect 1s ease-out;
+        }
+
+
+        @keyframes purchaseEffect {
+
+            0% {
+                opacity: 0;
+
+                transform:
+                    scale(0.5);
             }
 
-            .coin-area {
-                height: 210px;
+            30% {
+                opacity: 1;
+
+                transform:
+                    scale(1.3);
             }
+
+            100% {
+                opacity: 0;
+
+                transform:
+                    scale(1);
+            }
+        }
+
+
+        /* =========================================
+           スマホ
+        ========================================= */
+
+        @media (max-width: 500px) {
+
+            .shop-button {
+                top: 10px;
+                right: 10px;
+
+                padding: 9px 12px;
+
+                font-size: 14px;
+            }
+
+
+            .game {
+                margin-top: 65px;
+
+                padding:
+                    25px 12px;
+            }
+
+
+            .wallet {
+                gap: 6px;
+            }
+
+
+            .wallet-icon {
+                font-size: 30px;
+            }
+
+
+            .wallet-number {
+                font-size: 23px;
+            }
+
 
             .coin {
                 width: 125px;
                 height: 125px;
             }
 
+
             .coin::before {
                 font-size: 55px;
             }
 
-            .plus-one {
-                font-size: 32px;
+
+            .shop-item {
+                padding: 10px;
+
+                gap: 8px;
             }
 
-            button {
-                padding: 13px 20px;
-                font-size: 16px;
+
+            .shop-icon {
+                font-size: 35px;
+
+                min-width: 40px;
+            }
+
+
+            .shop-name {
+                font-size: 15px;
+            }
+
+
+            .buy-button {
+                padding:
+                    8px 10px;
+
+                font-size: 13px;
+            }
+
+
+            .pet {
+                font-size: 55px;
+
+                bottom: 10px;
+                left: 10px;
+            }
+
+
+            .pet-message {
+                left: 10px;
+
+                bottom: 80px;
+
+                font-size: 13px;
             }
         }
+
     </style>
 </head>
 
+
 <body>
+
+
+    <!-- =========================================
+         ショップボタン
+    ========================================== -->
+
+    <button
+        class="shop-button"
+        id="shopButton">
+
+        🛒 ショップ
+
+    </button>
+
+
+
+    <!-- =========================================
+         ペット
+    ========================================== -->
+
+    <div
+        class="pet"
+        id="pet">
+    </div>
+
+    <div
+        class="pet-message"
+        id="petMessage">
+
+        一緒に頑張ろう！🔥
+
+    </div>
+
+
+
+    <!-- =========================================
+         メイン画面
+    ========================================== -->
 
     <main class="game">
 
-        <h1>🪙 GOLD STOPWATCH</h1>
+        <h1>
+            🪙 COIN MOTIVATION
+        </h1>
+
+        <div class="subtitle">
+            時間を使って、コインを集めよう！
+        </div>
+
 
         <!-- ストップウォッチ -->
-        <div class="timer" id="timer">00:00:00</div>
 
-        <!-- コイン -->
-        <div class="coin-area" id="coinArea">
+        <div
+            class="timer"
+            id="timer">
 
-            <div class="plus-one" id="plusOne">+1 COIN!</div>
-
-            <div class="coin" id="coin"></div>
+            00:00:00
 
         </div>
 
-        <!-- コイン総数 -->
-        <div class="total-box">
 
-            <div class="total-label">
-                🪙 コイン総数
+
+        <!-- =====================================
+             コイン所持数
+        ====================================== -->
+
+        <div class="wallet">
+
+
+            <!-- 銅 -->
+
+            <div class="wallet-card">
+
+                <div class="wallet-icon">
+                    🟤
+                </div>
+
+                <div class="wallet-name">
+                    銅コイン
+                </div>
+
+                <div
+                    class="wallet-number"
+                    id="copperCoins">
+
+                    0
+
+                </div>
+
             </div>
 
-            <div class="total">
-                <span id="totalCoins">0</span>
-                <span class="unit">COINS</span>
+
+            <!-- 銀 -->
+
+            <div class="wallet-card">
+
+                <div class="wallet-icon">
+                    ⚪
+                </div>
+
+                <div class="wallet-name">
+                    銀コイン
+                </div>
+
+                <div
+                    class="wallet-number"
+                    id="silverCoins">
+
+                    0
+
+                </div>
+
+            </div>
+
+
+            <!-- 金 -->
+
+            <div class="wallet-card">
+
+                <div class="wallet-icon">
+                    🟡
+                </div>
+
+                <div class="wallet-name">
+                    金コイン
+                </div>
+
+                <div
+                    class="wallet-number"
+                    id="goldCoins">
+
+                    0
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =====================================
+             メインコイン
+        ====================================== -->
+
+        <div
+            class="coin-area"
+            id="coinArea">
+
+            <div
+                class="plus-one"
+                id="plusOne">
+
+                +1 COIN!
+
+            </div>
+
+
+            <div
+                class="coin"
+                id="coin">
             </div>
 
         </div>
 
-        <!-- ボタン -->
+
+
+        <!-- =====================================
+             次の報酬
+        ====================================== -->
+
+        <div
+            class="next-reward"
+            id="nextReward">
+
+            あと60秒で銀コイン！
+
+        </div>
+
+
+
+        <!-- =====================================
+             操作ボタン
+        ====================================== -->
+
         <div class="buttons">
 
-            <button id="startBtn">
+            <button
+                id="startBtn">
+
                 ▶ スタート
+
             </button>
 
-            <button id="pauseBtn" disabled>
+
+            <button
+                id="pauseBtn"
+                disabled>
+
                 ⏸ 一時停止
+
             </button>
 
-            <button id="resetBtn">
+
+            <button
+                id="resetBtn">
+
                 ↻ リセット
+
             </button>
 
         </div>
@@ -391,116 +1250,518 @@
     </main>
 
 
+
+    <!-- =========================================
+         ショップ
+    ========================================== -->
+
+    <div
+        class="shop-overlay"
+        id="shopOverlay">
+
+
+        <div class="shop">
+
+
+            <div class="shop-header">
+
+                <h2>
+                    🛒 ショップ
+                </h2>
+
+                <button
+                    class="close-shop"
+                    id="closeShop">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+            <div
+                class="shop-balance"
+                id="shopBalance">
+
+                🟡 金コイン：
+                <span id="shopGold">
+                    0
+                </span>
+
+            </div>
+
+
+            <div class="shop-items">
+
+
+                <!-- 背景変更 -->
+
+                <div class="shop-item">
+
+                    <div class="shop-icon">
+                        🌈
+                    </div>
+
+                    <div class="shop-info">
+
+                        <div class="shop-name">
+                            虹色の背景
+                        </div>
+
+                        <div class="shop-description">
+                            背景をカラフルに変更する
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="buy-button"
+                        data-item="rainbow"
+                        data-price="5">
+
+                        🟡 5
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- 猫 -->
+
+                <div class="shop-item">
+
+                    <div class="shop-icon">
+                        🐱
+                    </div>
+
+                    <div class="shop-info">
+
+                        <div class="shop-name">
+                            ペット：猫
+                        </div>
+
+                        <div class="shop-description">
+                            猫があなたを応援してくれる
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="buy-button"
+                        data-item="cat"
+                        data-price="8">
+
+                        🟡 8
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- 犬 -->
+
+                <div class="shop-item">
+
+                    <div class="shop-icon">
+                        🐶
+                    </div>
+
+                    <div class="shop-info">
+
+                        <div class="shop-name">
+                            ペット：犬
+                        </div>
+
+                        <div class="shop-description">
+                            犬があなたを応援してくれる
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="buy-button"
+                        data-item="dog"
+                        data-price="8">
+
+                        🟡 8
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- キラキラ背景 -->
+
+                <div class="shop-item">
+
+                    <div class="shop-icon">
+                        ✨
+                    </div>
+
+                    <div class="shop-info">
+
+                        <div class="shop-name">
+                            キラキラ背景
+                        </div>
+
+                        <div class="shop-description">
+                            集中できる特別な背景にする
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="buy-button"
+                        data-item="sparkle"
+                        data-price="12">
+
+                        🟡 12
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- ゴールドテーマ -->
+
+                <div class="shop-item">
+
+                    <div class="shop-icon">
+                        👑
+                    </div>
+
+                    <div class="shop-info">
+
+                        <div class="shop-name">
+                            ゴールドテーマ
+                        </div>
+
+                        <div class="shop-description">
+                            豪華な黄金の世界に変更する
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="buy-button"
+                        data-item="gold"
+                        data-price="20">
+
+                        🟡 20
+
+                    </button>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         購入演出
+    ========================================== -->
+
+    <div
+        class="purchase-effect"
+        id="purchaseEffect">
+
+        ✨ PURCHASED! ✨
+
+    </div>
+
+
+
     <script>
-        // ==========================
-        // ストップウォッチ
-        // ==========================
+
+        /* =========================================
+           基本データ
+        ========================================= */
 
         let seconds = 0;
+
         let timerInterval = null;
+
         let isRunning = false;
 
-        // HTML要素を取得
-        const timer = document.getElementById("timer");
-        const totalCoins = document.getElementById("totalCoins");
 
-        const coin = document.getElementById("coin");
-        const coinArea = document.getElementById("coinArea");
-        const plusOne = document.getElementById("plusOne");
+        /* =========================================
+           HTML取得
+        ========================================= */
 
-        const startBtn = document.getElementById("startBtn");
-        const pauseBtn = document.getElementById("pauseBtn");
-        const resetBtn = document.getElementById("resetBtn");
+        const timer =
+            document.getElementById("timer");
+
+        const copperCoins =
+            document.getElementById("copperCoins");
+
+        const silverCoins =
+            document.getElementById("silverCoins");
+
+        const goldCoins =
+            document.getElementById("goldCoins");
+
+        const shopGold =
+            document.getElementById("shopGold");
+
+        const nextReward =
+            document.getElementById("nextReward");
+
+        const coin =
+            document.getElementById("coin");
+
+        const coinArea =
+            document.getElementById("coinArea");
+
+        const plusOne =
+            document.getElementById("plusOne");
+
+        const startBtn =
+            document.getElementById("startBtn");
+
+        const pauseBtn =
+            document.getElementById("pauseBtn");
+
+        const resetBtn =
+            document.getElementById("resetBtn");
+
+        const shopButton =
+            document.getElementById("shopButton");
+
+        const shopOverlay =
+            document.getElementById("shopOverlay");
+
+        const closeShop =
+            document.getElementById("closeShop");
+
+        const pet =
+            document.getElementById("pet");
+
+        const petMessage =
+            document.getElementById("petMessage");
+
+        const purchaseEffect =
+            document.getElementById("purchaseEffect");
 
 
-        // ==========================
-        // 時間表示
-        // ==========================
+        /* =========================================
+           購入済みアイテム
+        ========================================== */
+
+        let purchased =
+            JSON.parse(
+                localStorage.getItem(
+                    "coinShopItems"
+                )
+            ) || {};
+
+
+        /* =========================================
+           時間を表示
+        ========================================== */
 
         function updateDisplay() {
 
-            const hours = Math.floor(seconds / 3600);
+            const hours =
+                Math.floor(seconds / 3600);
 
-            const minutes = Math.floor((seconds % 3600) / 60);
+            const minutes =
+                Math.floor(
+                    (seconds % 3600) / 60
+                );
 
-            const secs = seconds % 60;
+            const secs =
+                seconds % 60;
 
-            const hh = String(hours).padStart(2, "0");
-            const mm = String(minutes).padStart(2, "0");
-            const ss = String(secs).padStart(2, "0");
 
-            timer.textContent = `${hh}:${mm}:${ss}`;
+            const hh =
+                String(hours)
+                    .padStart(2, "0");
 
-            // コイン総数 = 経過秒数
-            totalCoins.textContent = seconds;
+            const mm =
+                String(minutes)
+                    .padStart(2, "0");
+
+            const ss =
+                String(secs)
+                    .padStart(2, "0");
+
+
+            timer.textContent =
+                `${hh}:${mm}:${ss}`;
+
+
+            /*
+                コインの計算
+
+                0～59秒
+                → 銅コイン
+
+                60～3599秒
+                → 銀コイン
+
+                3600秒～
+                → 金コイン
+            */
+
+            const copper =
+                seconds % 60;
+
+            const silver =
+                Math.floor(seconds / 60) % 60;
+
+            const gold =
+                Math.floor(seconds / 3600);
+
+
+            copperCoins.textContent =
+                copper;
+
+            silverCoins.textContent =
+                silver;
+
+            goldCoins.textContent =
+                gold;
+
+            shopGold.textContent =
+                gold;
+
+
+            updateNextReward();
+
+            updateShopButtons();
         }
 
 
-        // ==========================
-        // コイン獲得演出
-        // ==========================
+        /* =========================================
+           次の報酬
+        ========================================== */
 
-        function getCoin() {
+        function updateNextReward() {
 
-            // コインを一度リセットしてアニメーションを再実行
-            coin.classList.remove("coin-get");
+            if (seconds < 60) {
 
-            // ブラウザに再描画させる
+                const remaining =
+                    60 - seconds;
+
+                nextReward.textContent =
+                    `あと${remaining}秒で ⚪ 銀コイン！`;
+
+            } else {
+
+                const secondsToHour =
+                    3600 -
+                    (seconds % 3600);
+
+
+                if (secondsToHour === 3600) {
+
+                    nextReward.textContent =
+                        "🟡 金コインを獲得！";
+
+                } else {
+
+                    nextReward.textContent =
+                        `あと${secondsToHour}秒で 🟡 金コイン！`;
+                }
+            }
+        }
+
+
+        /* =========================================
+           コイン獲得演出
+        ========================================== */
+
+        function coinEffect() {
+
+            coin.classList.remove(
+                "coin-get"
+            );
+
             void coin.offsetWidth;
 
-            coin.classList.add("coin-get");
+            coin.classList.add(
+                "coin-get"
+            );
 
 
-            // +1 COIN! を表示
-            plusOne.classList.remove("show");
+            plusOne.classList.remove(
+                "show"
+            );
 
             void plusOne.offsetWidth;
 
-            plusOne.classList.add("show");
+            plusOne.classList.add(
+                "show"
+            );
 
 
-            // 小さなコインを飛ばす
             createParticles();
         }
 
 
-        // ==========================
-        // 小さなコインを作る
-        // ==========================
+        /* =========================================
+           パーティクル
+        ========================================== */
 
         function createParticles() {
 
-            for (let i = 0; i < 5; i++) {
+            for (
+                let i = 0;
+                i < 5;
+                i++
+            ) {
 
-                const particle = document.createElement("div");
+                const particle =
+                    document.createElement(
+                        "div"
+                    );
 
-                particle.classList.add("particle");
+                particle.className =
+                    "particle";
+
 
                 particle.style.setProperty(
                     "--random-x",
                     Math.random() * 100
                 );
 
+
                 particle.style.left =
                     `${40 + Math.random() * 20}%`;
+
 
                 particle.style.top =
                     `${45 + Math.random() * 20}%`;
 
-                coinArea.appendChild(particle);
+
+                coinArea.appendChild(
+                    particle
+                );
 
 
-                // アニメーション終了後に削除
-                setTimeout(() => {
-                    particle.remove();
-                }, 800);
+                setTimeout(
+                    () => {
+                        particle.remove();
+                    },
+                    800
+                );
             }
         }
 
 
-        // ==========================
-        // 1秒進める
-        // ==========================
+        /* =========================================
+           1秒進む
+        ========================================== */
 
         function tick() {
 
@@ -508,14 +1769,62 @@
 
             updateDisplay();
 
-            // 1秒ごとにコイン +1
-            getCoin();
+            coinEffect();
+
+
+            /*
+                60秒になった瞬間
+                銀コイン演出
+            */
+
+            if (seconds % 60 === 0) {
+
+                showReward(
+                    "⚪ SILVER COIN!"
+                );
+            }
+
+
+            /*
+                3600秒になった瞬間
+                金コイン演出
+            */
+
+            if (seconds % 3600 === 0) {
+
+                showReward(
+                    "🟡 GOLD COIN!"
+                );
+
+                petCheer();
+            }
         }
 
 
-        // ==========================
-        // スタート
-        // ==========================
+        /* =========================================
+           報酬演出
+        ========================================== */
+
+        function showReward(text) {
+
+            purchaseEffect.textContent =
+                text;
+
+            purchaseEffect.classList.remove(
+                "show"
+            );
+
+            void purchaseEffect.offsetWidth;
+
+            purchaseEffect.classList.add(
+                "show"
+            );
+        }
+
+
+        /* =========================================
+           スタート
+        ========================================== */
 
         function start() {
 
@@ -523,18 +1832,28 @@
                 return;
             }
 
+
             isRunning = true;
 
-            startBtn.disabled = true;
-            pauseBtn.disabled = false;
 
-            timerInterval = setInterval(tick, 1000);
+            startBtn.disabled =
+                true;
+
+            pauseBtn.disabled =
+                false;
+
+
+            timerInterval =
+                setInterval(
+                    tick,
+                    1000
+                );
         }
 
 
-        // ==========================
-        // 一時停止
-        // ==========================
+        /* =========================================
+           一時停止
+        ========================================== */
 
         function pause() {
 
@@ -542,53 +1861,477 @@
                 return;
             }
 
+
             isRunning = false;
 
-            clearInterval(timerInterval);
+
+            clearInterval(
+                timerInterval
+            );
+
+
             timerInterval = null;
 
-            startBtn.disabled = false;
-            pauseBtn.disabled = true;
+
+            startBtn.disabled =
+                false;
+
+            pauseBtn.disabled =
+                true;
         }
 
 
-        // ==========================
-        // リセット
-        // ==========================
+        /* =========================================
+           リセット
+        ========================================== */
 
         function reset() {
 
-            clearInterval(timerInterval);
+            clearInterval(
+                timerInterval
+            );
+
 
             timerInterval = null;
+
             isRunning = false;
 
             seconds = 0;
 
+
             updateDisplay();
 
-            startBtn.disabled = false;
-            pauseBtn.disabled = true;
 
-            coin.classList.remove("coin-get");
-            plusOne.classList.remove("show");
+            startBtn.disabled =
+                false;
+
+            pauseBtn.disabled =
+                true;
         }
 
 
-        // ==========================
-        // ボタンイベント
-        // ==========================
+        /* =========================================
+           ショップを開く
+        ========================================== */
 
-        startBtn.addEventListener("click", start);
+        shopButton.addEventListener(
+            "click",
+            () => {
 
-        pauseBtn.addEventListener("click", pause);
+                shopOverlay.classList.add(
+                    "open"
+                );
 
-        resetBtn.addEventListener("click", reset);
+                updateShopButtons();
+            }
+        );
 
 
-        // ==========================
-        // 最初の表示
-        // ==========================
+        /* =========================================
+           ショップを閉じる
+        ========================================== */
+
+        closeShop.addEventListener(
+            "click",
+            () => {
+
+                shopOverlay.classList.remove(
+                    "open"
+                );
+            }
+        );
+
+
+        /* =========================================
+           ショップ外をクリックして閉じる
+        ========================================== */
+
+        shopOverlay.addEventListener(
+            "click",
+            (event) => {
+
+                if (
+                    event.target ===
+                    shopOverlay
+                ) {
+
+                    shopOverlay.classList.remove(
+                        "open"
+                    );
+                }
+            }
+        );
+
+
+        /* =========================================
+           ショップの購入ボタン
+        ========================================== */
+
+        document
+            .querySelectorAll(
+                ".buy-button"
+            )
+            .forEach(
+                button => {
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            buyItem(
+                                button
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+        /* =========================================
+           アイテム購入
+        ========================================== */
+
+        function buyItem(button) {
+
+            const item =
+                button.dataset.item;
+
+            const price =
+                Number(
+                    button.dataset.price
+                );
+
+
+            const gold =
+                Math.floor(
+                    seconds / 3600
+                );
+
+
+            /*
+                すでに購入済み
+            */
+
+            if (purchased[item]) {
+
+                return;
+            }
+
+
+            /*
+                金コイン不足
+            */
+
+            if (gold < price) {
+
+                showReward(
+                    `🟡 あと${price - gold}枚必要！`
+                );
+
+                return;
+            }
+
+
+            /*
+                金コインを消費
+
+                実際の秒数から
+                購入分の金コインを減らす
+            */
+
+            seconds -=
+                price * 3600;
+
+
+            /*
+                アイテムを記録
+            */
+
+            purchased[item] =
+                true;
+
+
+            localStorage.setItem(
+                "coinShopItems",
+                JSON.stringify(
+                    purchased
+                )
+            );
+
+
+            /*
+                アイテム適用
+            */
+
+            applyItem(item);
+
+
+            /*
+                表示更新
+            */
+
+            updateDisplay();
+
+            updateShopButtons();
+
+
+            /*
+                購入演出
+            */
+
+            showReward(
+                "✨ PURCHASED! ✨"
+            );
+        }
+
+
+        /* =========================================
+           購入済みボタンを変更
+        ========================================== */
+
+        function updateShopButtons() {
+
+            document
+                .querySelectorAll(
+                    ".buy-button"
+                )
+                .forEach(
+                    button => {
+
+                        const item =
+                            button.dataset.item;
+
+
+                        if (
+                            purchased[item]
+                        ) {
+
+                            button.textContent =
+                                "✓ 購入済み";
+
+                            button.classList.add(
+                                "sold"
+                            );
+
+                        } else {
+
+                            button.textContent =
+                                `🟡 ${button.dataset.price}`;
+
+                            button.classList.remove(
+                                "sold"
+                            );
+                        }
+                    }
+                );
+        }
+
+
+        /* =========================================
+           アイテムを適用
+        ========================================== */
+
+        function applyItem(item) {
+
+
+            /* 虹色 */
+
+            if (
+                item === "rainbow"
+            ) {
+
+                document.body.style.background =
+                    `
+                    linear-gradient(
+                        135deg,
+                        #ff9a9e,
+                        #fad0c4,
+                        #a1c4fd,
+                        #c2e9fb
+                    )
+                    `;
+            }
+
+
+            /* 猫 */
+
+            if (
+                item === "cat"
+            ) {
+
+                pet.textContent =
+                    "🐱";
+
+                pet.classList.add(
+                    "show"
+                );
+
+                petMessage.textContent =
+                    "ニャー！一緒に頑張ろう！🐾";
+
+                petMessage.classList.add(
+                    "show"
+                );
+            }
+
+
+            /* 犬 */
+
+            if (
+                item === "dog"
+            ) {
+
+                pet.textContent =
+                    "🐶";
+
+                pet.classList.add(
+                    "show"
+                );
+
+                petMessage.textContent =
+                    "ワン！まだまだいけるよ！🐶";
+
+                petMessage.classList.add(
+                    "show"
+                );
+            }
+
+
+            /* キラキラ */
+
+            if (
+                item === "sparkle"
+            ) {
+
+                document.body.style.background =
+                    `
+                    radial-gradient(
+                        circle at 20% 20%,
+                        #ffffff,
+                        #d9f7ff,
+                        #9edfff,
+                        #8ca6ff
+                    )
+                    `;
+            }
+
+
+            /* ゴールド */
+
+            if (
+                item === "gold"
+            ) {
+
+                document.body.style.background =
+                    `
+                    radial-gradient(
+                        circle at center,
+                        #fff8b5 0%,
+                        #ffd83d 35%,
+                        #e6a400 70%,
+                        #9b6200 100%
+                    )
+                    `;
+            }
+        }
+
+
+        /* =========================================
+           ペット応援
+        ========================================== */
+
+        function petCheer() {
+
+            if (
+                !pet.classList.contains(
+                    "show"
+                )
+            ) {
+
+                return;
+            }
+
+
+            petMessage.classList.remove(
+                "show"
+            );
+
+            void petMessage.offsetWidth;
+
+            petMessage.classList.add(
+                "show"
+            );
+        }
+
+
+        /* =========================================
+           定期的にペットが応援
+        ========================================== */
+
+        setInterval(
+            () => {
+
+                if (
+                    isRunning &&
+                    pet.classList.contains(
+                        "show"
+                    )
+                ) {
+
+                    petCheer();
+                }
+
+            },
+            15000
+        );
+
+
+        /* =========================================
+           購入済みアイテムを読み込む
+        ========================================== */
+
+        Object.keys(
+            purchased
+        ).forEach(
+            item => {
+
+                if (
+                    purchased[item]
+                ) {
+
+                    applyItem(item);
+                }
+            }
+        );
+
+
+        /* =========================================
+           ボタンイベント
+        ========================================== */
+
+        startBtn.addEventListener(
+            "click",
+            start
+        );
+
+
+        pauseBtn.addEventListener(
+            "click",
+            pause
+        );
+
+
+        resetBtn.addEventListener(
+            "click",
+            reset
+        );
+
+
+        /* =========================================
+           最初の表示
+        ========================================== */
 
         updateDisplay();
 
