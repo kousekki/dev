@@ -17,16 +17,25 @@
     box-sizing: border-box;
 }
 
-html {
-    width: 100%;
-    min-height: 100%;
+:root {
+    --bg1: #fffbe8;
+    --bg2: #ffe99b;
+    --bg3: #eab934;
+
+    --card: rgba(255,255,255,0.95);
+    --card2: #fff7cf;
+
+    --text: #4a3500;
+    --title: #8c6000;
+    --border: #deb331;
+
+    --shadow: rgba(100,70,0,0.16);
+    --input: #fffdf0;
 }
 
 body {
     margin: 0;
-    width: 100%;
     min-height: 100vh;
-    min-height: 100dvh;
 
     font-family:
         Arial,
@@ -34,28 +43,105 @@ body {
         Meiryo,
         sans-serif;
 
-    color: #4a3500;
+    color: var(--text);
 
     background:
         radial-gradient(
             circle at center,
-            #fffbe8,
-            #ffe99b 50%,
-            #eab934
+            var(--bg1),
+            var(--bg2) 50%,
+            var(--bg3)
         );
 
     transition:
-        background 0.6s ease;
+        background 0.5s ease,
+        color 0.5s ease;
 
     overflow-x: hidden;
-
-    /* ノッチ付き端末対応 */
-    padding-bottom:
-        env(safe-area-inset-bottom);
 }
 
-button {
-    font-family: inherit;
+
+/* =====================================================
+   ダークモード
+===================================================== */
+
+body.dark-mode {
+
+    --bg1: #11151c;
+    --bg2: #181d26;
+    --bg3: #242b36;
+
+    --card: rgba(30,35,44,0.96);
+    --card2: #252c36;
+
+    --text: #eeeeee;
+    --title: #ffd75c;
+    --border: #80641b;
+
+    --shadow: rgba(0,0,0,0.45);
+    --input: #171c24;
+}
+
+body.dark-mode .top-bar {
+    background: rgba(20,24,31,0.96);
+    border-bottom-color: #80641b;
+}
+
+body.dark-mode .logo {
+    color: #ffd75c;
+}
+
+body.dark-mode .top-button {
+    color: #fff;
+}
+
+body.dark-mode .card-title,
+body.dark-mode .pet-name,
+body.dark-mode .shop-name {
+    color: #ffd75c;
+}
+
+body.dark-mode .wallet-item,
+body.dark-mode .achievement,
+body.dark-mode .reward-box,
+body.dark-mode .pet-message {
+    background: #252c36;
+    border-color: #66531d;
+}
+
+body.dark-mode .timer {
+    color: #ffffff;
+}
+
+body.dark-mode .status,
+body.dark-mode .mode-display,
+body.dark-mode .achievement-desc,
+body.dark-mode .shop-desc {
+    color: #b9b9b9;
+}
+
+body.dark-mode .shop-item {
+    background: #202630;
+    border-color: #66531d;
+}
+
+body.dark-mode .modal {
+    background:
+        linear-gradient(
+            #242a34,
+            #171b22
+        );
+}
+
+body.dark-mode .pomodoro {
+    background: #29223e;
+    border-color: #765fb5;
+    color: #d7caff;
+}
+
+body.dark-mode input,
+body.dark-mode textarea {
+    color: white;
 }
 
 
@@ -82,46 +168,36 @@ button {
 
     gap: 10px;
 
-    padding:
-        8px 18px;
-
-    padding-top:
-        max(8px, env(safe-area-inset-top));
+    padding: 8px 18px;
 
     background:
-        rgba(255,255,255,0.95);
+        rgba(255,255,255,0.93);
 
     border-bottom:
         3px solid #dfb22c;
 
     box-shadow:
-        0 4px 15px rgba(100,70,0,0.15);
+        0 4px 15px var(--shadow);
 }
 
 .logo {
     font-size: 20px;
-
     font-weight: bold;
-
     color: #8d6100;
-
     white-space: nowrap;
 }
 
 .top-buttons {
     display: flex;
-
-    gap: 8px;
-
+    gap: 7px;
     flex-wrap: wrap;
-
     justify-content: flex-end;
 }
 
 .top-button {
     border: none;
 
-    padding: 9px 13px;
+    padding: 9px 12px;
 
     border-radius: 12px;
 
@@ -139,16 +215,11 @@ button {
 
     box-shadow:
         0 3px 0 #b27b00;
-
-    white-space: nowrap;
 }
 
 .top-button:active {
-    transform:
-        translateY(2px);
-
-    box-shadow:
-        0 1px 0 #b27b00;
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #b27b00;
 }
 
 
@@ -157,10 +228,8 @@ button {
 ===================================================== */
 
 .main {
-    width: min(96%, 1400px);
 
-    min-height:
-        calc(100vh - 65px);
+    width: min(96%, 1500px);
 
     margin:
         95px auto 50px;
@@ -174,26 +243,38 @@ button {
 }
 
 
+/* 大画面 */
+
+@media (min-width: 1200px) {
+
+    .main {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+    .timer-card {
+        grid-column: 1 / -1;
+    }
+}
+
+
 /* =====================================================
    カード
 ===================================================== */
 
 .card {
-    background:
-        rgba(255,255,255,0.94);
+
+    background: var(--card);
 
     border:
-        4px solid #deb331;
+        4px solid var(--border);
 
     border-radius: 24px;
 
     padding: 22px;
 
     box-shadow:
-        0 10px 30px
-        rgba(100,70,0,0.16);
-
-    min-width: 0;
+        0 10px 30px var(--shadow);
 }
 
 .card-title {
@@ -202,12 +283,12 @@ button {
 
     font-size: 23px;
 
-    color: #8c6000;
+    color: var(--title);
 }
 
 
 /* =====================================================
-   ストップウォッチ
+   タイマー
 ===================================================== */
 
 .timer-card {
@@ -218,8 +299,9 @@ button {
 }
 
 .timer {
+
     font-size:
-        clamp(48px, 9vw, 110px);
+        clamp(48px, 8vw, 100px);
 
     font-weight: bold;
 
@@ -236,84 +318,18 @@ button {
 
 .status {
     min-height: 25px;
-
     color: #97732d;
-
     font-weight: bold;
 }
 
 .mode-display {
     margin-top: 12px;
-
     font-weight: bold;
-
     color: #755300;
 }
 
-
-/* =====================================================
-   コイン
-===================================================== */
-
-.wallet {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-
-    gap: 8px;
-}
-
-.wallet-item {
-    padding: 13px 5px;
-
-    text-align: center;
-
-    border-radius: 15px;
-
-    background:
-        #fff7cf;
-
-    border:
-        2px solid #e2bd50;
-}
-
-.wallet-icon {
-    font-size: 30px;
-}
-
-.wallet-number {
-    font-size: 25px;
-
-    font-weight: bold;
-
-    color: #8d6100;
-}
-
-.reward-box {
-    margin-top: 15px;
-
-    padding: 13px;
-
-    border-radius: 14px;
-
-    background:
-        #fff6c6;
-
-    border:
-        2px solid #e1bd48;
-
-    font-weight: bold;
-
-    color: #826000;
-}
-
-
-/* =====================================================
-   ボタン
-===================================================== */
-
 .controls {
+
     display: flex;
 
     justify-content: center;
@@ -326,6 +342,7 @@ button {
 }
 
 .main-button {
+
     border: none;
 
     border-radius: 14px;
@@ -345,43 +362,369 @@ button {
 }
 
 .main-button:active {
-    transform:
-        translateY(3px);
-
-    box-shadow:
-        0 1px 0 rgba(0,0,0,0.2);
+    transform: translateY(3px);
 }
 
 .start {
     background:
-        linear-gradient(
-            #4bd96e,
-            #20a642
-        );
+        linear-gradient(#4bd96e,#20a642);
 }
 
 .pause {
     background:
-        linear-gradient(
-            #ffc64b,
-            #e48c00
-        );
+        linear-gradient(#ffc64b,#e48c00);
 }
 
 .reset {
     background:
-        linear-gradient(
-            #ff6868,
-            #d93838
-        );
+        linear-gradient(#ff6868,#d93838);
 }
 
 .mode {
     background:
+        linear-gradient(#9d7cff,#6544d5);
+}
+
+.fullscreen {
+    background:
+        linear-gradient(#42b8ff,#2472d8);
+}
+
+
+/* =====================================================
+   報酬
+===================================================== */
+
+.reward-box {
+
+    margin-top: 15px;
+
+    padding: 13px;
+
+    border-radius: 14px;
+
+    background: var(--card2);
+
+    border:
+        2px solid #e1bd48;
+
+    font-weight: bold;
+
+    color: var(--title);
+}
+
+
+/* =====================================================
+   コイン
+===================================================== */
+
+.wallet {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 8px;
+}
+
+.wallet-item {
+
+    padding: 13px 5px;
+
+    text-align: center;
+
+    border-radius: 15px;
+
+    background: var(--card2);
+
+    border:
+        2px solid #e2bd50;
+}
+
+.wallet-icon {
+    font-size: 30px;
+}
+
+.wallet-number {
+
+    font-size: 25px;
+
+    font-weight: bold;
+
+    color: var(--title);
+}
+
+
+/* =====================================================
+   タスクコイン
+===================================================== */
+
+.task-coin-box {
+
+    margin-top: 15px;
+
+    padding: 15px;
+
+    text-align: center;
+
+    border-radius: 16px;
+
+    background:
         linear-gradient(
-            #9d7cff,
-            #6544d5
+            135deg,
+            #fff1a6,
+            #ffd34d
         );
+
+    border:
+        3px solid #dca900;
+
+    color: #664400;
+}
+
+.task-coin-number {
+
+    font-size: 36px;
+
+    font-weight: bold;
+
+    margin-top: 5px;
+}
+
+
+/* =====================================================
+   タスク
+===================================================== */
+
+.task-form {
+
+    display: flex;
+
+    gap: 8px;
+
+    margin-bottom: 15px;
+}
+
+.task-input {
+
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 13px;
+
+    border-radius: 12px;
+
+    border: 2px solid #d7b84d;
+
+    background: var(--input);
+
+    outline: none;
+
+    font-size: 15px;
+}
+
+.task-add {
+
+    border: none;
+
+    border-radius: 12px;
+
+    padding: 0 15px;
+
+    background:
+        linear-gradient(
+            #55db78,
+            #25a94a
+        );
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.task-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 9px;
+}
+
+.task-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 12px;
+
+    border-radius: 14px;
+
+    background: var(--card2);
+
+    border:
+        2px solid #dfc05c;
+}
+
+.task-name {
+
+    flex: 1;
+
+    font-weight: bold;
+
+    word-break: break-word;
+}
+
+.task-item.completed .task-name {
+
+    text-decoration: line-through;
+
+    opacity: 0.55;
+}
+
+.task-complete {
+
+    border: none;
+
+    border-radius: 9px;
+
+    padding: 8px 11px;
+
+    background: #4bd96e;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.task-delete {
+
+    border: none;
+
+    border-radius: 9px;
+
+    padding: 8px 10px;
+
+    background: #ef6666;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+.task-empty {
+
+    padding: 15px;
+
+    text-align: center;
+
+    opacity: 0.6;
+}
+
+
+/* =====================================================
+   ペット
+===================================================== */
+
+.pet-area {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+}
+
+.pet-character {
+
+    font-size: 75px;
+
+    animation:
+        petFloat 2s infinite ease-in-out;
+}
+
+@keyframes petFloat {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.pet-info {
+    flex: 1;
+}
+
+.pet-name {
+
+    font-size: 21px;
+
+    font-weight: bold;
+
+    color: #805800;
+}
+
+.pet-level {
+    margin-top: 5px;
+}
+
+.progress {
+
+    width: 100%;
+
+    height: 12px;
+
+    margin-top: 5px;
+
+    border-radius: 20px;
+
+    background: #eadfb8;
+
+    overflow: hidden;
+}
+
+.progress-inner {
+
+    height: 100%;
+
+    width: 0%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffad2f,
+            #ffe15b
+        );
+
+    transition: width 0.3s;
+}
+
+.pet-message {
+
+    margin-top: 15px;
+
+    padding: 10px;
+
+    border-radius: 13px;
+
+    background: var(--card2);
+
+    border:
+        2px solid #dfbd55;
+
+    font-weight: bold;
 }
 
 
@@ -390,11 +733,10 @@ button {
 ===================================================== */
 
 .room {
+
     position: relative;
 
     min-height: 330px;
-
-    height: clamp(300px, 38vh, 500px);
 
     overflow: hidden;
 
@@ -411,6 +753,7 @@ button {
 }
 
 .room::after {
+
     content: "";
 
     position: absolute;
@@ -435,6 +778,7 @@ button {
 }
 
 .room-window {
+
     position: absolute;
 
     top: 30px;
@@ -456,6 +800,7 @@ button {
 }
 
 .room-sun {
+
     position: absolute;
 
     top: 48px;
@@ -465,6 +810,7 @@ button {
 }
 
 .furniture {
+
     position: absolute;
 
     z-index: 5;
@@ -476,106 +822,11 @@ button {
 
 
 /* =====================================================
-   ペット
-===================================================== */
-
-.pet-area {
-    display: flex;
-
-    align-items: center;
-
-    gap: 18px;
-}
-
-.pet-character {
-    font-size: 75px;
-
-    animation:
-        petFloat 2s infinite ease-in-out;
-}
-
-@keyframes petFloat {
-
-    0%,100% {
-        transform:
-            translateY(0);
-    }
-
-    50% {
-        transform:
-            translateY(-8px);
-    }
-}
-
-.pet-info {
-    flex: 1;
-}
-
-.pet-name {
-    font-size: 21px;
-
-    font-weight: bold;
-
-    color: #805800;
-}
-
-.pet-level {
-    margin-top: 5px;
-}
-
-.progress {
-    width: 100%;
-
-    height: 12px;
-
-    margin-top: 5px;
-
-    border-radius: 20px;
-
-    background:
-        #eadfb8;
-
-    overflow: hidden;
-}
-
-.progress-inner {
-    height: 100%;
-
-    width: 0%;
-
-    background:
-        linear-gradient(
-            90deg,
-            #ffad2f,
-            #ffe15b
-        );
-
-    transition:
-        width 0.3s;
-}
-
-.pet-message {
-    margin-top: 15px;
-
-    padding: 10px;
-
-    border-radius: 13px;
-
-    background:
-        #fff6d0;
-
-    border:
-        2px solid #dfbd55;
-
-    font-weight: bold;
-}
-
-
-/* =====================================================
    実績
 ===================================================== */
 
 .achievement {
+
     display: flex;
 
     align-items: center;
@@ -588,14 +839,14 @@ button {
 
     border-radius: 14px;
 
-    background:
-        #fff8d7;
+    background: var(--card2);
 
     border:
         2px solid #e0c15e;
 }
 
 .achievement.locked {
+
     filter: grayscale(1);
 
     opacity: 0.55;
@@ -610,6 +861,7 @@ button {
 }
 
 .achievement-desc {
+
     font-size: 12px;
 
     color: #927743;
@@ -621,6 +873,7 @@ button {
 ===================================================== */
 
 .chart {
+
     width: 100%;
 
     height: 220px;
@@ -639,6 +892,7 @@ button {
 }
 
 .bar-wrap {
+
     flex: 1;
 
     height: 100%;
@@ -653,6 +907,7 @@ button {
 }
 
 .bar {
+
     width: 70%;
 
     min-height: 3px;
@@ -665,12 +920,10 @@ button {
             #ffd83d,
             #e49c00
         );
-
-    transition:
-        height 0.5s;
 }
 
 .bar-label {
+
     position: absolute;
 
     bottom: -22px;
@@ -682,31 +935,11 @@ button {
 
 
 /* =====================================================
-   ポモドーロ
-===================================================== */
-
-.pomodoro {
-    margin-top: 15px;
-
-    padding: 13px;
-
-    border-radius: 15px;
-
-    background:
-        #f1eaff;
-
-    border:
-        2px solid #a88be9;
-
-    color: #6043a4;
-}
-
-
-/* =====================================================
    モーダル
 ===================================================== */
 
 .overlay {
+
     position: fixed;
 
     inset: 0;
@@ -733,9 +966,10 @@ button {
 }
 
 .modal {
+
     width: 96%;
 
-    max-width: 700px;
+    max-width: 750px;
 
     max-height: 90vh;
 
@@ -756,6 +990,7 @@ button {
 }
 
 .modal-header {
+
     display: flex;
 
     justify-content: space-between;
@@ -764,10 +999,10 @@ button {
 }
 
 .close {
+
     border: none;
 
-    background:
-        #ff6666;
+    background: #ff6666;
 
     color: white;
 
@@ -780,7 +1015,13 @@ button {
     cursor: pointer;
 }
 
+
+/* =====================================================
+   ショップ
+===================================================== */
+
 .shop-grid {
+
     display: grid;
 
     gap: 10px;
@@ -789,6 +1030,7 @@ button {
 }
 
 .shop-item {
+
     display: flex;
 
     align-items: center;
@@ -815,26 +1057,28 @@ button {
 }
 
 .shop-name {
+
     font-weight: bold;
 
     color: #795200;
 }
 
 .shop-desc {
+
     font-size: 12px;
 
     color: #927746;
 }
 
 .buy {
+
     border: none;
 
     padding: 9px 12px;
 
     border-radius: 10px;
 
-    background:
-        #ffc928;
+    background: #ffc928;
 
     color: #684600;
 
@@ -844,8 +1088,8 @@ button {
 }
 
 .buy.done {
-    background:
-        #a7a7a7;
+
+    background: #a7a7a7;
 
     color: white;
 }
@@ -856,6 +1100,7 @@ button {
 ===================================================== */
 
 .chest {
+
     text-align: center;
 
     font-size: 70px;
@@ -869,22 +1114,20 @@ button {
 @keyframes chestShake {
 
     0%,100% {
-        transform:
-            rotate(0);
+        transform: rotate(0);
     }
 
     25% {
-        transform:
-            rotate(-4deg);
+        transform: rotate(-4deg);
     }
 
     75% {
-        transform:
-            rotate(4deg);
+        transform: rotate(4deg);
     }
 }
 
 .chest-result {
+
     text-align: center;
 
     font-size: 22px;
@@ -896,14 +1139,14 @@ button {
 
 
 /* =====================================================
-   応援演出
+   応援
 ===================================================== */
 
 .motivation {
+
     position: fixed;
 
     left: 50%;
-
     top: 45%;
 
     transform:
@@ -925,7 +1168,7 @@ button {
     color: #a66b00;
 
     font-size:
-        clamp(22px, 5vw, 38px);
+        clamp(22px,5vw,38px);
 
     font-weight: bold;
 
@@ -940,6 +1183,7 @@ button {
 }
 
 .motivation.show {
+
     animation:
         motivation 2.2s ease-out;
 }
@@ -948,7 +1192,6 @@ button {
 
     0% {
         opacity: 0;
-
         transform:
             translate(-50%,-50%)
             scale(0.5);
@@ -956,7 +1199,6 @@ button {
 
     20% {
         opacity: 1;
-
         transform:
             translate(-50%,-50%)
             scale(1.1);
@@ -964,7 +1206,6 @@ button {
 
     70% {
         opacity: 1;
-
         transform:
             translate(-50%,-50%)
             scale(1);
@@ -972,7 +1213,6 @@ button {
 
     100% {
         opacity: 0;
-
         transform:
             translate(-50%,-70%)
             scale(0.9);
@@ -981,15 +1221,14 @@ button {
 
 
 /* =====================================================
-   スナックバー
+   トースト
 ===================================================== */
 
 .toast {
+
     position: fixed;
 
-    bottom:
-        calc(25px + env(safe-area-inset-bottom));
-
+    bottom: 25px;
     left: 50%;
 
     transform:
@@ -1002,8 +1241,7 @@ button {
 
     border-radius: 15px;
 
-    background:
-        #4c3500;
+    background: #4c3500;
 
     color: white;
 
@@ -1011,11 +1249,11 @@ button {
 
     opacity: 0;
 
-    transition:
-        0.3s;
+    transition: 0.3s;
 }
 
 .toast.show {
+
     opacity: 1;
 
     transform:
@@ -1025,64 +1263,52 @@ button {
 
 
 /* =====================================================
-   全画面中
+   ポモドーロ
 ===================================================== */
 
-:fullscreen {
-    background:
-        #ffe99b;
-}
+.pomodoro {
 
-:fullscreen body {
-    min-height: 100vh;
-}
+    margin-top: 15px;
 
-body.fullscreen-mode {
-    min-height: 100vh;
+    padding: 13px;
+
+    border-radius: 15px;
+
+    background: #f1eaff;
+
+    border:
+        2px solid #a88be9;
+
+    color: #6043a4;
 }
 
 
 /* =====================================================
-   タブレット
+   スマホ
 ===================================================== */
 
-@media (min-width: 751px) and (max-width: 1100px) {
-
-    .main {
-        width: 94%;
-    }
-
-    .top-button {
-        padding:
-            8px 10px;
-
-        font-size: 13px;
-    }
-}
-
-
-/* =====================================================
-   スマホ縦
-===================================================== */
-
-@media (max-width: 750px) {
+@media(max-width:750px) {
 
     .top-bar {
+
         min-height: 58px;
 
         padding:
             7px 10px;
+
+        align-items: flex-start;
     }
 
     .logo {
-        font-size: 14px;
+        font-size: 13px;
     }
 
     .top-buttons {
-        gap: 5px;
+        gap: 4px;
     }
 
     .top-button {
+
         padding:
             7px 8px;
 
@@ -1090,48 +1316,45 @@ body.fullscreen-mode {
     }
 
     .main {
+
         width: 94%;
 
         grid-template-columns:
             1fr;
 
-        margin-top: 82px;
-
-        gap: 14px;
+        margin-top: 85px;
     }
 
     .timer-card {
-        grid-column:
-            auto;
+        grid-column: auto;
     }
 
     .card {
-        padding: 16px;
-
-        border-width: 3px;
-
-        border-radius: 20px;
-    }
-
-    .card-title {
-        font-size: 20px;
+        padding: 17px;
     }
 
     .timer {
-        font-size:
-            clamp(40px, 15vw, 70px);
-
         letter-spacing: 2px;
     }
 
-    .wallet-number {
-        font-size: 22px;
+    .wallet {
+        grid-template-columns:
+            repeat(3,1fr);
     }
 
-    .room {
-        min-height: 280px;
+    .main-button {
+        padding:
+            11px 14px;
 
-        height: 320px;
+        font-size: 14px;
+    }
+
+    .task-form {
+        flex-direction: column;
+    }
+
+    .task-add {
+        padding: 12px;
     }
 }
 
@@ -1140,129 +1363,47 @@ body.fullscreen-mode {
    横画面
 ===================================================== */
 
-@media (orientation: landscape) {
-
-    .main {
-        width: 96%;
-
-        max-width: 1600px;
-
-        grid-template-columns:
-            repeat(3, minmax(0, 1fr));
-
-        margin-top: 85px;
-
-        gap: 14px;
-    }
-
-    .timer-card {
-        grid-column:
-            1 / -1;
-    }
-
-    .card {
-        padding: 16px;
-    }
-
-    .timer {
-        font-size:
-            clamp(44px, 10vh, 90px);
-
-        margin:
-            4px 0;
-    }
-
-    .room {
-        min-height: 280px;
-
-        height: 42vh;
-    }
-
-    .controls {
-        margin-top: 10px;
-    }
-
-    .main-button {
-        padding:
-            10px 16px;
-    }
-}
-
-
-/* =====================================================
-   横画面・低い画面
-===================================================== */
-
-@media (orientation: landscape)
-       and (max-height: 650px) {
+@media (orientation: landscape) and (max-height: 600px) {
 
     .top-bar {
-        min-height: 52px;
-
-        padding:
-            5px 12px;
+        min-height: 54px;
     }
 
     .main {
-        margin-top: 65px;
 
-        margin-bottom: 20px;
+        margin-top: 75px;
+
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
+        gap: 12px;
+    }
+
+    .timer-card {
+        grid-column: 1 / -1;
     }
 
     .card {
-        padding: 12px;
-    }
-
-    .card-title {
-        margin-bottom: 8px;
-
-        font-size: 18px;
+        padding: 15px;
     }
 
     .timer {
-        font-size:
-            clamp(38px, 11vh, 65px);
-    }
-
-    .status {
-        min-height: 18px;
-
-        font-size: 13px;
+        font-size: clamp(40px,8vw,70px);
+        margin: 3px 0;
     }
 
     .room {
-        min-height: 230px;
-
-        height: 40vh;
-    }
-
-    .pet-character {
-        font-size: 55px;
-    }
-
-    .chart {
-        height: 170px;
+        min-height: 260px;
     }
 }
 
 
 /* =====================================================
-   超ワイドPC
+   全画面中
 ===================================================== */
 
-@media (min-width: 1400px) {
-
-    .main {
-        max-width: 1600px;
-
-        grid-template-columns:
-            repeat(4, minmax(0, 1fr));
-    }
-
-    .timer-card {
-        grid-column:
-            1 / -1;
-    }
+:fullscreen {
+    background: var(--bg3);
 }
 
 </style>
@@ -1284,37 +1425,34 @@ body.fullscreen-mode {
 
     <div class="top-buttons">
 
-        <button
-            class="top-button"
-            onclick="openShop()">
+        <button class="top-button"
+                onclick="openTasks()">
+            🎯 タスク
+        </button>
 
+        <button class="top-button"
+                onclick="openShop()">
             🛒 ショップ
-
         </button>
 
-        <button
-            class="top-button"
-            onclick="openStats()">
-
+        <button class="top-button"
+                onclick="openStats()">
             📊 記録
-
         </button>
 
-        <button
-            class="top-button"
-            onclick="openAchievements()">
-
+        <button class="top-button"
+                onclick="openAchievements()">
             🏆 実績
-
         </button>
 
-        <button
-            class="top-button"
-            id="fullscreenButton"
-            onclick="toggleFullscreen()">
+        <button class="top-button"
+                onclick="toggleDarkMode()">
+            🌙 ダーク
+        </button>
 
-            ⛶ 全画面
-
+        <button class="top-button"
+                onclick="toggleFullscreen()">
+            📺 全画面
         </button>
 
     </div>
@@ -1329,366 +1467,419 @@ body.fullscreen-mode {
 <main class="main">
 
 
-    <!-- タイマー -->
+<!-- =====================================================
+     タイマー
+===================================================== -->
 
-    <section class="card timer-card">
+<section class="card timer-card">
 
-        <h1 class="card-title">
-            ⏱ 集中タイマー
-        </h1>
+    <h1 class="card-title">
+        ⏱ 集中タイマー
+    </h1>
 
-        <div
-            class="timer"
-            id="timer">
+    <div class="timer" id="timer">
+        00:00:00
+    </div>
 
-            00:00:00
+    <div class="status" id="status">
+        スタートして集中しよう！
+    </div>
 
-        </div>
+    <div class="mode-display" id="modeDisplay">
+        🌞 通常モード
+    </div>
 
-        <div
-            class="status"
-            id="status">
+    <div class="controls">
 
-            スタートして集中しよう！
-
-        </div>
-
-        <div
-            class="mode-display"
-            id="modeDisplay">
-
-            🌞 通常モード
-
-        </div>
-
-        <div class="controls">
-
-            <button
-                class="main-button start"
+        <button class="main-button start"
                 onclick="startTimer()">
+            ▶ スタート
+        </button>
 
-                ▶ スタート
-
-            </button>
-
-            <button
-                class="main-button pause"
+        <button class="main-button pause"
                 onclick="pauseTimer()">
+            ⏸ 一時停止
+        </button>
 
-                ⏸ 一時停止
-
-            </button>
-
-            <button
-                class="main-button reset"
+        <button class="main-button reset"
                 onclick="resetTimer()">
+            ↻ リセット
+        </button>
 
-                ↻ リセット
-
-            </button>
-
-            <button
-                class="main-button mode"
+        <button class="main-button mode"
                 onclick="togglePomodoro()">
+            🍅 ポモドーロ
+        </button>
 
-                🍅 ポモドーロ
+        <button class="main-button fullscreen"
+                onclick="toggleFullscreen()">
+            📺 全画面
+        </button>
 
-            </button>
+    </div>
+
+    <div class="pomodoro"
+         id="pomodoroInfo"
+         style="display:none">
+
+        🍅 25分集中 → 5分休憩
+
+    </div>
+
+    <div class="reward-box"
+         id="nextReward">
+
+        ⭐ あと1分で銅コイン！
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     コイン
+===================================================== -->
+
+<section class="card">
+
+    <h2 class="card-title">
+        🪙 ウォレット
+    </h2>
+
+    <div class="wallet">
+
+        <div class="wallet-item">
+
+            <div class="wallet-icon">
+                🟤
+            </div>
+
+            <div>
+                銅コイン
+            </div>
+
+            <div class="wallet-number"
+                 id="copper">
+                0
+            </div>
 
         </div>
 
-        <div
-            class="pomodoro"
-            id="pomodoroInfo"
-            style="display:none">
+        <div class="wallet-item">
 
-            🍅 25分集中 → 5分休憩
+            <div class="wallet-icon">
+                ⚪
+            </div>
+
+            <div>
+                銀コイン
+            </div>
+
+            <div class="wallet-number"
+                 id="silver">
+                0
+            </div>
 
         </div>
 
-        <div
-            class="reward-box"
-            id="nextReward">
+        <div class="wallet-item">
 
-            ⭐ あと1分で銅コイン！
+            <div class="wallet-icon">
+                🟡
+            </div>
+
+            <div>
+                金コイン
+            </div>
+
+            <div class="wallet-number"
+                 id="gold">
+                0
+            </div>
 
         </div>
 
-    </section>
+    </div>
+
+    <div class="reward-box">
+
+        🟤 銅10枚
+        ↓
+        ⚪ 銀1枚
+        ↓
+        🟡 銀6枚で金1枚
+
+        <br><br>
+
+        ⏱ <strong>60分集中 = 金コイン1枚</strong>
+
+    </div>
+
+    <div class="task-coin-box">
+
+        🪙 タスクコイン
+
+        <div class="task-coin-number"
+             id="taskCoins">
+            0
+        </div>
+
+        <small>
+            タスク達成でもらえる特別コイン
+        </small>
+
+    </div>
+
+</section>
 
 
-    <!-- コイン -->
+<!-- =====================================================
+     タスク
+===================================================== -->
 
-    <section class="card">
+<section class="card">
 
-        <h2 class="card-title">
-            🪙 ウォレット
-        </h2>
+    <h2 class="card-title">
+        🎯 タスク
+    </h2>
 
-        <div class="wallet">
+    <p>
+        今日達成したい目標を設定しよう！
+        <br>
+        1つ達成するごとに 🪙タスクコインを1枚獲得。
+    </p>
 
-            <div class="wallet-item">
+    <div class="task-form">
 
-                <div class="wallet-icon">
-                    🟤
+        <input
+            id="taskInput"
+            class="task-input"
+            type="text"
+            maxlength="50"
+            placeholder="例：数学の問題を10問解く">
+
+        <button class="task-add"
+                onclick="addTask()">
+            ＋追加
+        </button>
+
+    </div>
+
+    <div id="taskList"
+         class="task-list">
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ペット
+===================================================== -->
+
+<section class="card">
+
+    <h2 class="card-title">
+        🐾 ペット
+    </h2>
+
+    <div class="pet-area">
+
+        <div class="pet-character"
+             id="petCharacter">
+            🐱
+        </div>
+
+        <div class="pet-info">
+
+            <div class="pet-name"
+                 id="petName">
+                ミケ
+            </div>
+
+            <div class="pet-level"
+                 id="petLevel">
+                Lv.1
+            </div>
+
+            <div class="progress">
+
+                <div class="progress-inner"
+                     id="petExp">
                 </div>
 
-                <div>
-                    銅コイン
-                </div>
+            </div>
 
-                <div
-                    class="wallet-number"
-                    id="copper">
+            <div style="margin-top:8px">
 
+                ❤️ 好感度：
+                <span id="affection">
                     0
-
-                </div>
-
-            </div>
-
-
-            <div class="wallet-item">
-
-                <div class="wallet-icon">
-                    ⚪
-                </div>
-
-                <div>
-                    銀コイン
-                </div>
-
-                <div
-                    class="wallet-number"
-                    id="silver">
-
-                    0
-
-                </div>
-
-            </div>
-
-
-            <div class="wallet-item">
-
-                <div class="wallet-icon">
-                    🟡
-                </div>
-
-                <div>
-                    金コイン
-                </div>
-
-                <div
-                    class="wallet-number"
-                    id="gold">
-
-                    0
-
-                </div>
+                </span>
+                / 100
 
             </div>
 
         </div>
 
-        <div class="reward-box">
+    </div>
 
-            🟤 銅10枚
-            ↓
-            ⚪ 銀1枚
-            ↓
-            ⚪ 銀6枚
-            ↓
-            🟡 金1枚
+    <div class="pet-message"
+         id="petMessage">
 
-            <br><br>
+        「一緒に頑張ろう！」
 
-            ⏱️ <strong>60分集中 = 金コイン1枚</strong>
+    </div>
 
+</section>
+
+
+<!-- =====================================================
+     部屋
+===================================================== -->
+
+<section class="card">
+
+    <h2 class="card-title">
+        🏠 マイルーム
+    </h2>
+
+    <div class="room"
+         id="room">
+
+        <div class="room-window"></div>
+
+        <div class="room-sun">
+            ☀️
         </div>
 
-    </section>
+        <div id="roomFurniture"></div>
+
+    </div>
+
+</section>
 
 
-    <!-- ペット -->
+<!-- =====================================================
+     実績
+===================================================== -->
 
-    <section class="card">
+<section class="card">
 
-        <h2 class="card-title">
-            🐾 ペット
-        </h2>
+    <h2 class="card-title">
+        🏆 実績
+    </h2>
 
-        <div class="pet-area">
+    <div id="achievementList">
+    </div>
 
-            <div
-                class="pet-character"
-                id="petCharacter">
-
-                🐱
-
-            </div>
-
-            <div class="pet-info">
-
-                <div
-                    class="pet-name"
-                    id="petName">
-
-                    ミケ
-
-                </div>
-
-                <div
-                    class="pet-level"
-                    id="petLevel">
-
-                    Lv.1
-
-                </div>
-
-                <div class="progress">
-
-                    <div
-                        class="progress-inner"
-                        id="petExp">
-
-                    </div>
-
-                </div>
-
-                <div style="margin-top:8px">
-
-                    ❤️ 好感度：
-                    <span id="affection">
-                        0
-                    </span>
-                    / 100
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div
-            class="pet-message"
-            id="petMessage">
-
-            「一緒に頑張ろう！」
-
-        </div>
-
-    </section>
+</section>
 
 
-    <!-- 部屋 -->
+<!-- =====================================================
+     グラフ
+===================================================== -->
 
-    <section class="card">
+<section class="card">
 
-        <h2 class="card-title">
-            🏠 マイルーム
-        </h2>
+    <h2 class="card-title">
+        📊 集中記録
+    </h2>
 
-        <div
-            class="room"
-            id="room">
+    <div id="chart"
+         class="chart">
+    </div>
 
-            <div class="room-window"></div>
+    <div style="text-align:center;margin-top:10px">
+        過去7日間の集中時間
+    </div>
 
-            <div class="room-sun">
-                ☀️
-            </div>
-
-            <div
-                class="furniture"
-                id="roomFurniture">
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- 実績 -->
-
-    <section class="card">
-
-        <h2 class="card-title">
-            🏆 実績
-        </h2>
-
-        <div
-            id="achievementList">
-        </div>
-
-    </section>
-
-
-    <!-- グラフ -->
-
-    <section class="card">
-
-        <h2 class="card-title">
-            📊 集中記録
-        </h2>
-
-        <div
-            id="chart"
-            class="chart">
-        </div>
-
-        <div
-            style="text-align:center;margin-top:10px">
-
-            過去7日間の集中時間
-
-        </div>
-
-    </section>
+</section>
 
 </main>
 
 
 <!-- =====================================================
-     ショップ
+     タスクモーダル
 ===================================================== -->
 
-<div
-    class="overlay"
-    id="shopOverlay">
+<div class="overlay"
+     id="taskOverlay">
 
     <div class="modal">
 
         <div class="modal-header">
 
             <h2>
-                🛒 ショップ
+                🎯 タスク管理
             </h2>
 
-            <button
-                class="close"
-                onclick="closeModal('shopOverlay')">
-
+            <button class="close"
+                    onclick="closeModal('taskOverlay')">
                 ×
+            </button>
 
+        </div>
+
+        <p>
+            タスクを達成すると
+            <strong>🪙タスクコイン +1</strong>！
+        </p>
+
+        <div class="task-form">
+
+            <input
+                id="taskInputModal"
+                class="task-input"
+                type="text"
+                maxlength="50"
+                placeholder="新しいタスク">
+
+            <button class="task-add"
+                    onclick="addTaskFromModal()">
+                ＋追加
+            </button>
+
+        </div>
+
+        <div id="taskModalList"
+             class="task-list">
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ショップ
+===================================================== -->
+
+<div class="overlay"
+     id="shopOverlay">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h2>🛒 ショップ</h2>
+
+            <button class="close"
+                    onclick="closeModal('shopOverlay')">
+                ×
             </button>
 
         </div>
 
         <p>
             🟡 金コイン：
-            <strong id="shopGold">
-                0
-            </strong>
+            <strong id="shopGold">0</strong>
         </p>
 
         <div class="shop-grid">
 
             <div class="shop-item">
 
-                <div class="shop-icon">
-                    🐱
-                </div>
+                <div class="shop-icon">🐱</div>
 
                 <div class="shop-info">
 
@@ -1697,7 +1888,7 @@ body.fullscreen-mode {
                     </div>
 
                     <div class="shop-desc">
-                        最初から使えるペット
+                        最初から使用可能
                     </div>
 
                 </div>
@@ -1711,9 +1902,7 @@ body.fullscreen-mode {
 
             <div class="shop-item">
 
-                <div class="shop-icon">
-                    🐶
-                </div>
+                <div class="shop-icon">🐶</div>
 
                 <div class="shop-info">
 
@@ -1727,12 +1916,9 @@ body.fullscreen-mode {
 
                 </div>
 
-                <button
-                    class="buy"
-                    onclick="buyPet('dog',8)">
-
+                <button class="buy"
+                        onclick="buyPet('dog',8)">
                     🟡 8
-
                 </button>
 
             </div>
@@ -1740,9 +1926,7 @@ body.fullscreen-mode {
 
             <div class="shop-item">
 
-                <div class="shop-icon">
-                    🐰
-                </div>
+                <div class="shop-icon">🐰</div>
 
                 <div class="shop-info">
 
@@ -1756,12 +1940,9 @@ body.fullscreen-mode {
 
                 </div>
 
-                <button
-                    class="buy"
-                    onclick="buyPet('rabbit',12)">
-
+                <button class="buy"
+                        onclick="buyPet('rabbit',12)">
                     🟡 12
-
                 </button>
 
             </div>
@@ -1769,9 +1950,7 @@ body.fullscreen-mode {
 
             <div class="shop-item">
 
-                <div class="shop-icon">
-                    🦊
-                </div>
+                <div class="shop-icon">🦊</div>
 
                 <div class="shop-info">
 
@@ -1785,12 +1964,9 @@ body.fullscreen-mode {
 
                 </div>
 
-                <button
-                    class="buy"
-                    onclick="buyPet('fox',20)">
-
+                <button class="buy"
+                        onclick="buyPet('fox',20)">
                     🟡 20
-
                 </button>
 
             </div>
@@ -1798,9 +1974,7 @@ body.fullscreen-mode {
 
             <div class="shop-item">
 
-                <div class="shop-icon">
-                    🐼
-                </div>
+                <div class="shop-icon">🐼</div>
 
                 <div class="shop-info">
 
@@ -1814,12 +1988,9 @@ body.fullscreen-mode {
 
                 </div>
 
-                <button
-                    class="buy"
-                    onclick="buyPet('panda',30)">
-
+                <button class="buy"
+                        onclick="buyPet('panda',30)">
                     🟡 30
-
                 </button>
 
             </div>
@@ -1827,9 +1998,7 @@ body.fullscreen-mode {
 
             <div class="shop-item">
 
-                <div class="shop-icon">
-                    🪑
-                </div>
+                <div class="shop-icon">🪑</div>
 
                 <div class="shop-info">
 
@@ -1838,17 +2007,14 @@ body.fullscreen-mode {
                     </div>
 
                     <div class="shop-desc">
-                        部屋に机を置く：金5枚
+                        金コイン5枚
                     </div>
 
                 </div>
 
-                <button
-                    class="buy"
-                    onclick="buyFurniture('desk',5)">
-
+                <button class="buy"
+                        onclick="buyFurniture('desk',5)">
                     🟡 5
-
                 </button>
 
             </div>
@@ -1856,9 +2022,7 @@ body.fullscreen-mode {
 
             <div class="shop-item">
 
-                <div class="shop-icon">
-                    🛏️
-                </div>
+                <div class="shop-icon">🛏️</div>
 
                 <div class="shop-info">
 
@@ -1867,17 +2031,14 @@ body.fullscreen-mode {
                     </div>
 
                     <div class="shop-desc">
-                        部屋にベッドを置く：金8枚
+                        金コイン8枚
                     </div>
 
                 </div>
 
-                <button
-                    class="buy"
-                    onclick="buyFurniture('bed',8)">
-
+                <button class="buy"
+                        onclick="buyFurniture('bed',8)">
                     🟡 8
-
                 </button>
 
             </div>
@@ -1885,9 +2046,7 @@ body.fullscreen-mode {
 
             <div class="shop-item">
 
-                <div class="shop-icon">
-                    📚
-                </div>
+                <div class="shop-icon">📚</div>
 
                 <div class="shop-info">
 
@@ -1896,17 +2055,14 @@ body.fullscreen-mode {
                     </div>
 
                     <div class="shop-desc">
-                        部屋に本棚を置く：金10枚
+                        金コイン10枚
                     </div>
 
                 </div>
 
-                <button
-                    class="buy"
-                    onclick="buyFurniture('books',10)">
-
+                <button class="buy"
+                        onclick="buyFurniture('books',10)">
                     🟡 10
-
                 </button>
 
             </div>
@@ -1914,9 +2070,7 @@ body.fullscreen-mode {
 
             <div class="shop-item">
 
-                <div class="shop-icon">
-                    🪴
-                </div>
+                <div class="shop-icon">🪴</div>
 
                 <div class="shop-info">
 
@@ -1925,17 +2079,14 @@ body.fullscreen-mode {
                     </div>
 
                     <div class="shop-desc">
-                        部屋に植物を置く：金12枚
+                        金コイン12枚
                     </div>
 
                 </div>
 
-                <button
-                    class="buy"
-                    onclick="buyFurniture('plant',12)">
-
+                <button class="buy"
+                        onclick="buyFurniture('plant',12)">
                     🟡 12
-
                 </button>
 
             </div>
@@ -1943,9 +2094,7 @@ body.fullscreen-mode {
 
             <div class="shop-item">
 
-                <div class="shop-icon">
-                    🌈
-                </div>
+                <div class="shop-icon">🌈</div>
 
                 <div class="shop-info">
 
@@ -1954,17 +2103,14 @@ body.fullscreen-mode {
                     </div>
 
                     <div class="shop-desc">
-                        部屋の雰囲気を変更：金5枚
+                        金コイン5枚
                     </div>
 
                 </div>
 
-                <button
-                    class="buy"
-                    onclick="buyBackground(5)">
-
+                <button class="buy"
+                        onclick="buyBackground(5)">
                     🟡 5
-
                 </button>
 
             </div>
@@ -1977,27 +2123,21 @@ body.fullscreen-mode {
 
 
 <!-- =====================================================
-     実績モーダル
+     実績
 ===================================================== -->
 
-<div
-    class="overlay"
-    id="achievementOverlay">
+<div class="overlay"
+     id="achievementOverlay">
 
     <div class="modal">
 
         <div class="modal-header">
 
-            <h2>
-                🏆 実績
-            </h2>
+            <h2>🏆 実績</h2>
 
-            <button
-                class="close"
-                onclick="closeModal('achievementOverlay')">
-
+            <button class="close"
+                    onclick="closeModal('achievementOverlay')">
                 ×
-
             </button>
 
         </div>
@@ -2011,27 +2151,21 @@ body.fullscreen-mode {
 
 
 <!-- =====================================================
-     記録モーダル
+     記録
 ===================================================== -->
 
-<div
-    class="overlay"
-    id="statsOverlay">
+<div class="overlay"
+     id="statsOverlay">
 
     <div class="modal">
 
         <div class="modal-header">
 
-            <h2>
-                📊 集中記録
-            </h2>
+            <h2>📊 集中記録</h2>
 
-            <button
-                class="close"
-                onclick="closeModal('statsOverlay')">
-
+            <button class="close"
+                    onclick="closeModal('statsOverlay')">
                 ×
-
             </button>
 
         </div>
@@ -2048,38 +2182,28 @@ body.fullscreen-mode {
      宝箱
 ===================================================== -->
 
-<div
-    class="overlay"
-    id="chestOverlay">
+<div class="overlay"
+     id="chestOverlay">
 
     <div class="modal">
 
         <div class="modal-header">
 
-            <h2>
-                🎁 ランダム宝箱！
-            </h2>
+            <h2>🎁 ランダム宝箱！</h2>
 
         </div>
 
-        <div
-            class="chest"
-            onclick="openChest()">
-
+        <div class="chest"
+             onclick="openChest()">
             🎁
-
         </div>
 
         <div style="text-align:center">
-
             宝箱をクリック！
-
         </div>
 
-        <div
-            class="chest-result"
-            id="chestResult">
-
+        <div class="chest-result"
+             id="chestResult">
         </div>
 
     </div>
@@ -2091,14 +2215,12 @@ body.fullscreen-mode {
      演出
 ===================================================== -->
 
-<div
-    class="motivation"
-    id="motivation">
+<div class="motivation"
+     id="motivation">
 </div>
 
-<div
-    class="toast"
-    id="toast">
+<div class="toast"
+     id="toast">
 </div>
 
 
@@ -2108,22 +2230,7 @@ body.fullscreen-mode {
    ゲームデータ
 ===================================================== */
 
-/*
-    COIN SYSTEM v2
-
-    1分 = 銅1枚
-    銅10枚 = 銀1枚
-    銀6枚 = 金1枚
-
-    つまり
-    60分 = 金1枚
-*/
-
-const GAME_VERSION = 2;
-
 let game = {
-
-    version: GAME_VERSION,
 
     seconds: 0,
 
@@ -2133,26 +2240,29 @@ let game = {
 
     gold: 0,
 
+    /* タスクコイン */
+    taskCoins: 0,
+
+    /* 累計集中時間 */
     totalFocus: 0,
 
     todayFocus: 0,
-
-    weekly: {},
 
     history: {},
 
     achievements: {},
 
+    /* タスク */
+    tasks: [],
+
+    taskHistory: [],
+
     pets: {
 
         cat: {
-
             level: 1,
-
             exp: 0,
-
             affection: 0
-
         }
 
     },
@@ -2160,9 +2270,7 @@ let game = {
     currentPet: "cat",
 
     ownedPets: {
-
         cat: true
-
     },
 
     furniture: [],
@@ -2175,7 +2283,10 @@ let game = {
 
     pomodoroBreak: false,
 
-    lastChest: 0
+    lastChest: 0,
+
+    darkMode: false
+
 };
 
 
@@ -2189,6 +2300,7 @@ function saveGame() {
         "focusCoinGame",
         JSON.stringify(game)
     );
+
 }
 
 
@@ -2203,90 +2315,31 @@ function loadGame() {
             "focusCoinGame"
         );
 
-    if (!saved) {
-
-        return;
-
-    }
+    if (!saved) return;
 
     try {
 
         const data =
             JSON.parse(saved);
 
-
-        /*
-            以前のバージョンのコイン制度は
-            完全に破棄する。
-
-            ペット・家具・実績などは
-            できるだけ引き継ぐ。
-        */
-
-        const oldVersion =
-            data.version || 1;
-
-
         game = {
-
             ...game,
-
             ...data
-
         };
 
+        /* 古いデータ対策 */
 
-        /*
-            古いコインはリセット
-        */
-
-        if (oldVersion < GAME_VERSION) {
-
-            game.copper = 0;
-
-            game.silver = 0;
-
-            game.gold = 0;
-
-            game.version =
-                GAME_VERSION;
-
+        if (!Array.isArray(game.tasks)) {
+            game.tasks = [];
         }
 
+        if (!Array.isArray(game.taskHistory)) {
+            game.taskHistory = [];
+        }
 
-        /*
-            念のため不足データを補完
-        */
-
-        game.pets =
-            game.pets || {};
-
-        game.ownedPets =
-            game.ownedPets || {
-                cat: true
-            };
-
-        game.furniture =
-            Array.isArray(
-                game.furniture
-            )
-            ? game.furniture
-            : [];
-
-        game.history =
-            game.history || {};
-
-        game.achievements =
-            game.achievements || {};
-
-        game.copper =
-            Number(game.copper) || 0;
-
-        game.silver =
-            Number(game.silver) || 0;
-
-        game.gold =
-            Number(game.gold) || 0;
+        if (typeof game.taskCoins !== "number") {
+            game.taskCoins = 0;
+        }
 
     } catch(error) {
 
@@ -2295,27 +2348,26 @@ function loadGame() {
         );
 
     }
+
 }
 
 
 /* =====================================================
-   今日の日付
+   日付
 ===================================================== */
 
 function getDateKey() {
 
-    const d =
-        new Date();
+    const d = new Date();
 
     return d.getFullYear()
         + "-"
-        + String(
-            d.getMonth() + 1
-        ).padStart(2,"0")
+        + String(d.getMonth()+1)
+            .padStart(2,"0")
         + "-"
-        + String(
-            d.getDate()
-        ).padStart(2,"0");
+        + String(d.getDate())
+            .padStart(2,"0");
+
 }
 
 
@@ -2329,15 +2381,13 @@ let running = false;
 
 
 /* =====================================================
-   表示
+   UI更新
 ===================================================== */
 
 function updateUI() {
 
     const h =
-        Math.floor(
-            game.seconds / 3600
-        );
+        Math.floor(game.seconds / 3600);
 
     const m =
         Math.floor(
@@ -2347,10 +2397,10 @@ function updateUI() {
     const s =
         game.seconds % 60;
 
-
     document.getElementById(
         "timer"
     ).textContent =
+
         String(h).padStart(2,"0")
         + ":"
         + String(m).padStart(2,"0")
@@ -2377,6 +2427,12 @@ function updateUI() {
 
 
     document.getElementById(
+        "taskCoins"
+    ).textContent =
+        game.taskCoins;
+
+
+    document.getElementById(
         "shopGold"
     ).textContent =
         game.gold;
@@ -2393,6 +2449,8 @@ function updateUI() {
     updateStats();
 
     updateRoom();
+
+    renderTasks();
 
 }
 
@@ -2411,33 +2469,7 @@ function tick() {
 
 
     /*
-        日別記録
-    */
-
-    const today =
-        getDateKey();
-
-
-    if (!game.history[today]) {
-
-        game.history[today] = 0;
-
-    }
-
-
-    game.history[today]++;
-
-
-    /*
-        ==============================================
-        新しいコインシステム
-        ==============================================
-
-        累計集中時間が60秒増えるごとに
-        銅コイン1枚。
-
-        これなら1秒ごとにコインが増える
-        旧システムにはならない。
+        60秒ごとに銅コイン1枚
     */
 
     if (
@@ -2446,22 +2478,18 @@ function tick() {
 
         game.copper++;
 
-        showToast(
-            "🟤 銅コイン +1！"
+        showMotivation(
+            "🟤 銅コイン GET!"
         );
 
-        playSound(
-            "copper"
-        );
+        playSound("copper");
 
 
         /*
             銅10枚 → 銀1枚
         */
 
-        if (
-            game.copper >= 10
-        ) {
+        if (game.copper >= 10) {
 
             game.copper -= 10;
 
@@ -2471,9 +2499,7 @@ function tick() {
                 "⚪ 銀コイン GET!"
             );
 
-            playSound(
-                "silver"
-            );
+            playSound("silver");
 
         }
 
@@ -2482,9 +2508,7 @@ function tick() {
             銀6枚 → 金1枚
         */
 
-        if (
-            game.silver >= 6
-        ) {
+        if (game.silver >= 6) {
 
             game.silver -= 6;
 
@@ -2494,9 +2518,7 @@ function tick() {
                 "🟡 金コイン GET!"
             );
 
-            playSound(
-                "gold"
-            );
+            playSound("gold");
 
         }
 
@@ -2504,7 +2526,23 @@ function tick() {
 
 
     /*
-        ペット成長
+        日別記録
+    */
+
+    const today =
+        getDateKey();
+
+    if (!game.history[today]) {
+
+        game.history[today] = 0;
+
+    }
+
+    game.history[today]++;
+
+
+    /*
+        ペット
     */
 
     gainPetExp();
@@ -2545,27 +2583,10 @@ function tick() {
 
 
     /*
-        30分達成
+        実績
     */
 
-    if (
-        game.totalFocus === 1800
-    ) {
-
-        unlockAchievement(
-            "thirtyMinutes"
-        );
-
-    }
-
-
-    /*
-        1時間達成
-    */
-
-    if (
-        game.totalFocus === 3600
-    ) {
+    if (game.totalFocus === 3600) {
 
         unlockAchievement(
             "oneHour"
@@ -2575,20 +2596,10 @@ function tick() {
             "🏆 1時間達成！すごい！"
         );
 
-        playSound(
-            "achievement"
-        );
-
     }
 
 
-    /*
-        10時間達成
-    */
-
-    if (
-        game.totalFocus === 36000
-    ) {
+    if (game.totalFocus === 36000) {
 
         unlockAchievement(
             "tenHour"
@@ -2598,25 +2609,15 @@ function tick() {
             "🏆 10時間達成！伝説級！"
         );
 
-        playSound(
-            "achievement"
-        );
-
     }
 
-
-    /*
-        1時間ごとの音
-    */
 
     if (
         game.totalFocus > 0 &&
         game.totalFocus % 3600 === 0
     ) {
 
-        playSound(
-            "hour"
-        );
+        playSound("hour");
 
     }
 
@@ -2634,21 +2635,14 @@ function tick() {
 
 function startTimer() {
 
-    if (running) {
-
-        return;
-
-    }
-
+    if (running) return;
 
     running = true;
-
 
     document.getElementById(
         "status"
     ).textContent =
         "🔥 集中中！その調子！";
-
 
     interval =
         setInterval(
@@ -2667,14 +2661,9 @@ function pauseTimer() {
 
     running = false;
 
-
-    clearInterval(
-        interval
-    );
-
+    clearInterval(interval);
 
     interval = null;
-
 
     document.getElementById(
         "status"
@@ -2692,21 +2681,11 @@ function resetTimer() {
 
     pauseTimer();
 
-
-    /*
-        現在のタイマーだけ0にする。
-
-        累計集中時間・コイン・
-        ペットなどは消さない。
-    */
-
     game.seconds = 0;
-
 
     updateUI();
 
     saveGame();
-
 
     showToast(
         "タイマーをリセットしました"
@@ -2721,67 +2700,19 @@ function resetTimer() {
 
 function updateRewardText() {
 
-    const el =
-        document.getElementById(
-            "nextReward"
-        );
+    const secondsIntoMinute =
+        game.totalFocus % 60;
+
+    const remainingSeconds =
+        secondsIntoMinute === 0
+        ? 60
+        : 60 - secondsIntoMinute;
 
 
-    /*
-        銅まで
-    */
-
-    if (
-        game.copper < 10
-    ) {
-
-        const remaining =
-            10 - game.copper;
-
-
-        el.textContent =
-            `⭐ あと${remaining}分で ⚪ 銀コイン！`;
-
-        return;
-
-    }
-
-
-    /*
-        金まで
-
-        銀6枚になるまでに必要な
-        銅コインを計算。
-    */
-
-    const totalCopperNeeded =
-        (
-            (6 - game.silver)
-            * 10
-        )
-        - game.copper;
-
-
-    const minutes =
-        Math.max(
-            0,
-            totalCopperNeeded
-        );
-
-
-    if (
-        minutes > 0
-    ) {
-
-        el.textContent =
-            `⭐ あと${minutes}分で 🟡 金コイン！`;
-
-    } else {
-
-        el.textContent =
-            "🟡 金コイン獲得まであと少し！";
-
-    }
+    document.getElementById(
+        "nextReward"
+    ).textContent =
+        `⭐ あと${remainingSeconds}秒で 🟤 銅コイン！`;
 
 }
 
@@ -2797,17 +2728,8 @@ function gainPetExp() {
             game.currentPet
         ];
 
+    if (!pet) return;
 
-    if (!pet) {
-
-        return;
-
-    }
-
-
-    /*
-        1分ごとに経験値
-    */
 
     if (
         game.totalFocus % 60 !== 0
@@ -2823,22 +2745,14 @@ function gainPetExp() {
     pet.affection++;
 
 
-    if (
-        pet.affection > 100
-    ) {
+    if (pet.affection > 100) {
 
         pet.affection = 100;
 
     }
 
 
-    /*
-        10EXPでレベルアップ
-    */
-
-    if (
-        pet.exp >= 10
-    ) {
+    if (pet.exp >= 10) {
 
         pet.exp = 0;
 
@@ -2847,9 +2761,7 @@ function gainPetExp() {
         pet.affection += 10;
 
 
-        if (
-            pet.affection > 100
-        ) {
+        if (pet.affection > 100) {
 
             pet.affection = 100;
 
@@ -2860,9 +2772,7 @@ function gainPetExp() {
             "🐾 ペットがレベルアップ！"
         );
 
-        playSound(
-            "level"
-        );
+        playSound("level");
 
     }
 
@@ -2880,12 +2790,7 @@ function updatePet() {
             game.currentPet
         ];
 
-
-    if (!pet) {
-
-        return;
-
-    }
+    if (!pet) return;
 
 
     const chars = {
@@ -2921,17 +2826,13 @@ function updatePet() {
     document.getElementById(
         "petCharacter"
     ).textContent =
-        chars[
-            game.currentPet
-        ];
+        chars[game.currentPet];
 
 
     document.getElementById(
         "petName"
     ).textContent =
-        names[
-            game.currentPet
-        ];
+        names[game.currentPet];
 
 
     document.getElementById(
@@ -2949,9 +2850,7 @@ function updatePet() {
     document.getElementById(
         "petExp"
     ).style.width =
-        (
-            pet.exp * 10
-        ) + "%";
+        (pet.exp * 10) + "%";
 
 
     const messages = {
@@ -2977,9 +2876,7 @@ function updatePet() {
     document.getElementById(
         "petMessage"
     ).textContent =
-        messages[
-            game.currentPet
-        ];
+        messages[game.currentPet];
 
 }
 
@@ -2988,57 +2885,30 @@ function updatePet() {
    ペット購入
 ===================================================== */
 
-function buyPet(
-    type,
-    price
-) {
+function buyPet(type, price) {
 
-    if (
-        game.ownedPets[type]
-    ) {
+    if (game.ownedPets[type]) {
 
-        game.currentPet =
-            type;
-
-
-        if (!game.pets[type]) {
-
-            game.pets[type] = {
-
-                level: 1,
-
-                exp: 0,
-
-                affection: 0
-
-            };
-
-        }
-
+        game.currentPet = type;
 
         updateUI();
 
         saveGame();
 
-
         showToast(
             "ペットを変更しました！"
         );
-
 
         return;
 
     }
 
 
-    if (
-        game.gold < price
-    ) {
+    if (game.gold < price) {
 
         showToast(
-            `金コインがあと${price - game.gold}枚必要です`
+            `金コインがあと${price-game.gold}枚必要です`
         );
-
 
         return;
 
@@ -3047,10 +2917,7 @@ function buyPet(
 
     game.gold -= price;
 
-
-    game.ownedPets[type] =
-        true;
-
+    game.ownedPets[type] = true;
 
     game.pets[type] = {
 
@@ -3062,24 +2929,18 @@ function buyPet(
 
     };
 
-
-    game.currentPet =
-        type;
+    game.currentPet = type;
 
 
     saveGame();
 
     updateUI();
 
-
     showMotivation(
         "🐾 新しいペット GET!"
     );
 
-
-    playSound(
-        "purchase"
-    );
+    playSound("purchase");
 
 }
 
@@ -3088,15 +2949,10 @@ function buyPet(
    家具
 ===================================================== */
 
-function buyFurniture(
-    type,
-    price
-) {
+function buyFurniture(type, price) {
 
     if (
-        game.furniture.includes(
-            type
-        )
+        game.furniture.includes(type)
     ) {
 
         showToast(
@@ -3108,9 +2964,7 @@ function buyFurniture(
     }
 
 
-    if (
-        game.gold < price
-    ) {
+    if (game.gold < price) {
 
         showToast(
             "金コインが足りません"
@@ -3123,25 +2977,18 @@ function buyFurniture(
 
     game.gold -= price;
 
-
-    game.furniture.push(
-        type
-    );
+    game.furniture.push(type);
 
 
     saveGame();
 
     updateUI();
 
-
     showMotivation(
         "🏠 家具をGET!"
     );
 
-
-    playSound(
-        "purchase"
-    );
+    playSound("purchase");
 
 }
 
@@ -3164,43 +3011,27 @@ function updateRoom() {
     const positions = {
 
         desk: {
-
-            icon: "🪑",
-
-            left: "35%",
-
-            bottom: "10%"
-
+            icon:"🪑",
+            left:"35%",
+            bottom:"10%"
         },
 
         bed: {
-
-            icon: "🛏️",
-
-            left: "65%",
-
-            bottom: "9%"
-
+            icon:"🛏️",
+            left:"65%",
+            bottom:"9%"
         },
 
         books: {
-
-            icon: "📚",
-
-            left: "15%",
-
-            bottom: "11%"
-
+            icon:"📚",
+            left:"15%",
+            bottom:"11%"
         },
 
         plant: {
-
-            icon: "🪴",
-
-            left: "82%",
-
-            bottom: "10%"
-
+            icon:"🪴",
+            left:"82%",
+            bottom:"10%"
         }
 
     };
@@ -3212,57 +3043,50 @@ function updateRoom() {
             const f =
                 positions[item];
 
-
-            if (!f) {
-
-                return;
-
-            }
+            if (!f) return;
 
 
             const el =
-                document.createElement(
-                    "div"
-                );
+                document.createElement("div");
 
+            el.className = "furniture";
 
-            el.className =
-                "furniture";
+            el.textContent = f.icon;
 
+            el.style.left = f.left;
 
-            el.textContent =
-                f.icon;
+            el.style.bottom = f.bottom;
 
-
-            el.style.left =
-                f.left;
-
-
-            el.style.bottom =
-                f.bottom;
-
-
-            roomFurniture.appendChild(
-                el
-            );
+            roomFurniture.appendChild(el);
 
         }
     );
 
 
+    const room =
+        document.getElementById("room");
+
+
     if (
-        game.background ===
-        "rainbow"
+        game.background === "rainbow"
     ) {
 
-        document.getElementById(
-            "room"
-        ).style.background =
+        room.style.background =
             `
             linear-gradient(
                 #ffb6c1,
                 #c7b7ff 55%,
                 #e6b86a 55%
+            )
+            `;
+
+    } else {
+
+        room.style.background =
+            `
+            linear-gradient(
+                #b9e8ff 0 68%,
+                #e6b86a 68% 100%
             )
             `;
 
@@ -3272,16 +3096,13 @@ function updateRoom() {
 
 
 /* =====================================================
-   背景購入
+   背景
 ===================================================== */
 
-function buyBackground(
-    price
-) {
+function buyBackground(price) {
 
     if (
-        game.background ===
-        "rainbow"
+        game.background === "rainbow"
     ) {
 
         showToast(
@@ -3293,9 +3114,7 @@ function buyBackground(
     }
 
 
-    if (
-        game.gold < price
-    ) {
+    if (game.gold < price) {
 
         showToast(
             "金コインが足りません"
@@ -3308,31 +3127,326 @@ function buyBackground(
 
     game.gold -= price;
 
-
-    game.background =
-        "rainbow";
-
-
-    document.body.style.background =
-        `
-        linear-gradient(
-            135deg,
-            #ff9a9e,
-            #fad0c4,
-            #a1c4fd,
-            #c2e9fb
-        )
-        `;
+    game.background = "rainbow";
 
 
     saveGame();
 
     updateUI();
 
-
     showMotivation(
         "🌈 部屋が変わった！"
     );
+
+}
+
+
+/* =====================================================
+   タスク
+===================================================== */
+
+function addTask() {
+
+    const input =
+        document.getElementById(
+            "taskInput"
+        );
+
+    const name =
+        input.value.trim();
+
+
+    if (!name) {
+
+        showToast(
+            "タスク名を入力してください"
+        );
+
+        return;
+
+    }
+
+
+    game.tasks.push({
+
+        id: Date.now(),
+
+        name: name,
+
+        completed: false,
+
+        createdAt: Date.now()
+
+    });
+
+
+    input.value = "";
+
+
+    saveGame();
+
+    renderTasks();
+
+    showToast(
+        "タスクを追加しました！"
+    );
+
+}
+
+
+/* =====================================================
+   モーダルからタスク追加
+===================================================== */
+
+function addTaskFromModal() {
+
+    const input =
+        document.getElementById(
+            "taskInputModal"
+        );
+
+    const name =
+        input.value.trim();
+
+
+    if (!name) {
+
+        showToast(
+            "タスク名を入力してください"
+        );
+
+        return;
+
+    }
+
+
+    game.tasks.push({
+
+        id: Date.now(),
+
+        name: name,
+
+        completed: false,
+
+        createdAt: Date.now()
+
+    });
+
+
+    input.value = "";
+
+    saveGame();
+
+    renderTasks();
+
+    showToast(
+        "タスクを追加しました！"
+    );
+
+}
+
+
+/* =====================================================
+   タスク達成
+===================================================== */
+
+function completeTask(id) {
+
+    const task =
+        game.tasks.find(
+            t => t.id === id
+        );
+
+
+    if (!task || task.completed) {
+
+        return;
+
+    }
+
+
+    task.completed = true;
+
+
+    /*
+        タスクコイン +1
+    */
+
+    game.taskCoins++;
+
+
+    game.taskHistory.push({
+
+        name: task.name,
+
+        completedAt: Date.now()
+
+    });
+
+
+    unlockAchievement(
+        "taskFirst"
+    );
+
+
+    if (
+        game.taskCoins >= 10
+    ) {
+
+        unlockAchievement(
+            "task10"
+        );
+
+    }
+
+
+    showMotivation(
+        "🎯 タスク達成！ 🪙 +1"
+    );
+
+    playSound("task");
+
+
+    saveGame();
+
+    updateUI();
+
+}
+
+
+/* =====================================================
+   タスク削除
+===================================================== */
+
+function deleteTask(id) {
+
+    game.tasks =
+        game.tasks.filter(
+            t => t.id !== id
+        );
+
+
+    saveGame();
+
+    updateUI();
+
+    showToast(
+        "タスクを削除しました"
+    );
+
+}
+
+
+/* =====================================================
+   タスク表示
+===================================================== */
+
+function renderTasks() {
+
+    const list =
+        document.getElementById(
+            "taskList"
+        );
+
+    const modalList =
+        document.getElementById(
+            "taskModalList"
+        );
+
+
+    function createHTML() {
+
+        if (!game.tasks.length) {
+
+            return `
+                <div class="task-empty">
+                    🎯 まだタスクがありません
+                </div>
+            `;
+
+        }
+
+
+        return game.tasks.map(
+            task => `
+
+                <div class="
+                    task-item
+                    ${task.completed ? "completed" : ""}
+                ">
+
+                    <div class="task-name">
+                        ${escapeHTML(task.name)}
+                    </div>
+
+                    ${
+                        task.completed
+                        ?
+                        `
+                        <span>
+                            ✅ 達成済み
+                        </span>
+                        `
+                        :
+                        `
+                        <button
+                            class="task-complete"
+                            onclick="completeTask(${task.id})">
+                            完了！
+                        </button>
+                        `
+                    }
+
+                    <button
+                        class="task-delete"
+                        onclick="deleteTask(${task.id})">
+                        ×
+                    </button>
+
+                </div>
+
+            `
+        ).join("");
+
+    }
+
+
+    list.innerHTML =
+        createHTML();
+
+    modalList.innerHTML =
+        createHTML();
+
+}
+
+
+/* =====================================================
+   HTMLエスケープ
+===================================================== */
+
+function escapeHTML(str) {
+
+    return str
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   タスクモーダル
+===================================================== */
+
+function openTasks() {
+
+    renderTasks();
+
+    document.getElementById(
+        "taskOverlay"
+    ).classList.add("open");
 
 }
 
@@ -3345,60 +3459,88 @@ const achievementData = {
 
     oneHour: {
 
-        icon: "⏰",
+        icon:"⏰",
 
-        name: "1時間達成",
+        name:"1時間達成",
 
-        desc: "累計1時間集中する"
+        desc:"累計1時間集中する"
 
     },
 
     tenHour: {
 
-        icon: "🏆",
+        icon:"🏆",
 
-        name: "10時間達成",
+        name:"10時間達成",
 
-        desc: "累計10時間集中する"
+        desc:"累計10時間集中する"
 
     },
 
     thirtyMinutes: {
 
-        icon: "🔥",
+        icon:"🔥",
 
-        name: "30分集中",
+        name:"30分集中",
 
-        desc: "30分集中する"
+        desc:"30分集中する"
 
     },
 
     chest: {
 
-        icon: "🎁",
+        icon:"🎁",
 
-        name: "宝箱ハンター",
+        name:"宝箱ハンター",
 
-        desc: "宝箱を開ける"
+        desc:"宝箱を開ける"
 
     },
 
     petLevel5: {
 
-        icon: "🐾",
+        icon:"🐾",
 
-        name: "ペットマスター",
+        name:"ペットマスター",
 
-        desc: "ペットをLv.5にする"
+        desc:"ペットをLv.5にする"
+
+    },
+
+    taskFirst: {
+
+        icon:"🎯",
+
+        name:"はじめてのタスク",
+
+        desc:"タスクを1つ達成する"
+
+    },
+
+    task10: {
+
+        icon:"🪙",
+
+        name:"タスクマスター",
+
+        desc:"タスクコインを10枚集める"
+
+    },
+
+    task50: {
+
+        icon:"🏅",
+
+        name:"タスクの達人",
+
+        desc:"タスクコインを50枚集める"
 
     }
 
 };
 
 
-function unlockAchievement(
-    id
-) {
+function unlockAchievement(id) {
 
     if (
         game.achievements[id]
@@ -3409,19 +3551,14 @@ function unlockAchievement(
     }
 
 
-    game.achievements[id] =
-        true;
+    game.achievements[id] = true;
 
 
     showMotivation(
         "🏆 実績解除！"
     );
 
-
-    playSound(
-        "achievement"
-    );
-
+    playSound("achievement");
 
     saveGame();
 
@@ -3429,7 +3566,7 @@ function unlockAchievement(
 
 
 /* =====================================================
-   実績表示
+   実績更新
 ===================================================== */
 
 function updateAchievements() {
@@ -3463,6 +3600,17 @@ function updateAchievements() {
     }
 
 
+    if (
+        game.taskCoins >= 50
+    ) {
+
+        unlockAchievement(
+            "task50"
+        );
+
+    }
+
+
     const list =
         document.getElementById(
             "achievementList"
@@ -3474,59 +3622,53 @@ function updateAchievements() {
 
     Object.keys(
         achievementData
-    ).forEach(
-        id => {
+    ).forEach(id => {
 
-            const a =
-                achievementData[id];
+        const a =
+            achievementData[id];
 
-
-            const unlocked =
-                game.achievements[id];
+        const unlocked =
+            game.achievements[id];
 
 
-            const el =
-                document.createElement(
-                    "div"
-                );
-
-
-            el.className =
-                "achievement "
-                + (
-                    unlocked
-                    ? ""
-                    : "locked"
-                );
-
-
-            el.innerHTML = `
-
-                <div class="achievement-icon">
-                    ${a.icon}
-                </div>
-
-                <div>
-
-                    <div class="achievement-name">
-                        ${a.name}
-                    </div>
-
-                    <div class="achievement-desc">
-                        ${a.desc}
-                    </div>
-
-                </div>
-
-            `;
-
-
-            list.appendChild(
-                el
+        const el =
+            document.createElement(
+                "div"
             );
 
-        }
-    );
+        el.className =
+            "achievement "
+            + (
+                unlocked
+                ? ""
+                : "locked"
+            );
+
+
+        el.innerHTML = `
+
+            <div class="achievement-icon">
+                ${a.icon}
+            </div>
+
+            <div>
+
+                <div class="achievement-name">
+                    ${a.name}
+                </div>
+
+                <div class="achievement-desc">
+                    ${a.desc}
+                </div>
+
+            </div>
+
+        `;
+
+
+        list.appendChild(el);
+
+    });
 
 }
 
@@ -3548,66 +3690,58 @@ function openAchievements() {
 
     Object.keys(
         achievementData
-    ).forEach(
-        id => {
+    ).forEach(id => {
 
-            const a =
-                achievementData[id];
+        const a =
+            achievementData[id];
 
-
-            const unlocked =
-                game.achievements[id];
+        const unlocked =
+            game.achievements[id];
 
 
-            const div =
-                document.createElement(
-                    "div"
-                );
-
-
-            div.className =
-                "achievement "
-                + (
-                    unlocked
-                    ? ""
-                    : "locked"
-                );
-
-
-            div.innerHTML = `
-
-                <div class="achievement-icon">
-                    ${a.icon}
-                </div>
-
-                <div>
-
-                    <div class="achievement-name">
-                        ${a.name}
-                    </div>
-
-                    <div class="achievement-desc">
-                        ${a.desc}
-                    </div>
-
-                </div>
-
-            `;
-
-
-            list.appendChild(
-                div
+        const div =
+            document.createElement(
+                "div"
             );
 
-        }
-    );
+        div.className =
+            "achievement "
+            + (
+                unlocked
+                ? ""
+                : "locked"
+            );
+
+
+        div.innerHTML = `
+
+            <div class="achievement-icon">
+                ${a.icon}
+            </div>
+
+            <div>
+
+                <div class="achievement-name">
+                    ${a.name}
+                </div>
+
+                <div class="achievement-desc">
+                    ${a.desc}
+                </div>
+
+            </div>
+
+        `;
+
+
+        list.appendChild(div);
+
+    });
 
 
     document.getElementById(
         "achievementOverlay"
-    ).classList.add(
-        "open"
-    );
+    ).classList.add("open");
 
 }
 
@@ -3625,9 +3759,7 @@ function showChest() {
 
     document.getElementById(
         "chestOverlay"
-    ).classList.add(
-        "open"
-    );
+    ).classList.add("open");
 
 }
 
@@ -3637,27 +3769,23 @@ function openChest() {
     const rewards = [
 
         {
-            text: "🟡 金コイン +1！",
-
-            value: 1
+            text:"🟡 金コイン +1！",
+            value:1
         },
 
         {
-            text: "🟡 金コイン +2！",
-
-            value: 2
+            text:"🟡 金コイン +2！",
+            value:2
         },
 
         {
-            text: "🟡 金コイン +3！",
-
-            value: 3
+            text:"🟡 金コイン +3！",
+            value:3
         },
 
         {
-            text: "🟡 金コイン +5！",
-
-            value: 5
+            text:"🟡 金コイン +5！",
+            value:5
         }
 
     ];
@@ -3672,17 +3800,12 @@ function openChest() {
         ];
 
 
-    game.gold +=
-        reward.value;
+    game.gold += reward.value;
+
+    game.lastChest = Date.now();
 
 
-    game.lastChest =
-        Date.now();
-
-
-    unlockAchievement(
-        "chest"
-    );
+    unlockAchievement("chest");
 
 
     document.getElementById(
@@ -3691,26 +3814,20 @@ function openChest() {
         reward.text;
 
 
-    playSound(
-        "chest"
-    );
-
+    playSound("chest");
 
     saveGame();
 
     updateUI();
 
 
-    setTimeout(
-        () => {
+    setTimeout(() => {
 
-            closeModal(
-                "chestOverlay"
-            );
+        closeModal(
+            "chestOverlay"
+        );
 
-        },
-        1800
-    );
+    },1800);
 
 }
 
@@ -3724,13 +3841,9 @@ function togglePomodoro() {
     game.pomodoro =
         !game.pomodoro;
 
+    game.pomodoroSeconds = 0;
 
-    game.pomodoroSeconds =
-        0;
-
-
-    game.pomodoroBreak =
-        false;
+    game.pomodoroBreak = false;
 
 
     document.getElementById(
@@ -3758,10 +3871,6 @@ function togglePomodoro() {
 }
 
 
-/* =====================================================
-   ポモドーロ処理
-===================================================== */
-
 function handlePomodoro() {
 
     const limit =
@@ -3771,29 +3880,19 @@ function handlePomodoro() {
 
 
     if (
-        game.pomodoroSeconds >=
-        limit
+        game.pomodoroSeconds >= limit
     ) {
 
-        game.pomodoroSeconds =
-            0;
-
+        game.pomodoroSeconds = 0;
 
         game.pomodoroBreak =
             !game.pomodoroBreak;
 
 
-        if (
-            game.pomodoroBreak
-        ) {
+        if (game.pomodoroBreak) {
 
             showMotivation(
                 "🍅 25分達成！5分休憩しよう！"
-            );
-
-
-            playSound(
-                "achievement"
             );
 
         } else {
@@ -3802,12 +3901,9 @@ function handlePomodoro() {
                 "🔥 休憩終了！もう一度集中！"
             );
 
-
-            playSound(
-                "achievement"
-            );
-
         }
+
+        playSound("achievement");
 
     }
 
@@ -3818,8 +3914,7 @@ function handlePomodoro() {
    応援
 ===================================================== */
 
-let lastMotivationMinute =
-    -1;
+let lastMotivationMinute = -1;
 
 
 function checkMotivation() {
@@ -3827,14 +3922,9 @@ function checkMotivation() {
     const remaining =
         3600 -
         (
-            game.totalFocus
-            % 3600
+            game.totalFocus % 3600
         );
 
-
-    /*
-        10分前
-    */
 
     if (
         remaining === 600 &&
@@ -3846,20 +3936,13 @@ function checkMotivation() {
             "⭐ あと10分で1時間！"
         );
 
-
         lastMotivationMinute =
             game.totalFocus;
 
     }
 
 
-    /*
-        5分前
-    */
-
-    if (
-        remaining === 300
-    ) {
+    if (remaining === 300) {
 
         showMotivation(
             "🔥 あと5分！ここまで来たら行ける！"
@@ -3868,13 +3951,7 @@ function checkMotivation() {
     }
 
 
-    /*
-        1分前
-    */
-
-    if (
-        remaining === 60
-    ) {
+    if (remaining === 60) {
 
         showMotivation(
             "💪 あと1分！ラストスパート！"
@@ -3903,19 +3980,13 @@ function updateChart() {
     const data = [];
 
 
-    /*
-        今日を含む過去7日
-    */
-
     for (
         let i = 6;
         i >= 0;
         i--
     ) {
 
-        const d =
-            new Date();
-
+        const d = new Date();
 
         d.setDate(
             d.getDate() - i
@@ -3926,7 +3997,7 @@ function updateChart() {
             d.getFullYear()
             + "-"
             + String(
-                d.getMonth() + 1
+                d.getMonth()+1
             ).padStart(2,"0")
             + "-"
             + String(
@@ -3939,8 +4010,7 @@ function updateChart() {
             key,
 
             value:
-                game.history[key]
-                || 0
+                game.history[key] || 0
 
         });
 
@@ -3956,73 +4026,52 @@ function updateChart() {
         );
 
 
-    data.forEach(
-        item => {
+    data.forEach(item => {
 
-            const wrap =
-                document.createElement(
-                    "div"
-                );
-
-
-            wrap.className =
-                "bar-wrap";
-
-
-            const bar =
-                document.createElement(
-                    "div"
-                );
-
-
-            bar.className =
-                "bar";
-
-
-            const height =
-                Math.max(
-                    3,
-                    (
-                        item.value
-                        / max
-                    ) * 100
-                );
-
-
-            bar.style.height =
-                height + "%";
-
-
-            const label =
-                document.createElement(
-                    "div"
-                );
-
-
-            label.className =
-                "bar-label";
-
-
-            label.textContent =
-                item.key.slice(5);
-
-
-            wrap.appendChild(
-                bar
+        const wrap =
+            document.createElement(
+                "div"
             );
 
+        wrap.className =
+            "bar-wrap";
 
-            wrap.appendChild(
-                label
+
+        const bar =
+            document.createElement(
+                "div"
             );
 
+        bar.className =
+            "bar";
 
-            chart.appendChild(
-                wrap
+
+        bar.style.height =
+            Math.max(
+                3,
+                (item.value / max) * 100
+            ) + "%";
+
+
+        const label =
+            document.createElement(
+                "div"
             );
 
-        }
-    );
+        label.className =
+            "bar-label";
+
+        label.textContent =
+            item.key.slice(5);
+
+
+        wrap.appendChild(bar);
+
+        wrap.appendChild(label);
+
+        chart.appendChild(wrap);
+
+    });
 
 }
 
@@ -4038,8 +4087,7 @@ function updateStats() {
 
 
     const todaySeconds =
-        game.history[today]
-        || 0;
+        game.history[today] || 0;
 
 
     let weekSeconds = 0;
@@ -4047,36 +4095,30 @@ function updateStats() {
 
     Object.keys(
         game.history
-    ).forEach(
-        key => {
+    ).forEach(key => {
 
-            const d =
-                new Date(key);
+        const d =
+            new Date(key);
 
-
-            const now =
-                new Date();
+        const now =
+            new Date();
 
 
-            const diff =
-                (
-                    now - d
-                )
-                / 86400000;
+        const diff =
+            (now - d) / 86400000;
 
 
-            if (
-                diff >= 0 &&
-                diff < 7
-            ) {
+        if (
+            diff >= 0 &&
+            diff < 7
+        ) {
 
-                weekSeconds +=
-                    game.history[key];
-
-            }
+            weekSeconds +=
+                game.history[key];
 
         }
-    );
+
+    });
 
 
     const format =
@@ -4087,13 +4129,10 @@ function updateStats() {
                     sec / 3600
                 );
 
-
             const m =
                 Math.floor(
-                    (sec % 3600)
-                    / 60
+                    (sec % 3600) / 60
                 );
-
 
             return `${h}時間${m}分`;
 
@@ -4105,45 +4144,27 @@ function updateStats() {
     ).innerHTML = `
 
         <div class="reward-box">
-
             📅 今日：
-            <strong>
-                ${format(todaySeconds)}
-            </strong>
-
+            <strong>${format(todaySeconds)}</strong>
         </div>
 
         <div class="reward-box">
-
             📆 今週：
-            <strong>
-                ${format(weekSeconds)}
-            </strong>
-
+            <strong>${format(weekSeconds)}</strong>
         </div>
 
         <div class="reward-box">
-
             🏆 累計：
-            <strong>
-                ${format(game.totalFocus)}
-            </strong>
-
+            <strong>${format(game.totalFocus)}</strong>
         </div>
 
-        <div class="reward-box">
+        <div class="task-coin-box">
 
-            🪙 コイン：
+            🪙 獲得タスクコイン
 
-            🟤 ${game.copper}
-
-            ／
-
-            ⚪ ${game.silver}
-
-            ／
-
-            🟡 ${game.gold}
+            <div class="task-coin-number">
+                ${game.taskCoins}
+            </div>
 
         </div>
 
@@ -4156,12 +4177,9 @@ function openStats() {
 
     updateStats();
 
-
     document.getElementById(
         "statsOverlay"
-    ).classList.add(
-        "open"
-    );
+    ).classList.add("open");
 
 }
 
@@ -4174,53 +4192,54 @@ function openShop() {
 
     document.getElementById(
         "shopOverlay"
-    ).classList.add(
-        "open"
-    );
+    ).classList.add("open");
 
 }
 
 
 /* =====================================================
-   モーダルを閉じる
+   モーダル
 ===================================================== */
 
-function closeModal(
-    id
-) {
+function closeModal(id) {
 
     document.getElementById(
         id
-    ).classList.remove(
-        "open"
-    );
+    ).classList.remove("open");
 
 }
 
 
 /* =====================================================
-   背景復元
+   ダークモード
 ===================================================== */
 
-function restoreBackground() {
+function toggleDarkMode() {
 
-    if (
-        game.background ===
-        "rainbow"
-    ) {
+    game.darkMode =
+        !game.darkMode;
 
-        document.body.style.background =
-            `
-            linear-gradient(
-                135deg,
-                #ff9a9e,
-                #fad0c4,
-                #a1c4fd,
-                #c2e9fb
-            )
-            `;
 
-    }
+    applyDarkMode();
+
+    saveGame();
+
+
+    showToast(
+        game.darkMode
+        ? "🌙 ダークモード ON"
+        : "☀️ 通常モードに戻しました"
+    );
+
+}
+
+
+function applyDarkMode() {
+
+    document.body.classList.toggle(
+        "dark-mode",
+        game.darkMode
+    );
 
 }
 
@@ -4233,101 +4252,53 @@ async function toggleFullscreen() {
 
     try {
 
-        if (
-            !document.fullscreenElement
-        ) {
+        if (!document.fullscreenElement) {
 
-            await document.documentElement.requestFullscreen();
+            await document.documentElement
+                .requestFullscreen();
+
+            showToast(
+                "📺 全画面表示にしました"
+            );
 
         } else {
 
             await document.exitFullscreen();
+
+            showToast(
+                "全画面表示を終了しました"
+            );
 
         }
 
     } catch(error) {
 
         showToast(
-            "このブラウザでは全画面表示に対応していません"
+            "このブラウザでは全画面表示を利用できません"
         );
 
     }
 
 }
-
-
-/* =====================================================
-   全画面ボタン表示更新
-===================================================== */
-
-function updateFullscreenButton() {
-
-    const button =
-        document.getElementById(
-            "fullscreenButton"
-        );
-
-
-    if (!button) {
-
-        return;
-
-    }
-
-
-    if (
-        document.fullscreenElement
-    ) {
-
-        button.textContent =
-            "⛶ 全画面解除";
-
-        document.body.classList.add(
-            "fullscreen-mode"
-        );
-
-    } else {
-
-        button.textContent =
-            "⛶ 全画面";
-
-        document.body.classList.remove(
-            "fullscreen-mode"
-        );
-
-    }
-
-}
-
-
-document.addEventListener(
-    "fullscreenchange",
-    updateFullscreenButton
-);
 
 
 /* =====================================================
    音
 ===================================================== */
 
-let audioContext =
-    null;
+let audioContext = null;
 
 
-function playSound(
-    type
-) {
+function playSound(type) {
 
     try {
 
-        if (
-            !audioContext
-        ) {
+        if (!audioContext) {
 
             audioContext =
                 new (
-                    window.AudioContext
-                    || window.webkitAudioContext
+                    window.AudioContext ||
+                    window.webkitAudioContext
                 )();
 
         }
@@ -4336,15 +4307,11 @@ function playSound(
         const osc =
             audioContext.createOscillator();
 
-
         const gain =
             audioContext.createGain();
 
 
-        osc.connect(
-            gain
-        );
-
+        osc.connect(gain);
 
         gain.connect(
             audioContext.destination
@@ -4367,18 +4334,17 @@ function playSound(
 
             purchase: 520,
 
-            chest: 1400
+            chest: 1400,
+
+            task: 1100
 
         };
 
 
         osc.frequency.value =
-            frequencies[type]
-            || 700;
+            frequencies[type] || 700;
 
-
-        osc.type =
-            "sine";
+        osc.type = "sine";
 
 
         gain.gain.setValueAtTime(
@@ -4389,33 +4355,25 @@ function playSound(
 
         gain.gain.exponentialRampToValueAtTime(
             0.18,
-            audioContext.currentTime
-            + 0.02
+            audioContext.currentTime + 0.02
         );
 
 
         gain.gain.exponentialRampToValueAtTime(
             0.001,
-            audioContext.currentTime
-            + 0.35
+            audioContext.currentTime + 0.35
         );
 
 
         osc.start();
 
-
         osc.stop(
-            audioContext.currentTime
-            + 0.35
+            audioContext.currentTime + 0.35
         );
-
 
     } catch(e) {
 
-        /*
-            ブラウザが音声を
-            許可していない場合は無視
-        */
+        /* 音声非対応の場合は無視 */
 
     }
 
@@ -4426,9 +4384,7 @@ function playSound(
    演出
 ===================================================== */
 
-function showMotivation(
-    text
-) {
+function showMotivation(text) {
 
     const el =
         document.getElementById(
@@ -4436,28 +4392,19 @@ function showMotivation(
         );
 
 
-    el.textContent =
-        text;
+    el.textContent = text;
 
 
-    el.classList.remove(
-        "show"
-    );
-
+    el.classList.remove("show");
 
     void el.offsetWidth;
 
-
-    el.classList.add(
-        "show"
-    );
+    el.classList.add("show");
 
 }
 
 
-function showToast(
-    text
-) {
+function showToast(text) {
 
     const el =
         document.getElementById(
@@ -4465,27 +4412,71 @@ function showToast(
         );
 
 
-    el.textContent =
-        text;
+    el.textContent = text;
+
+    el.classList.add("show");
 
 
-    el.classList.add(
-        "show"
-    );
+    setTimeout(() => {
 
+        el.classList.remove("show");
 
-    setTimeout(
-        () => {
-
-            el.classList.remove(
-                "show"
-            );
-
-        },
-        2200
-    );
+    },2200);
 
 }
+
+
+/* =====================================================
+   キーボード操作
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        /*
+            Ctrl + Enter
+            → 全画面
+        */
+
+        if (
+            event.ctrlKey &&
+            event.key === "Enter"
+        ) {
+
+            toggleFullscreen();
+
+        }
+
+
+        /*
+            Enter
+            → タスク入力中なら追加
+        */
+
+        if (
+            event.key === "Enter" &&
+            document.activeElement.id ===
+            "taskInput"
+        ) {
+
+            addTask();
+
+        }
+
+
+        if (
+            event.key === "Enter" &&
+            document.activeElement.id ===
+            "taskInputModal"
+        ) {
+
+            addTaskFromModal();
+
+        }
+
+    }
+);
 
 
 /* =====================================================
@@ -4494,11 +4485,9 @@ function showToast(
 
 loadGame();
 
-restoreBackground();
+applyDarkMode();
 
 updateUI();
-
-updateFullscreenButton();
 
 </script>
 
