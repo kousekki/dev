@@ -4491,5 +4491,43 @@ updateUI();
 
 </script>
 
+
+<script>
+/* =========================================================
+   6-PET IMAGE PATCH
+   VS Code / local HTML version
+========================================================= */
+window.FOCUS_PET_IMAGE_MAP = {};
+[
+  '1:assets/pet_01_mikeneko.png', '2:assets/pet_02_shironeko.png', '3:assets/pet_03_kuroneko.png', '4:assets/pet_04_mameshiba.png', '5:assets/pet_05_samoyed.png', '6:assets/pet_06_chihuahua.png'
+].forEach(function(x) {
+  var p = x.split(":");
+  window.FOCUS_PET_IMAGE_MAP[p[0]] = p.slice(1).join(":");
+});
+
+(function() {
+  function applyPetImages() {
+    var imgs = document.querySelectorAll('img');
+    imgs.forEach(function(img) {
+      var s = (img.getAttribute('src') || '').toLowerCase();
+      var hit = -1;
+      if (/mikeneko|mike|三毛|pet.?0?1/.test(s)) hit = 1;
+      else if (/shironeko|shiro|白猫|pet.?0?2/.test(s)) hit = 2;
+      else if (/kuroneko|kuro|黒猫|pet.?0?3/.test(s)) hit = 3;
+      else if (/mameshiba|mame|豆柴|pet.?0?4/.test(s)) hit = 4;
+      else if (/samoyed|samoye|pet.?0?5/.test(s)) hit = 5;
+      else if (/chihuahua|chihua|チワワ|pet.?0?6/.test(s)) hit = 6;
+      if (hit > 0 && window.FOCUS_PET_IMAGE_MAP[hit]) {
+        img.src = window.FOCUS_PET_IMAGE_MAP[hit];
+      }
+    });
+  }
+  document.addEventListener('DOMContentLoaded', applyPetImages);
+  setTimeout(applyPetImages, 300);
+  setTimeout(applyPetImages, 1000);
+  setTimeout(applyPetImages, 2500);
+})();
+</script>
+
 </body>
 </html>
